@@ -1,0 +1,71 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Règles de relance" %}{% endblock %}
+{% block entete %}{% translate "Règles de relance" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Quand et comment prévenir les parents avant et après chaque échéance" %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.ecole.change_reglerelance %}
+    <form method="post" action="{% url 'ecole:relances_lancer' %}" class="inline">{% csrf_token %}<button class="btn btn-light">{% icone 'relances' 18 %}<span>{% translate "Envoyer les rappels du jour" %}</span></button></form>
+    <a class="btn" href="{% url 'ecole:regle_relance_nouvelle' %}">{% icone 'plus' 18 %}<span>{% translate "Nouvelle règle" %}</span></a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1">
+  <section class="card">
+    {% for r in regles %}
+      <div class="row" style="align-items:flex-start">
+        <span class="tile-ico">{% if r.moment == 'apres' %}{% icone 'attention' 18 %}{% else %}{% icone 'calendrier' 18 %}{% endif %}</span>
+        <span class="row-main">
+          <strong>{{ r }}{% if r.etablissement %} · {{ r.etablissement.nom }}{% endif %}{% if not r.actif %} <span class="badge badge-neutre">{% translate "inactive" %}</span>{% endif %}</strong>
+          <small>{% for c in r.canaux %}{% if c == 'whatsapp' %}WhatsApp{% elif c == 'sms' %}SMS{% else %}{% translate "e-mail" %}{% endif %}{% if not forloop.last %} · {% endif %}{% endfor %}</small>
+          <small class="muted">{{ r.message|truncatechars:180 }}</small>
+          {% if r.sms %}{% if r.nb_sms > 1 %}<small class="ko-ink">≈ {{ r.nb_sms }} {% translate "SMS par envoi (message long : raccourcir pour payer moins)" %}</small>{% else %}<small class="ok-ink">≈ 1 {% translate "SMS par envoi" %}</small>{% endif %}{% endif %}
+        </span>
+        {% if perms.ecole.change_reglerelance %}
+          <span class="row-side btn-row">
+            <a class="btn btn-light btn-sm" href="{% url 'ecole:regle_relance_modifier' r.pk %}">{% icone 'modifier' 16 %}</a>
+            {% if perms.ecole.delete_reglerelance %}<form method="post" action="{% url 'ecole:regle_relance_supprimer' r.pk %}">{% csrf_token %}<button class="btn btn-ghost-danger btn-sm">{% icone 'supprimer' 16 %}</button></form>{% endif %}
+          </span>
+        {% endif %}
+      </div>
+    {% empty %}
+      <div class="empty">{% icone 'relances' 40 %}<p>{% translate "Aucune règle : aucun rappel automatique n'est envoyé." %}</p></div>
+    {% endfor %}
+  </section>
+  <aside class="stack">
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Canaux d'envoi" %}</h2></div>
+      <div class="kv"><span>WhatsApp</span><b>{% if canaux.whatsapp %}{% translate "Configuré" %}{% else %}{% translate "Simulé" %}{% endif %}</b></div>
+      <div class="kv"><span>SMS</span><b>{% if canaux.sms %}<span class="ok-ink">{{ fournisseur_sms }}</span>{% else %}<span class="ko-ink">{% translate "Simulé" %}</span>{% endif %}</b></div>
+      <div class="kv"><span>{% translate "E-mail" %}</span><b>{% if canaux.email %}{% translate "Configuré" %}{% else %}{% translate "Simulé" %}{% endif %}</b></div>
+      <p class="hint" style="padding:8px 20px 16px;margin:0">{% translate "« Simulé » : les messages sont notés dans le journal mais pas envoyés. Voir le README (section « Envois aux parents ») pour brancher WhatsApp, SMS et e-mail." %}</p>
+    </section>
+    {% if perms.ecole.change_reglerelance %}
+    <section class="card">
+      <div class="card-head"><h2>{% icone 'sms' 18 %}{% translate "Envoyer un SMS d'essai" %}</h2></div>
+      <form method="post" action="{% url 'ecole:sms_essai' %}" class="form-section" style="display:grid;gap:10px;border-top:0;padding-top:0">{% csrf_token %}
+        <div class="field"><label class="label" for="essai-numero">{% translate "Numéro (MTN ou Celtiis)" %}</label>
+          <input id="essai-numero" name="numero" type="tel" inputmode="tel" required placeholder="{% translate "Ex. 01 97 12 34 56" %}"></div>
+        <div class="field"><label class="label" for="essai-message">{% translate "Message" %}</label>
+          <textarea id="essai-message" name="message" rows="3" maxlength="300" required>{{ essai_texte }}</textarea></div>
+        <button class="btn">{% icone 'sms' 16 %}{% translate "Envoyer l'essai" %}</button>
+      </form>
+    </section>
+    {% if not canaux.sms %}
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Brancher les SMS (MTN / Celtiis)" %}</h2></div>
+      <ol class="hint" style="margin:0;padding:0 20px 16px 36px;display:grid;gap:6px">
+        <li>{% translate "Sur un téléphone Android de l'école avec une puce MTN ou Celtiis (forfait SMS conseillé), installez l'application gratuite « SMS Gateway for Android » (sms-gate.app)." %}</li>
+        <li>{% translate "Ouvrez-la, autorisez l'envoi de SMS, activez « Local server » (même Wi-Fi que l'ordinateur) ou « Cloud server » (par Internet), puis appuyez sur « Online »." %}</li>
+        <li>{% translate "Notez l'adresse, l'utilisateur et le mot de passe affichés, copiez le fichier « reglages.env.exemple » en « reglages.env » dans le dossier de FinMob, complétez-le et redémarrez FinMob." %}</li>
+        <li>{% translate "Revenez ici et envoyez un SMS d'essai à votre propre numéro." %}</li>
+      </ol>
+    </section>
+    {% endif %}
+    {% endif %}
+    <div class="callout">{% icone 'horloge' 18 %}<span>{% translate "Les rappels partent automatiquement si la commande « envoyer_relances » est planifiée chaque jour. Un même rappel n'est jamais envoyé deux fois." %}</span></div>
+  </aside>
+</div>
+{% endblock %}

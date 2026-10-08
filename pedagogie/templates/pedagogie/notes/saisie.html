@@ -1,0 +1,60 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras pedagogie_extras %}
+{% block title %}{% translate "Notes ·" %} {{ ens.classe }} · {{ ens.matiere }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'notes:tableau' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ ens.matiere }} · {{ ens.classe }}{% endblock %}
+{% block sous_titre %}<p>{{ ens.etablissement.nom }} {% translate "· coefficient" %} {{ ens.coefficient }} · {{ ens.professeur|default:_("sans professeur") }}</p>{% endblock %}
+{% block actions %}
+  {% if perms.pedagogie.voir_tout %}<a class="btn btn-light" href="{% url 'notes:resultats' %}?etab={{ ens.etablissement.pk }}&amp;classe={{ ens.classe|urlencode }}&amp;periode={{ periode }}">{% icone 'suivi' 18 %}<span>{% translate "Résultats de la classe" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<nav class="tabs">
+  {% for n, libelle in periodes %}
+    <a class="{% if n == periode %}active{% endif %}" href="?periode={{ n }}">{% icone 'calendrier' 16 %}{{ libelle }}</a>
+  {% endfor %}
+</nav>
+
+<div class="callout" style="margin-bottom:16px">{% icone 'notes' 18 %}<span><b>{% translate "MI" %}</b> {% translate "= moyenne des interrogations notées ·" %} <b>{% translate "Moyenne" %}</b> {% translate "= (MI + D1 + D2) ÷ 3, calculée sur les notes disponibles. Notes sur 20, virgule acceptée (ex. 12,5). Laissez vide ce qui n'est pas encore noté." %}</span></div>
+
+{% if lignes %}
+<form method="post" class="card" novalidate>
+  {% csrf_token %}
+  <div class="table-wrap">
+    <table class="table notes-grid">
+      <thead>
+        <tr>
+          <th>{% translate "Élève" %}</th>
+          {% for code, lib in entetes %}<th class="{% if code == 'd1' or code == 'd2' %}col-d{% endif %}{% if code == colonne_focus %} col-focus{% endif %}">{{ lib }}</th>{% endfor %}
+          <th>{% translate "MI" %}</th><th>{% translate "Moyenne" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for l in lignes %}
+        <tr>
+          <td><b>{{ l.eleve }}</b></td>
+          {% for c in l.cellules %}
+            <td class="{% if forloop.counter > 4 %}col-d{% endif %}">
+              <input class="note{% if c.erreur %} err{% endif %}" type="text" inputmode="decimal" name="{{ c.nom }}" value="{{ c.valeur }}"
+                     aria-label="{{ l.eleve }} {{ forloop.counter }}"{% if c.erreur %} title="{{ c.erreur }}"{% endif %}{% if not peut_modifier %} disabled{% endif %}>
+            </td>
+          {% endfor %}
+          <td class="calc">{{ l.fiche.mi|note }}</td>
+          <td class="calc {{ l.fiche.moyenne|classe_note }}">{{ l.fiche.moyenne|note }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if peut_modifier %}
+  <div class="sticky-actions">
+    <span class="muted" style="margin-right:auto;align-self:center;font-size:13px">{{ lignes|length }} {% translate "élève" %}{{ lignes|length|pluralize }} {% translate "· MI et moyennes recalculées à l'enregistrement" %}</span>
+    <button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Enregistrer les notes" %}</button>
+  </div>
+  {% endif %}
+</form>
+{% else %}
+  <div class="card empty">{% icone 'eleves' 40 %}<p>{% translate "Aucun élève inscrit en" %} {{ ens.classe }}.</p></div>
+{% endif %}
+{% endblock %}

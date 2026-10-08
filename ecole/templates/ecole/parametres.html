@@ -1,0 +1,43 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Paramètres" %}{% endblock %}
+{% block entete %}{% translate "Paramètres" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Année scolaire et message envoyé aux parents" %}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width: 1100px">
+  <form method="post" class="card" novalidate>
+    {% csrf_token %}
+    <div class="form-section">
+      <h2>{% icone 'calendrier' 18 %}{% translate "Année scolaire" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.annee_scolaire %}
+    </div>
+    <div class="form-section">
+      <h2>{% icone 'relances' 18 %}{% translate "Relances" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.message_relance %}
+      <p class="hint" style="margin:0">{% translate "{ecole} est remplacé par l'établissement de l'élève." %}</p>
+    </div>
+    <div class="form-footer"><button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button></div>
+  </form>
+
+  <aside class="card" id="etablissements">
+    <div class="card-head"><div><h2>{% translate "Établissements" %}</h2><p>{% translate "Créés automatiquement à l'inscription des élèves" %}</p></div></div>
+    {% for e in etablissements %}
+      <div class="row" style="flex-wrap:wrap">
+        <span class="tile-ico">{% icone 'ecole' 18 %}</span>
+        <a class="row-main" href="{% url 'ecole:eleves' %}?etab={{ e.pk }}"><strong>{{ e.nom }}</strong><small>{{ e.nb }} {% translate "élève" %}{{ e.nb|pluralize }} {% translate "· voir la liste" %}</small></a>
+        <form method="post" action="{% url 'ecole:etablissement_renommer' e.pk %}" class="btn-row" style="width:100%">
+          {% csrf_token %}
+          <input type="text" name="nom" value="{{ e.nom }}" aria-label="Nouveau nom de {{ e.nom }}" style="flex:1 1 100%;min-width:0">
+          <select name="decoupage" aria-label="{% translate "Découpage de l'année" %}" style="flex:1;width:auto">{% for v, l in decoupages %}<option value="{{ v }}"{% if e.decoupage == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+          <button class="btn btn-light btn-sm" type="submit">{% icone 'ok' 16 %}{% translate "Enregistrer" %}</button>
+        </form>
+        <a class="btn btn-sm btn-block" href="{% url 'ecole:etablissement_modifier' e.pk %}" style="margin-top:6px">{% icone 'reglages' 16 %}{% translate "IFU, factures, fratrie" %}{% if not e.ifu %} <span class="badge badge-aucun">{% translate "IFU manquant" %}</span>{% endif %}</a>
+      </div>
+    {% empty %}
+      <p class="empty">{% translate "Aucun établissement : il sera créé à la première inscription." %}</p>
+    {% endfor %}
+  </aside>
+</div>
+{% endblock %}

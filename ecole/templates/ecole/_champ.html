@@ -1,0 +1,20 @@
+{% load i18n %}<div class="field{% if field.errors %} has-error{% endif %}{% if full %} full{% endif %}">
+  {% if field.field.widget.input_type == 'radio' %}
+    <span class="label">{{ field.label|capfirst }}{% if field.field.required %} <span class="req">*</span>{% endif %}</span>
+    <div class="radios">
+      {% for radio in field %}<label>{{ radio.tag }}<span class="pill">{{ radio.choice_label }}</span></label>{% endfor %}
+    </div>
+  {% elif field.field.widget.allow_multiple_selected and field.field.widget.input_type == 'checkbox' %}
+    <span class="label">{{ field.label|capfirst }}{% if field.field.required %} <span class="req">*</span>{% endif %}</span>
+    <div class="checks">
+      {% for c in field %}<label>{{ c.tag }}<span>{{ c.choice_label }}</span></label>{% empty %}<small class="help">{% translate "Aucun choix disponible." %}</small>{% endfor %}
+    </div>
+  {% elif field.field.widget.input_type == 'checkbox' %}
+    <label class="checkbox">{{ field }} {{ field.label|capfirst }}</label>
+  {% else %}
+    <label for="{{ field.id_for_label }}" class="label">{{ field.label|capfirst }}{% if field.field.required %} <span class="req">*</span>{% endif %}</label>
+    {{ field }}
+  {% endif %}
+  {% if field.help_text %}<small class="help">{{ field.help_text|safe }}</small>{% endif %}
+  {% for e in field.errors %}<small class="error">{{ e }}</small>{% endfor %}
+</div>

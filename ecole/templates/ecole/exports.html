@@ -1,0 +1,53 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Exports" %}{% endblock %}
+{% block entete %}{% translate "Exports Excel et PDF" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Téléchargez vos listes en Excel (.xlsx) ou en PDF prêt à imprimer" %}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-2" style="max-width: 1000px">
+  <form method="get" action="{% url 'ecole:export_eleves' %}" class="card">
+    <div class="form-section">
+      <h2>{% icone 'eleves' 18 %}{% translate "Liste des élèves" %}</h2>
+      <p class="hint">{% translate "Identité, parent, téléphone, scolarité, versé, reste et statut." %}</p>
+      <div class="field"><span class="label">{% translate "Élèves" %}</span>
+        <div class="radios">
+          <label><input type="radio" name="statut" value="" checked><span class="pill">{% translate "Tous" %}</span></label>
+          <label><input type="radio" name="statut" value="payes"><span class="pill">{% translate "Ont payé" %}</span></label>
+          <label><input type="radio" name="statut" value="impayes"><span class="pill">{% translate "N'ont pas payé" %}</span></label>
+        </div>
+      </div>
+      {% if etablissements|length > 1 %}<div class="field"><label class="label" for="e-etab">{% translate "Établissement" %}</label>
+        <select id="e-etab" name="etab"><option value="">{% translate "Tous les établissements" %}</option>{% for e in etablissements %}<option value="{{ e.pk }}">{{ e.nom }}</option>{% endfor %}</select></div>{% endif %}
+      <div class="field"><label class="label" for="e-classe">{% translate "Classe" %}</label>
+        <select id="e-classe" name="classe"><option value="">{% translate "Toutes les classes" %}</option>{% for c in classes %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-light" type="submit">{% icone 'exports' 18 %}{% translate "Excel" %}</button>
+      <button class="btn" type="submit" formaction="{% url 'ecole:export_eleves_pdf' %}">{% icone 'pdf' 18 %}{% translate "PDF" %}</button>
+    </div>
+  </form>
+
+  <form method="get" action="{% url 'ecole:export_paiements' %}" class="card">
+    <div class="form-section">
+      <h2>{% icone 'journal' 18 %}{% translate "Journal des paiements" %}</h2>
+      <p class="hint">{% translate "N° de reçu, date, élève, motif, montant, mode et caissier." %}</p>
+      {% if etablissements|length > 1 %}<div class="field"><label class="label" for="p-etab">{% translate "Établissement" %}</label>
+        <select id="p-etab" name="etab"><option value="">{% translate "Tous les établissements" %}</option>{% for e in etablissements %}<option value="{{ e.pk }}">{{ e.nom }}</option>{% endfor %}</select></div>{% endif %}
+      <div class="form-grid">
+        <div class="field"><label class="label" for="p-du">{% translate "Du" %}</label><input id="p-du" type="date" name="du"></div>
+        <div class="field"><label class="label" for="p-au">{% translate "Au" %}</label><input id="p-au" type="date" name="au"></div>
+        <div class="field"><label class="label" for="p-motif">{% translate "Motif" %}</label>
+          <select id="p-motif" name="motif"><option value="">{% translate "Tous" %}</option>{% for v, l in motifs %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select></div>
+        <div class="field"><label class="label" for="p-mode">{% translate "Mode" %}</label>
+          <select id="p-mode" name="mode"><option value="">{% translate "Tous" %}</option>{% for v, l in modes %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select></div>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-light" type="submit">{% icone 'exports' 18 %}{% translate "Excel" %}</button>
+      <button class="btn" type="submit" formaction="{% url 'ecole:export_paiements_pdf' %}">{% icone 'pdf' 18 %}{% translate "PDF" %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

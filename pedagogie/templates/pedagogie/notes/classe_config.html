@@ -1,0 +1,75 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Matières de la" %} {{ classe }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'notes:tableau' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Matières de la" %} {{ classe }}{% endblock %}
+{% block sous_titre %}<p>{{ etab.nom }} · {{ effectif }} {% translate "élève" %}{{ effectif|pluralize }} {% translate "· total des coefficients :" %} {{ total_coef }}</p>{% endblock %}
+{% block actions %}
+  {% if enseignements %}<a class="btn" href="{% url 'notes:resultats' %}?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}">{% icone 'suivi' 18 %}<span>{% translate "Résultats" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width:1150px">
+  <section class="card">
+    {% if enseignements %}
+    <div class="table-wrap">
+      <table class="table responsive">
+        <thead><tr><th>{% translate "Matière" %}</th><th class="r">{% translate "Coef." %}</th><th>{% translate "Professeur" %}</th><th></th></tr></thead>
+        <tbody>
+        {% for e in enseignements %}
+          <tr>
+            <td><b>{{ e.matiere }}</b></td>
+            <td class="r" data-label="Coefficient"><b>{{ e.coefficient }}</b></td>
+            <td data-label="Professeur">{% if e.professeur %}<a href="{% url 'profs:detail' e.professeur.pk %}">{{ e.professeur }}</a>{% else %}<span class="badge badge-partiel">{% icone 'attention' 12 %}{% translate "À attribuer" %}</span>{% endif %}</td>
+            <td class="r full">
+              <div class="row-actions" style="justify-content:flex-end">
+                <a class="btn btn-light btn-sm" href="{% url 'notes:saisie' e.pk %}">{% icone 'notes' 16 %}{% translate "Notes" %}</a>
+                <a class="btn btn-light btn-sm" href="?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}&amp;modifier={{ e.pk }}" title="{% translate "Modifier" %}">{% icone 'modifier' 16 %}</a>
+                {% if perms.pedagogie.delete_enseignement %}<a class="btn btn-ghost-danger btn-sm" href="{% url 'notes:enseignement_supprimer' e.pk %}" title="{% translate "Retirer" %}">{% icone 'supprimer' 16 %}</a>{% endif %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty">{% icone 'notes' 40 %}<p>{% translate "Aucune matière pour cette classe." %}<br>{% translate "Ajoutez-les une par une, ou copiez celles d'une autre classe." %}</p></div>
+    {% endif %}
+  </section>
+
+  <div class="stack">
+    <form method="post" class="card" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+      <div class="form-section">
+        <h2>{% if edition %}{% icone 'modifier' 18 %}{% translate "Modifier" %} {{ edition.matiere }}{% else %}{% icone 'plus' 18 %}{% translate "Ajouter une matière" %}{% endif %}</h2>
+        {% include 'ecole/_champ.html' with field=form.matiere %}
+        {% include 'ecole/_champ.html' with field=form.coefficient %}
+        {% include 'ecole/_champ.html' with field=form.professeur %}
+        {% if not form.fields.matiere.queryset.exists %}<div class="callout">{% icone 'attention' 18 %}<span>{% translate "Créez d'abord les matières dans" %} <a href="{% url 'notes:matieres' %}" style="color:var(--accent-strong);font-weight:600">{% translate "Matières" %}</a>.</span></div>{% endif %}
+      </div>
+      <div class="form-footer">
+        {% if edition %}<a class="btn btn-light" href="?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}">{% translate "Annuler" %}</a>{% endif %}
+        <button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+      </div>
+    </form>
+
+    {% if autres_classes %}
+    <form method="post" action="{% url 'notes:copier_config' %}?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}" class="card">
+      {% csrf_token %}
+      <div class="form-section">
+        <h2>{% icone 'classes' 18 %}{% translate "Copier depuis une autre classe" %}</h2>
+        <p class="hint">{% translate "Reprend les matières et les coefficients (pas les professeurs)." %}</p>
+        <input type="hidden" name="source_etab" value="{{ etab.pk }}">
+        <div class="field"><label class="label" for="src">{% translate "Classe modèle" %}</label>
+          <select id="src" name="source_classe">{% for e, c, n in autres_classes %}{% if e == etab %}<option value="{{ c }}">{{ c }}</option>{% endif %}{% endfor %}</select>
+        </div>
+      </div>
+      <div class="form-footer"><button class="btn btn-light" type="submit">{% icone 'classes' 18 %}{% translate "Copier" %}</button></div>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

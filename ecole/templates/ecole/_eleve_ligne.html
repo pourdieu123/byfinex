@@ -1,0 +1,14 @@
+{% load ecole_extras i18n %}
+<a class="row" href="{% url 'ecole:eleve_detail' eleve.pk %}">
+  <span class="avatar">{{ eleve.initiales }}</span>
+  <span class="row-main">
+    <strong>{{ eleve }}</strong>
+    <small>{% if etablissements|length > 1 and not sans_etab %}{{ eleve.etablissement.nom }} · {% endif %}{{ eleve.classe }} · {{ eleve.parent }}{% if eleve.telephone %} · {{ eleve.telephone }}{% endif %}</small>
+  </span>
+  <span class="row-side">
+    {% if eleve.situation.lignes %}{% badge_situation eleve %}{% else %}{% badge eleve %}{% endif %}
+    {% if eleve.statut_inscription == 'impayee' or eleve.statut_inscription == 'partielle' %}{% badge_inscription eleve %}{% endif %}
+    {% if eleve.reste_a_payer %}<small class="du num">{% translate "Reste" %} {{ eleve.reste_a_payer|fcfa }}</small>{% else %}<small class="num">{{ eleve.total_verse|fcfa }}</small>{% endif %}
+  </span>
+  {% icone 'suivant' 18 'chev' %}
+</a>

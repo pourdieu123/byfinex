@@ -1,0 +1,24 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ titre }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{{ annuler_url }}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ titre }}{% endblock %}
+{% block sous_titre %}{% endblock %}
+
+{% block content %}
+<form method="post" class="card" style="max-width: 560px">
+  {% csrf_token %}
+  <div class="card-pad" style="display:flex;gap:14px">
+    <span class="tile-ico" style="background:var(--critical-soft);color:var(--critical-ink);width:44px;height:44px">{% icone 'attention' 22 %}</span>
+    <div>
+      <p style="margin:0 0 6px;font-weight:600">{{ message }}</p>
+      <p class="muted" style="margin:0">{% translate "Cette action est irréversible." %}</p>
+    </div>
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{{ annuler_url }}">{% translate "Non, revenir" %}</a>
+    <button type="submit" class="btn btn-danger">{% icone 'supprimer' 18 %}{{ bouton|default:_("Oui, supprimer") }}</button>
+  </div>
+</form>
+{% endblock %}

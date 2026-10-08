@@ -1,0 +1,65 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Journal des paiements" %}{% endblock %}
+{% block entete %}{% translate "Journal des paiements" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Tous les encaissements, du plus récent au plus ancien" %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.ecole.exporter_donnees %}<a class="btn btn-light" href="{% url 'ecole:export_paiements' %}?{{ params }}">{% icone 'exports' 18 %}<span>{% translate "Excel" %}</span></a><a class="btn btn-light" href="{% url 'ecole:export_paiements_pdf' %}?{{ params }}">{% icone 'pdf' 18 %}<span>{% translate "PDF" %}</span></a>{% endif %}
+  {% if perms.ecole.add_paiement %}<a class="btn" href="{% url 'ecole:encaisser_recherche' %}">{% icone 'plus' 18 %}<span>{% translate "Encaisser" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="card" style="margin-bottom: 20px">
+  <form method="get" class="filters">
+    <div class="field"><label class="label" for="f-q">{% translate "Recherche" %}</label><input id="f-q" type="search" name="q" value="{{ f.q }}" placeholder="{% translate "Élève, n° reçu, référence" %}"></div>
+    <div class="field"><label class="label" for="f-du">{% translate "Du" %}</label><input id="f-du" type="date" name="du" value="{{ f.du }}"></div>
+    <div class="field"><label class="label" for="f-au">{% translate "Au" %}</label><input id="f-au" type="date" name="au" value="{{ f.au }}"></div>
+    <div class="field"><label class="label" for="f-motif">{% translate "Motif" %}</label>
+      <select id="f-motif" name="motif"><option value="">{% translate "Tous" %}</option>{% for v, l in motifs %}<option value="{{ v }}"{% if f.motif == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="field"><label class="label" for="f-mode">{% translate "Mode" %}</label>
+      <select id="f-mode" name="mode"><option value="">{% translate "Tous" %}</option>{% for v, l in modes %}<option value="{{ v }}"{% if f.mode == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    {% if etablissements|length > 1 %}<div class="field"><label class="label" for="f-etab">{% translate "Établissement" %}</label>
+      <select id="f-etab" name="etab"><option value="">{% translate "Tous" %}</option>{% for e in etablissements %}<option value="{{ e.pk }}"{% if f.etab == e.pk|stringformat:'s' %} selected{% endif %}>{{ e.nom }}</option>{% endfor %}</select></div>{% endif %}
+    <div class="field"><label class="label" for="f-classe">{% translate "Classe" %}</label>
+      <select id="f-classe" name="classe"><option value="">{% translate "Toutes" %}</option>{% for c in classes %}<option value="{{ c }}"{% if f.classe == c %} selected{% endif %}>{{ c }}</option>{% endfor %}</select></div>
+    <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Filtrer" %}</button><a class="btn btn-light" href="{% url 'ecole:journal' %}">{% translate "Effacer" %}</a></div>
+  </form>
+</section>
+
+<section class="card">
+  <div class="summary-bar">
+    <span><b>{{ nb }}</b> {% translate "paiement" %}{{ nb|pluralize }}</span>
+    <span>{% translate "Total :" %} <b class="num">{{ total|fcfa }}</b></span>
+  </div>
+  {% if page.object_list %}
+  <div class="table-wrap">
+    <table class="table responsive">
+      <thead><tr><th>{% translate "Reçu" %}</th><th>{% translate "Date" %}</th><th>{% translate "Élève" %}</th><th>{% translate "Motif" %}</th><th>{% translate "Mode" %}</th><th class="r">{% translate "Montant" %}</th><th>{% translate "Par" %}</th></tr></thead>
+      <tbody>
+      {% for p in page.object_list %}
+        <tr>
+          <td><a href="{% url 'ecole:recu' p.pk %}"><b>{{ p.numero_recu }}</b></a></td>
+          <td class="r" data-label="Date">{{ p.date|date:"d/m/Y" }}</td>
+          <td class="full"><a href="{% url 'ecole:eleve_detail' p.eleve.pk %}">{{ p.eleve }}</a> <span class="muted">· {{ p.eleve.classe }}{% if etablissements|length > 1 %} · {{ p.eleve.etablissement.nom }}{% endif %}</span></td>
+          <td data-label="Motif">{{ p.get_motif_display }}</td>
+          <td class="r" data-label="Mode">{{ p.get_mode_display }}</td>
+          <td class="r num" data-label="Montant"><b>{{ p.montant|fcfa }}</b></td>
+          <td class="muted" data-label="Par">{% if p.encaisse_par %}{{ p.encaisse_par.get_full_name|default:p.encaisse_par.username }}{% else %}—{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page.has_other_pages %}
+    <div class="summary-bar" style="border-top:1px solid var(--line);border-bottom:0;justify-content:space-between">
+      {% if page.has_previous %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.previous_page_number }}">{% translate "‹ Précédent" %}</a>{% else %}<span></span>{% endif %}
+      <span>{% translate "Page" %} {{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.next_page_number }}">{% translate "Suivant ›" %}</a>{% else %}<span></span>{% endif %}
+    </div>
+  {% endif %}
+  {% else %}
+    <div class="empty">{% icone 'journal' 40 %}<p>{% translate "Aucun paiement ne correspond à ces filtres." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

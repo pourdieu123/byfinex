@@ -1,0 +1,74 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Frais de la classe" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:grilles' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% if grille %}{% translate "Frais de la" %} {{ grille.classe }}{% else %}{% translate "Frais d'une classe" %}{% endif %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Affichés automatiquement à l'inscription ; les élèves de la classe reçoivent cet échéancier" %}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width: 880px">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% if form.non_field_errors or formset.non_form_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}{% for e in formset.non_form_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="form-section">
+    <h2>{% icone 'classes' 18 %}{% translate "Classe" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.etablissement %}
+      {% include 'ecole/_champ.html' with field=form.classe %}
+      {% include 'ecole/_champ.html' with field=form.frais_inscription %}
+    </div>
+    <datalist id="classes-existantes">{% for c in classes %}<option value="{{ c }}">{% endfor %}</datalist>
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'calendrier' 18 %}{% translate "Tranches" %}</h2>
+    <p class="hint">{% translate "Le total des tranches est le montant de la scolarité de la classe. Une seule tranche si la scolarité se paie en une fois." %} <b id="total-tranches"></b></p>
+    {% for f in formset %}
+      <div class="formset-ligne">
+        {{ f.id }}
+        {% include 'ecole/_champ.html' with field=f.libelle %}
+        {% include 'ecole/_champ.html' with field=f.montant %}
+        {% include 'ecole/_champ.html' with field=f.echeance %}
+        {% if f.instance.pk %}<label class="checkbox">{{ f.DELETE }} {% translate "Retirer" %}</label>{% else %}<span></span>{% endif %}
+      </div>
+    {% endfor %}
+    <template id="modele-ligne">
+      <div class="formset-ligne">
+        {% with f=formset.empty_form %}
+        {% include 'ecole/_champ.html' with field=f.libelle %}
+        {% include 'ecole/_champ.html' with field=f.montant %}
+        {% include 'ecole/_champ.html' with field=f.echeance %}
+        <span></span>
+        {% endwith %}
+      </div>
+    </template>
+    <button type="button" class="btn btn-light btn-sm" data-ajouter="tranches" style="margin-top:12px">{% icone 'plus' 16 %}{% translate "Ajouter une tranche" %}</button>
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% url 'ecole:grilles' %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer et appliquer aux élèves" %}</button>
+  </div>
+</form>
+{% translate "Scolarité :" as t_total %}
+<script nonce="{{ csp_nonce }}">
+  function totalTranches() {
+    var t = 0;
+    document.querySelectorAll('input[name$="-montant"]').forEach(function (i) {
+      var del = document.getElementsByName(i.name.replace('-montant', '-DELETE'))[0];
+      if (!(del && del.checked)) t += parseInt(i.value || '0', 10) || 0;
+    });
+    document.getElementById('total-tranches').textContent = t ? '{{ t_total|escapejs }} ' + t.toLocaleString('fr-FR') + ' FCFA' : '';
+  }
+  document.addEventListener('input', totalTranches);
+  document.addEventListener('change', totalTranches);
+  totalTranches();
+  document.querySelectorAll('[data-ajouter]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.dataset.ajouter, total = document.getElementById('id_' + p + '-TOTAL_FORMS');
+      var html = document.getElementById('modele-ligne').innerHTML.replace(/__prefix__/g, total.value);
+      b.insertAdjacentHTML('beforebegin', html);
+      total.value = parseInt(total.value, 10) + 1;
+    });
+  });
+</script>
+{% endblock %}

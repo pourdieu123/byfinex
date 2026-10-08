@@ -1,0 +1,10 @@
+{% load i18n %}{# Filtre par établissement, affiché seulement quand plusieurs établissements sont utilisés. #}
+{% load ecole_extras %}
+{% if etablissements|length > 1 %}
+<nav class="chips chips-etab" aria-label="{% translate "Filtrer par établissement" %}">
+  <a class="chip{% if not etab_actif %} active{% endif %}" href="?{{ extra_etab }}">{% icone 'ecole' 14 %}{% translate "Tous les établissements" %}</a>
+  {% for e in etablissements %}
+    <a class="chip{% if e.pk == etab_actif %} active{% endif %}" href="?etab={{ e.pk }}{% if extra_etab %}&amp;{{ extra_etab }}{% endif %}">{% icone 'ecole' 14 %}{{ e.nom }}</a>
+  {% endfor %}
+</nav>
+{% endif %}

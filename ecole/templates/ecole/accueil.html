@@ -1,0 +1,133 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Scolarité" %}{% endblock %}
+{% block entete %}{% translate "Scolarité" %}{% endblock %}
+
+{% block actions %}
+  {% if perms.ecole.add_eleve %}<a class="btn btn-light" href="{% url 'ecole:eleve_nouveau' %}">{% icone 'inscrire' 18 %}<span>{% translate "Inscrire" %}</span></a>{% endif %}
+  {% if perms.ecole.add_paiement %}<a class="btn" href="{% url 'ecole:encaisser_recherche' %}">{% icone 'encaisser' 18 %}<span>{% translate "Encaisser" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="tiles">
+  <a class="card tile" href="{% url 'ecole:eleves' %}">
+    <div class="tile-top">{% translate "Élèves inscrits" %} <span class="tile-ico">{% icone 'eleves' 18 %}</span></div>
+    <div class="tile-value">{{ nb_eleves }}</div>
+    <div class="tile-sub">{{ nb_classes }} {% translate "classe" %}{{ nb_classes|accord:"s|es" }}</div>
+  </a>
+  <a class="card tile" href="{% url 'ecole:journal' %}">
+    <div class="tile-top">{% translate "Total encaissé" %} <span class="tile-ico">{% icone 'encaisser' 18 %}</span></div>
+    <div class="tile-value num">{{ encaisse_total|fcfa }}</div>
+    <div class="tile-sub">{% translate "Aujourd'hui :" %} {{ jour_total|fcfa }} ({{ jour_nb }} {% translate "paiement" %}{{ jour_nb|pluralize }})</div>
+  </a>
+  <a class="card tile" href="{% url 'ecole:suivi' %}?statut=impayes">
+    <div class="tile-top">{% translate "Reste à recouvrer" %} <span class="tile-ico">{% icone 'attention' 18 %}</span></div>
+    <div class="tile-value num">{{ reste|fcfa }}</div>
+    <div class="tile-sub">{{ nb_partiels|add:nb_aucun }} {% translate "élève" %}{{ nb_partiels|add:nb_aucun|pluralize }} {% translate "non soldé" %}{{ nb_partiels|add:nb_aucun|accord:"s|" }}</div>
+  </a>
+  <a class="card tile" href="{% url 'ecole:suivi' %}?statut=retard">
+    <div class="tile-top">{% translate "En retard" %} <span class="tile-ico">{% icone 'horloge' 18 %}</span></div>
+    <div class="tile-value num">{{ montant_retard|fcfa }}</div>
+    <div class="tile-sub">{{ nb_retard }} {% translate "élève" %}{{ nb_retard|pluralize }} {% translate "avec une échéance dépassée" %}</div>
+  </a>
+  <div class="card tile">
+    <div class="tile-top">{% translate "Taux de recouvrement" %} <span class="tile-ico">{% icone 'suivi' 18 %}</span></div>
+    <div class="tile-value">{{ taux }} %</div>
+    <div class="meter" role="meter" aria-valuenow="{{ taux }}" aria-valuemin="0" aria-valuemax="100" aria-label="{% translate "Taux de recouvrement" %}"><span style="width: {{ taux }}%"></span></div>
+    <div class="tile-sub">{{ nb_soldes }} {% translate "soldé" %}{{ nb_soldes|accord:"s|" }} · {{ nb_partiels }} {% translate "partiel" %}{{ nb_partiels|accord:"s|" }} · {{ nb_aucun }} {% translate "sans paiement" %}</div>
+  </div>
+</section>
+
+<div class="grid grid-3-1">
+  <div class="stack">
+    <section class="card">
+      <div class="card-head">
+        <div><h2>{% translate "Encaissements des 6 derniers mois" %}</h2><p>{% translate "Inscriptions et tranches, en FCFA" %}</p></div>
+        {% if perms.ecole.view_paiement %}<a class="lien" href="{% url 'ecole:journal' %}">{% translate "Journal" %} {% icone 'suivant' 16 %}</a>{% endif %}
+      </div>
+      <div class="chart">
+        <div class="cols">
+          {% for m in mensuel %}
+            <div class="col" tabindex="0" aria-label="{{ m.libelle }} : {{ m.total|fcfa }}">
+              <span class="col-tip">{{ m.libelle }} · <b>{{ m.total|fcfa }}</b></span>
+              {% if m.courant %}<span class="col-val num">{{ m.total|milliers }}</span>{% endif %}
+              <span class="col-bar" style="height: {{ m.hauteur }}%"></span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-labels">{% for m in mensuel %}<span>{{ m.libelle }}</span>{% endfor %}</div>
+        <details class="table-view">
+          <summary>{% translate "Voir les chiffres" %}</summary>
+          <table class="table">
+            <thead><tr><th>{% translate "Mois" %}</th><th class="r">{% translate "Encaissé" %}</th></tr></thead>
+            <tbody>{% for m in mensuel %}<tr><td>{{ m.libelle }}</td><td class="r num">{{ m.total|fcfa }}</td></tr>{% endfor %}</tbody>
+          </table>
+        </details>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div><h2>{% translate "Recouvrement par classe" %}</h2><p>{% translate "Part de la scolarité déjà versée" %}</p></div>
+        <a class="lien" href="{% url 'ecole:eleves' %}">{% translate "Élèves" %} {% icone 'suivant' 16 %}</a>
+      </div>
+      {% if par_classe %}
+      <div class="table-wrap">
+        <table class="table responsive">
+          <thead><tr><th>{% translate "Classe" %}</th><th class="r">{% translate "Effectif" %}</th><th>{% translate "Recouvré" %}</th><th class="r">{% translate "Reste" %}</th></tr></thead>
+          <tbody>
+          {% for c in par_classe %}
+            <tr>
+              <td><a href="{% url 'ecole:eleves' %}?classe={{ c.classe|urlencode }}"><b>{{ c.classe }}</b></a>{% if c.etablissement %}<br><small class="muted">{{ c.etablissement }}</small>{% endif %}</td>
+              <td class="r" data-label="Effectif">{{ c.effectif }} <span class="muted">({{ c.soldes }} {% translate "soldé" %}{{ c.soldes|accord:"s|" }})</span></td>
+              <td class="full"><div class="cell-meter"><div class="meter"><span style="width: {{ c.taux }}%"></span></div><b>{{ c.taux }} %</b></div></td>
+              <td class="r num" data-label="Reste">{{ c.reste|fcfa }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="empty">{% translate "Aucun élève inscrit pour le moment." %}</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Frais d'inscription" %}</h2><p class="num">{{ insc_verse|fcfa }} / {{ insc_du|fcfa }}</p></div>
+        <a class="lien" href="{% url 'ecole:suivi' %}?statut=inscription">{% translate "Non payées" %} {% icone 'suivant' 16 %}</a></div>
+      <div class="kv"><span>{% icone 'ok' 14 %} {% translate "Payées" %}</span><b>{{ insc.payee }}</b></div>
+      <div class="kv"><span>{% icone 'partiel' 14 %} {% translate "Partielles" %}</span><b>{{ insc.partielle }}</b></div>
+      <div class="kv"><span>{% icone 'attention' 14 %} {% translate "Non payées" %}</span><b>{{ insc.impayee }}</b></div>
+      {% if insc.non_definie %}<div class="kv"><span class="muted">{% translate "Montant dû non défini" %}</span><b>{{ insc.non_definie }}</b></div>{% endif %}
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Derniers paiements" %}</h2>{% if perms.ecole.view_paiement %}<a class="lien" href="{% url 'ecole:journal' %}">{% translate "Tout voir" %} {% icone 'suivant' 16 %}</a>{% endif %}</div>
+      {% for p in derniers_paiements %}
+        <a class="row" href="{% url 'ecole:recu' p.pk %}">
+          <span class="avatar">{{ p.eleve.initiales }}</span>
+          <span class="row-main"><strong>{{ p.eleve }}</strong><small>{{ p.get_motif_display }} · {{ p.date|date:"d M" }}</small></span>
+          <span class="row-side"><b class="num">{{ p.montant|fcfa }}</b><small>{{ p.get_mode_display }}</small></span>
+        </a>
+      {% empty %}
+        <p class="empty">{% translate "Aucun paiement enregistré." %}</p>
+      {% endfor %}
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>{% if nb_retard %}{% translate "En retard" %}{% else %}{% translate "À relancer en priorité" %}{% endif %}</h2>{% if perms.ecole.view_relance %}<a class="lien" href="{% url 'ecole:relances' %}">{% translate "Relances" %} {% icone 'suivant' 16 %}</a>{% endif %}</div>
+      {% for eleve in a_relancer %}
+        <a class="row" href="{% url 'ecole:eleve_detail' eleve.pk %}">
+          <span class="row-main"><strong>{{ eleve }}</strong><small>{{ eleve.classe }} · {{ eleve.telephone }}{% if eleve.situation.en_retard %} · {{ eleve.situation.jours_de_retard }} {% translate "j de retard" %}{% endif %}</small></span>
+          <span class="row-side"><b class="num ko-ink">{% if eleve.situation.en_retard %}{{ eleve.situation.montant_en_retard|fcfa }}{% else %}{{ eleve.reste_a_payer|fcfa }}{% endif %}</b>{% if eleve.situation.lignes %}{% badge_situation eleve %}{% else %}{% badge eleve %}{% endif %}</span>
+        </a>
+      {% empty %}
+        <p class="empty">{% icone 'ok' 32 %}<br>{% translate "Tous les élèves sont à jour." %}</p>
+      {% endfor %}
+    </section>
+  </div>
+</div>
+{% endblock %}

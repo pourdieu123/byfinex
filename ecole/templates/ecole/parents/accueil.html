@@ -1,0 +1,31 @@
+{% extends 'ecole/base_portail.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Espace parents" %}{% endblock %}
+
+{% block content %}
+<section class="portail-hero">
+  <p class="portail-date">{% now "l j F Y" %}</p>
+  <h1>{% translate "Bonjour" %} {{ user.first_name|default:user.username }}</h1>
+  <p>{% translate "Situation de la scolarité de vos enfants, mise à jour à chaque paiement." %}</p>
+</section>
+<section class="parent-enfants">
+  {% for e in enfants %}
+    <a class="card" href="{% url 'parents:enfant' e.pk %}" style="display:block">
+      <div class="profile"><span class="avatar">{{ e.initiales }}</span><div class="profile-main"><h2>{{ e }}</h2><p>{{ e.etablissement.nom }} · {{ e.classe }}</p></div>{% badge_situation e %}</div>
+      <div class="paybox" style="border-top:1px solid var(--line)">
+        <div class="paybox-top">
+          <div><small class="muted">{% translate "Versé" %}</small><div class="big num">{{ e.total_verse|fcfa }}</div></div>
+          <div style="text-align:right"><small class="muted">{% translate "Reste à payer" %}</small><div class="num" style="font-size:20px;font-weight:700">{{ e.reste_a_payer|fcfa }}</div></div>
+        </div>
+        <div class="meter"><span style="width: {{ e.taux_paye }}%"></span></div>
+        <p style="margin:8px 0 0">{% badge_inscription e %}</p>
+        {% if e.situation.en_retard %}<p style="margin:8px 0 0"><b>{% translate "En retard :" %} {{ e.situation.montant_en_retard|fcfa }}</b></p>
+        {% elif e.situation.prochaine %}<p class="muted" style="margin:8px 0 0">{% translate "Prochaine échéance :" %} {{ e.situation.prochaine.reste|fcfa }} {% translate "le" %} {{ e.situation.prochaine.echeance.echeance|date:"d/m/Y" }}</p>{% endif %}
+      </div>
+    </a>
+  {% empty %}
+    <div class="card empty">{% icone 'eleves' 40 %}<p>{% translate "Aucun enfant n'est rattaché à votre compte. Contactez l'établissement." %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

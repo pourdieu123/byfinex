@@ -1,0 +1,45 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Corrections de paiements" %}{% endblock %}
+{% block entete %}{% translate "Corrections de paiements" %}{% endblock %}
+{% block sous_titre %}<p>{% if peut_valider %}{% translate "Demandes de la caisse et du secrétariat à valider" %}{% else %}{% translate "Vos demandes de correction" %}{% endif %}</p>{% endblock %}
+
+{% block content %}
+<section class="card" style="margin-bottom:20px">
+  <div class="card-head"><div><h2>{% translate "En attente" %}</h2><p>{{ en_attente|length }} {% translate "demande(s)" %}</p></div></div>
+  {% for d in en_attente %}
+    <div class="row" style="flex-wrap:wrap;align-items:flex-start">
+      <span class="tile-ico">{% icone 'modifier' 18 %}</span>
+      <div class="row-main" style="min-width:240px">
+        <strong>{{ d.get_action_display }} — {% if d.paiement %}<a href="{% url 'ecole:recu' d.paiement.pk %}">{{ d.numero_recu }}</a>{% else %}{{ d.numero_recu }}{% endif %} · <a href="{% url 'ecole:eleve_detail' d.eleve.pk %}">{{ d.eleve }}</a></strong>
+        <small>{% if d.paiement %}{% translate "Actuel :" %} {{ d.paiement.montant|fcfa }} · {{ d.paiement.get_mode_display }} · {{ d.paiement.date|date:"d/m/Y" }}{% endif %}
+          {% if d.nouvelles_valeurs %}<br>{% translate "Demandé :" %} <b>{{ d.nouvelles_valeurs.montant|fcfa }} · {{ d.nouvelles_valeurs.mode }} · {{ d.nouvelles_valeurs.date }}</b>{% if d.nouvelles_valeurs.reference %} · {{ d.nouvelles_valeurs.reference }}{% endif %}{% endif %}
+          <br>{% translate "Motif :" %} {{ d.motif }}<br>{% translate "Par" %} {{ d.demande_par.get_full_name|default:d.demande_par.username }} {% translate "le" %} {{ d.cree_le|date:"d/m/Y H:i" }}</small>
+      </div>
+      {% if peut_valider %}
+        <form method="post" action="{% url 'ecole:correction_traiter' d.pk %}" class="btn-row" style="align-self:center">{% csrf_token %}
+          <input type="text" name="commentaire" placeholder="{% translate "Commentaire (facultatif)" %}" style="min-width:180px">
+          <button class="btn btn-sm" name="decision" value="valider">{% icone 'ok' 16 %}{% translate "Valider" %}</button>
+          <button class="btn btn-ghost-danger btn-sm" name="decision" value="refuser">{% icone 'fermer' 16 %}{% translate "Refuser" %}</button>
+        </form>
+      {% endif %}
+    </div>
+  {% empty %}
+    <div class="empty">{% icone 'ok' 40 %}<p>{% translate "Aucune demande en attente." %}</p></div>
+  {% endfor %}
+</section>
+
+<section class="card">
+  <div class="card-head"><div><h2>{% translate "Déjà traitées" %}</h2></div></div>
+  {% for d in traitees %}
+    <div class="row">
+      <span class="row-main"><strong>{{ d.get_action_display }} — {{ d.numero_recu }} · {{ d.eleve }}</strong>
+        <small>{{ d.get_statut_display }} {% translate "par" %} {{ d.traite_par.get_full_name|default:d.traite_par.username|default:"—" }} {% translate "le" %} {{ d.traite_le|date:"d/m/Y H:i" }}{% if d.commentaire %} · {{ d.commentaire }}{% endif %}</small></span>
+      <span class="badge {% if d.statut == 'validee' %}badge-solde{% else %}badge-aucun{% endif %}">{{ d.get_statut_display }}</span>
+    </div>
+  {% empty %}
+    <p class="empty">{% translate "Aucune." %}</p>
+  {% endfor %}
+</section>
+{% endblock %}

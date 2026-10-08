@@ -1,0 +1,37 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Élèves par classe" %}{% endblock %}
+{% block entete %}{% translate "Élèves par classe" %}{% endblock %}
+{% block sous_titre %}<p>{{ nb_resultats }} {% translate "élève" %}{{ nb_resultats|pluralize }}{% if classe_active %} {% translate "en" %} {{ classe_active }}{% endif %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.ecole.exporter_donnees %}<a class="btn btn-light" href="{% url 'ecole:export_eleves' %}?{{ params }}">{% icone 'exports' 18 %}<span>{% translate "Excel" %}</span></a><a class="btn btn-light" href="{% url 'ecole:export_eleves_pdf' %}?{{ params }}">{% icone 'pdf' 18 %}<span>{% translate "PDF" %}</span></a>{% endif %}
+  {% if perms.ecole.add_eleve %}<a class="btn btn-light" href="{% url 'ecole:eleves_import' %}">{% icone 'exports' 18 %}<span>{% translate "Importer" %}</span></a><a class="btn" href="{% url 'ecole:eleve_nouveau' %}">{% icone 'plus' 18 %}<span>{% translate "Inscrire" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<form method="get" class="toolbar">
+  {% if etab_actif %}<input type="hidden" name="etab" value="{{ etab_actif }}">{% endif %}
+  {% if classe_active %}<input type="hidden" name="classe" value="{{ classe_active }}">{% endif %}
+  <label class="search">{% icone 'recherche' 18 %}<input type="search" name="q" value="{{ q }}" placeholder="{% translate "Nom, parent, téléphone, n° Educ Master…" %}" aria-label="{% translate "Rechercher" %}"><button class="btn btn-sm" type="submit">{% translate "Rechercher" %}</button></label>
+</form>
+
+{% include 'ecole/_chips_etab.html' %}
+{% include 'ecole/_chips_classes.html' %}
+
+{% for g in groupes %}
+  <section class="card group">
+    <div class="group-head">
+      <h2>{% icone 'classes' 18 %}{{ g.classe }}{% if etablissements|length > 1 and not etab_actif %} <span class="muted" style="font-weight:500">· {{ g.etablissement.nom }}</span>{% endif %}</h2>
+      <small>{{ g.eleves|length }} {% translate "élève" %}{{ g.eleves|length|pluralize }} · {{ g.nb_soldes }} {% translate "soldé" %}{{ g.nb_soldes|accord:"s|" }}</small>
+    </div>
+    {% for eleve in g.eleves %}{% include 'ecole/_eleve_ligne.html' with sans_etab=True %}{% endfor %}
+  </section>
+{% empty %}
+  <div class="card empty">
+    {% icone 'eleves' 40 %}
+    <p>{% if aucun_eleve %}{% translate "Aucun élève enregistré pour le moment." %}{% else %}{% translate "Aucun élève ne correspond à votre recherche." %}{% endif %}</p>
+    {% if aucun_eleve and perms.ecole.add_eleve %}<a class="btn" href="{% url 'ecole:eleve_nouveau' %}">{% icone 'plus' 18 %}{% translate "Inscrire le premier élève" %}</a>{% endif %}
+  </div>
+{% endfor %}
+{% endblock %}

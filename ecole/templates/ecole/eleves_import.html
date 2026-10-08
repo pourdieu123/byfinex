@@ -1,0 +1,122 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Importer des élèves" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleves' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Importer des élèves" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Faire entrer des élèves dans la base à partir d'un fichier Excel ou CSV : une fiche complète par ligne" %}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width: 1240px">
+  <div class="stack">
+    <form method="post" enctype="multipart/form-data" class="card" novalidate>
+      {% csrf_token %}
+      <div class="form-section">
+        <h2>{% icone 'recherche' 18 %}{% translate "1. Choisir le fichier à importer" %}</h2>
+        {% include 'ecole/_champ.html' with field=form.etablissement %}
+        <datalist id="etablissements-existants">{% for e in etablissements %}<option value="{{ e.nom }}">{% endfor %}</datalist>
+        {% include 'ecole/_champ.html' with field=form.fichier %}
+        <p class="hint" style="margin:0">{% translate "Rien n'est enregistré à cette étape : chaque ligne s'affiche en vert (prête) ou en rouge (à corriger)." %}</p>
+      </div>
+      <div class="form-footer">
+        <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Analyser le fichier" %}</button>
+      </div>
+    </form>
+
+    {% if rapport %}
+    <section class="card" id="resultat">
+      <div class="card-head"><div><h2>{% translate "2. Résultat de la vérification" %}</h2>
+        <p>{% blocktranslate with ligne=rapport.ligne_entetes %}Titres des colonnes trouvés à la ligne {{ ligne }}.{% endblocktranslate %}</p></div></div>
+
+      {% if rapport.resultats %}
+      <div class="import-bilan">
+        <div class="import-ok"><b>{{ nb_ok }}</b>{% translate "ligne(s) prête(s) à importer" %}</div>
+        <div class="import-erreur"><b>{{ nb_erreur }}</b>{% translate "ligne(s) en erreur" %}</div>
+        <div class="import-deja"><b>{{ nb_deja }}</b>{% translate "déjà dans la base" %}</div>
+        <div class="import-ignore"><b>{{ nb_ignore }}</b>{% translate "ligne(s) ignorée(s)" %}</div>
+      </div>
+      {% if nb_deja %}
+        <p class="import-deja-note">ⓘ {% blocktranslate with n=nb_deja %}{{ n }} élève(s) de ce fichier sont déjà dans la base (en bleu) : ils ne seront pas importés une seconde fois. Pour modifier leurs informations, ouvrez leur fiche.{% endblocktranslate %}</p>
+      {% endif %}
+      {% else %}
+        <div class="import-bilan" style="grid-template-columns:minmax(0,1fr)">
+          {% for n, msg in rapport.erreurs %}<div class="import-erreur">{% if n %}{% translate "Ligne" %} {{ n }} : {% endif %}{{ msg }}</div>{% endfor %}
+        </div>
+      {% endif %}
+
+      {% if rapport.colonnes_lues %}
+        <p class="hint" style="padding:0 20px;margin:0 0 10px"><span style="color:var(--vert)">✔ <b>{% translate "Colonnes reconnues :" %}</b> {{ rapport.colonnes_lues|join:", " }}</span>{% if rapport.colonnes_ignorees %}<br>{% translate "Colonnes non utilisées :" %} {{ rapport.colonnes_ignorees|join:", " }}{% endif %}</p>
+      {% endif %}
+
+      {% if rapport.sans_etablissement %}
+        <p class="hint" style="padding:0 20px;margin:0 0 6px;color:var(--warning-ink)">⚠ {% blocktranslate with n=rapport.sans_etablissement %}{{ n }} élève(s) sans établissement : ils seront rangés dans l'établissement « Néant ». Pour l'éviter, indiquez l'établissement au-dessus du fichier ; sinon renommez « Néant » ensuite dans Administration › Paramètres.{% endblocktranslate %}</p>
+      {% endif %}
+      {% if rapport.sans_contact %}
+        <p class="hint" style="padding:0 20px;margin:0 0 10px;color:var(--orange)">⚠ {% blocktranslate with n=rapport.sans_contact %}{{ n }} élève(s) sans téléphone ni e-mail de parent : ils seront importés, mais aucune facture ni aucun rappel ne pourra leur être envoyé tant que ces coordonnées ne sont pas complétées sur leur fiche.{% endblocktranslate %}</p>
+      {% endif %}
+      {% if jeton %}
+        <form method="post" class="form-section" style="display:grid;gap:12px;border-top:0;padding-top:4px">{% csrf_token %}
+          <input type="hidden" name="jeton" value="{{ jeton }}">
+          {% if nb_erreur %}<p style="margin:0;color:var(--rouge);font-weight:600">{% blocktranslate with n=nb_erreur %}Ligne(s) en rouge non importée(s) : {{ n }}. Corrigez-les dans le fichier et réimportez-les plus tard (les élèves déjà importés seront ignorés).{% endblocktranslate %}</p>{% endif %}
+          {% if perms.ecole.add_paiement %}
+            <label class="checkbox"><input type="checkbox" name="envoyer_factures"> {% translate "Envoyer aux parents les factures des paiements repris" %}</label>
+          {% else %}
+            <p class="hint" style="margin:0">{% translate "Les montants déjà versés ne seront pas repris : seule la caisse peut enregistrer des paiements." %}</p>
+          {% endif %}
+          <div class="btn-row">
+            <button class="btn" name="confirmer" value="1" style="background:var(--vert);border-color:var(--vert)">{% icone 'ok' 18 %}{% blocktranslate with n=nb_ok %}Importer les {{ n }} élève(s) en vert{% endblocktranslate %}</button>
+            <button class="btn btn-light" name="annuler" value="1">{% translate "Annuler" %}</button>
+          </div>
+        </form>
+      {% endif %}
+
+      {% if rapport.resultats %}
+        <div class="import-filtres">
+          <label><input type="checkbox" data-filtre="ok" checked> <span style="color:var(--vert)">{% translate "Prêtes" %}</span></label>
+          <label><input type="checkbox" data-filtre="erreur" checked> <span style="color:var(--rouge)">{% translate "Erreurs" %}</span></label>
+          <label><input type="checkbox" data-filtre="deja" checked> <span style="color:var(--bleu)">{% translate "Déjà dans la base" %}</span></label>
+          <label><input type="checkbox" data-filtre="ignore" checked> <span style="color:var(--orange)">{% translate "Ignorées" %}</span></label>
+        </div>
+        <div class="table-wrap">
+          <table class="import-lignes">
+            <tbody>
+            {% for r in rapport.resultats %}
+              <tr class="{{ r.statut }}">
+                <td style="width:70px"><b>{% translate "Ligne" %} {{ r.ligne }}</b></td>
+                <td>
+                  <span class="import-statut">{% if r.statut == 'ok' and r.messages %}✔ {% translate "Prête — à compléter" %}{% elif r.statut == 'ok' %}✔ {% translate "Prête" %}{% elif r.statut == 'erreur' %}✖ {% translate "Erreur" %}{% elif r.statut == 'deja' %}ⓘ {% translate "Déjà dans la base" %}{% else %}⊘ {% translate "Ignorée" %}{% endif %}</span>
+                  — <b>{{ r.eleve|default:"—" }}</b>
+                  {% if r.donnees %}<span class="muted"> · {{ r.donnees.classe }} · {{ r.donnees.montant_scolarite|fcfa }}{% if r.donnees.paiements %} · {{ r.donnees.paiements|length }} {% translate "paiement(s)" %}{% endif %}</span>{% endif %}
+                  {% if r.messages %}<ul class="import-msg">{% for m in r.messages %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+                  {% if r.eleve_id %}<a class="import-fiche" href="{% url 'ecole:eleve_detail' r.eleve_id %}">{% translate "Voir la fiche" %} →</a>{% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </section>
+    {% endif %}
+  </div>
+
+  <aside class="card">
+    <div class="card-head"><h2>{% translate "Ce que le fichier peut contenir" %}</h2></div>
+    {% for titre, colonnes in groupes %}
+      <div class="kv" style="font-weight:700">{{ titre }}</div>
+      <ul class="timeline">
+        {% for c in colonnes %}<li>{% if c.obligatoire %}{% icone 'ok' 16 %}{% else %}{% icone 'plus' 16 %}{% endif %}<span>{{ c.entete }}{% if c.obligatoire %} <b>*</b>{% endif %}{% if c.description %}<br><small class="muted">{{ c.description }}</small>{% endif %}</span></li>{% endfor %}
+      </ul>
+    {% endfor %}
+  </aside>
+</div>
+<script nonce="{{ csp_nonce }}">
+  document.querySelectorAll('[data-filtre]').forEach(function (c) {
+    c.addEventListener('change', function () {
+      document.querySelectorAll('.import-lignes tr.' + c.dataset.filtre).forEach(function (tr) { tr.hidden = !c.checked; });
+    });
+  });
+  var resultat = document.getElementById('resultat');
+  if (resultat) resultat.scrollIntoView({behavior: 'smooth', block: 'start'});
+</script>
+{% endblock %}

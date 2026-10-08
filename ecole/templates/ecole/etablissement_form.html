@@ -1,0 +1,54 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ etab.nom }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:parametres' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Paramétrage de l'établissement" %}{% endblock %}
+{% block sous_titre %}<p>{{ etab.nom }}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width: 880px">
+  {% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="form-section">
+    <h2>{% icone 'ecole' 18 %}{% translate "Identité" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.nom full=True %}
+      {% include 'ecole/_champ.html' with field=form.adresse full=True %}
+      {% include 'ecole/_champ.html' with field=form.telephone %}
+      {% include 'ecole/_champ.html' with field=form.email %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.decoupage %}
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'recu' 18 %}{% translate "Identité fiscale et factures normalisées" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.ifu %}
+      {% include 'ecole/_champ.html' with field=form.rccm %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.groupe_taxe %}
+    {% include 'ecole/_champ.html' with field=form.emecef_actif %}
+    {% include 'ecole/_champ.html' with field=form.emecef_mode %}
+    {% include 'ecole/_champ.html' with field=form.emecef_jeton %}
+    <div class="callout">{% icone 'attention' 18 %}<span>{% translate "La normalisation passe par l'API e-MECeF de la DGI : demandez le jeton d'accès pour votre IFU, testez d'abord en environnement « Test », puis passez en « Production ». Faites valider le groupe de taxation (frais de scolarité exonérés ou non) par votre comptable." %}</span></div>
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'eleves' 18 %}{% translate "Réduction pour fratrie" %}</h2>
+    <p class="hint">{% translate "Appliquée automatiquement aux élèves dont le parent a le même numéro de téléphone (du plus ancien inscrit au plus récent)." %}</p>
+    <p class="hint" style="margin:0 0 8px"><b>{% translate "Sur la scolarité" %}</b></p>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.reduction_fratrie_2 %}
+      {% include 'ecole/_champ.html' with field=form.reduction_fratrie_3 %}
+    </div>
+    <p class="hint" style="margin:8px 0"><b>{% translate "Sur les frais d'inscription" %}</b></p>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.reduction_inscription_2 %}
+      {% include 'ecole/_champ.html' with field=form.reduction_inscription_3 %}
+    </div>
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% url 'ecole:parametres' %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+  </div>
+</form>
+{% endblock %}

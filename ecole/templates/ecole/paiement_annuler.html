@@ -1,0 +1,25 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Annuler un paiement" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{{ annuler_url }}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Annuler un paiement" %}{% endblock %}
+{% block sous_titre %}<p>{{ p.numero_recu }} · {{ p.eleve }} · {{ p.montant|fcfa }}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" style="max-width: 600px" novalidate>
+  {% csrf_token %}
+  <div class="card-pad" style="display:flex;gap:14px">
+    <span class="tile-ico" style="background:var(--critical-soft);color:var(--critical-ink);width:44px;height:44px">{% icone 'attention' 22 %}</span>
+    <div>
+      <p style="margin:0 0 6px;font-weight:600">{% blocktranslate with numero=p.numero_recu montant=p.montant eleve=p.eleve %}Annuler le paiement {{ numero }} de {{ montant }} FCFA de {{ eleve }} ?{% endblocktranslate %}</p>
+      <p class="muted" style="margin:0">{% translate "Une facture d'avoir annule la facture du paiement. L'annulation est tracée (qui, quand, pourquoi) et le parent est prévenu." %}</p>
+    </div>
+  </div>
+  <div class="form-section">{% include 'ecole/_champ.html' with field=form.motif %}</div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{{ annuler_url }}">{% translate "Non, revenir" %}</a>
+    <button type="submit" class="btn btn-danger">{% icone 'supprimer' 18 %}{% translate "Oui, annuler ce paiement" %}</button>
+  </div>
+</form>
+{% endblock %}

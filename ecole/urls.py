@@ -1,0 +1,75 @@
+from django.urls import path
+
+from .views import (
+    administration, communication, eleves, exports, paiements, parametrage, portail, relances, tableau,
+)
+
+app_name = 'ecole'
+
+urlpatterns = [
+    path('', portail.portail, name='portail'),
+    path('scolarite/', tableau.accueil, name='accueil'),
+    path('modules/<str:module>/code/', portail.deverrouiller, name='deverrouiller'),
+
+    path('eleves/', eleves.liste_par_classe, name='eleves'),
+    path('eleves/nouveau/', eleves.eleve_nouveau, name='eleve_nouveau'),
+    path('eleves/<int:pk>/', eleves.eleve_detail, name='eleve_detail'),
+    path('eleves/<int:pk>/modifier/', eleves.eleve_modifier, name='eleve_modifier'),
+    path('eleves/<int:pk>/fiche.pdf', eleves.eleve_fiche_pdf, name='eleve_fiche_pdf'),
+    path('eleves/<int:pk>/archiver/', eleves.eleve_archiver, name='eleve_archiver'),
+    path('eleves/<int:pk>/reactiver/', eleves.eleve_reactiver, name='eleve_reactiver'),
+    path('eleves/archives/', eleves.eleves_archives, name='eleves_archives'),
+    path('eleves/<int:pk>/echeancier/', eleves.eleve_echeancier, name='eleve_echeancier'),
+    path('eleves/<int:pk>/reductions/', eleves.reduction_ajouter, name='reduction_ajouter'),
+    path('reductions/<int:pk>/supprimer/', eleves.reduction_supprimer, name='reduction_supprimer'),
+    path('eleves/<int:pk>/contacts/', eleves.contact_ajouter, name='contact_ajouter'),
+    path('contacts/<int:pk>/supprimer/', eleves.contact_supprimer, name='contact_supprimer'),
+    path('eleves/<int:pk>/acces-parent/', eleves.acces_parent, name='acces_parent'),
+    path('eleves/<int:pk>/acces-parent/<int:compte_pk>/retirer/', eleves.acces_parent_retirer, name='acces_parent_retirer'),
+    path('eleves/importer/', eleves.eleves_import, name='eleves_import'),
+    path('eleves/importer/modele.xlsx', eleves.eleves_import_modele, name='eleves_import_modele'),
+
+    path('encaisser/', paiements.encaisser_recherche, name='encaisser_recherche'),
+    path('eleves/<int:pk>/encaisser/', paiements.encaisser, name='encaisser'),
+    path('paiements/', paiements.journal, name='journal'),
+    path('paiements/<int:pk>/recu/', paiements.recu, name='recu'),
+    path('paiements/<int:pk>/recu.pdf', paiements.recu_pdf, name='recu_pdf'),
+    path('paiements/<int:pk>/annuler/', paiements.paiement_supprimer, name='paiement_supprimer'),
+    path('paiements/<int:pk>/corriger/', paiements.paiement_corriger, name='paiement_corriger'),
+    path('corrections/', paiements.corrections, name='corrections'),
+    path('corrections/<int:pk>/traiter/', paiements.correction_traiter, name='correction_traiter'),
+    path('factures/', paiements.factures, name='factures'),
+    path('factures/<int:pk>.pdf', paiements.facture_pdf, name='facture_pdf'),
+    path('factures/<int:pk>/normaliser/', paiements.facture_normaliser, name='facture_normaliser'),
+    path('messages/', communication.journal_messages, name='messages'),
+    path('controle/', communication.controle, name='controle'),
+    path('maj/', communication.version, name='version'),
+    path('suivi/', paiements.suivi, name='suivi'),
+
+    path('relances/', relances.relances, name='relances'),
+    path('eleves/<int:pk>/relancer/<str:canal>/', relances.relancer, name='relancer'),
+
+    path('exports/', exports.exports, name='exports'),
+    path('exports/eleves.xlsx', exports.export_eleves, name='export_eleves'),
+    path('exports/paiements.xlsx', exports.export_paiements, name='export_paiements'),
+    path('exports/eleves.pdf', exports.export_eleves_pdf, name='export_eleves_pdf'),
+    path('exports/paiements.pdf', exports.export_paiements_pdf, name='export_paiements_pdf'),
+
+    path('utilisateurs/', administration.utilisateurs, name='utilisateurs'),
+    path('utilisateurs/nouveau/', administration.utilisateur_nouveau, name='utilisateur_nouveau'),
+    path('utilisateurs/<int:pk>/', administration.utilisateur_modifier, name='utilisateur_modifier'),
+    path('parametres/', administration.parametres, name='parametres'),
+    path('etablissements/<int:pk>/renommer/', administration.etablissement_renommer, name='etablissement_renommer'),
+    path('etablissements/<int:pk>/', parametrage.etablissement_modifier, name='etablissement_modifier'),
+    path('grilles/', parametrage.grilles, name='grilles'),
+    path('grilles/nouvelle/', parametrage.grille_form, name='grille_nouvelle'),
+    path('grilles/<int:pk>/', parametrage.grille_form, name='grille_modifier'),
+    path('grilles/<int:pk>/supprimer/', parametrage.grille_supprimer, name='grille_supprimer'),
+    path('grilles/<int:pk>/copier/', parametrage.grille_copier, name='grille_copier'),
+    path('relances/regles/', parametrage.regles_relance, name='regles_relance'),
+    path('relances/regles/nouvelle/', parametrage.regle_relance_form, name='regle_relance_nouvelle'),
+    path('relances/regles/<int:pk>/', parametrage.regle_relance_form, name='regle_relance_modifier'),
+    path('relances/regles/<int:pk>/supprimer/', parametrage.regle_relance_supprimer, name='regle_relance_supprimer'),
+    path('relances/lancer/', parametrage.relances_lancer, name='relances_lancer'),
+    path('relances/regles/sms-essai/', parametrage.sms_essai, name='sms_essai'),
+]

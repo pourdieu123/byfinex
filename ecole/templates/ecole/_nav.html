@@ -1,0 +1,89 @@
+{% load ecole_extras i18n %}
+{# Barre latérale contextuelle : n'affiche QUE les pages du module courant. #}
+{% with un=request.resolver_match.url_name %}
+<nav class="nav" aria-label="{% translate "Navigation du module" %} {{ module_info.nom }}">
+
+{% if module == 'scolarite' %}
+  <p class="nav-title">{% translate "Pilotage" %}</p>
+  <a href="{% url 'ecole:accueil' %}" class="{% if un == 'accueil' %}active{% endif %}">{% icone 'tableau' %}<span>{% translate "Tableau de bord" %}</span></a>
+  {% if perms.ecole.view_grillefrais %}
+    <p class="nav-title">{% translate "Frais" %}</p>
+    <a href="{% url 'ecole:grilles' %}" class="{% if un == 'grilles' or un == 'grille_nouvelle' or un == 'grille_modifier' or un == 'grille_supprimer' %}active{% endif %}">{% icone 'classes' %}<span>{% translate "Frais par classe" %}</span></a>
+  {% endif %}
+  {% if perms.ecole.view_eleve %}
+    <p class="nav-title">{% translate "Élèves" %}</p>
+    <a href="{% url 'ecole:eleves' %}" class="{% if un == 'eleves' or un == 'eleve_detail' or un == 'eleve_modifier' or un == 'eleve_archiver' %}active{% endif %}">{% icone 'eleves' %}<span>{% translate "Élèves par classe" %}</span></a>
+    {% if perms.ecole.add_eleve %}<a href="{% url 'ecole:eleve_nouveau' %}" class="{% if un == 'eleve_nouveau' %}active{% endif %}">{% icone 'inscrire' %}<span>{% translate "Inscrire un élève" %}</span></a>
+    <a href="{% url 'ecole:eleves_import' %}" class="{% if un == 'eleves_import' %}active{% endif %}">{% icone 'exports' %}<span>{% translate "Importer (Excel / CSV)" %}</span></a>{% endif %}
+    <a href="{% url 'ecole:eleves_archives' %}" class="{% if un == 'eleves_archives' %}active{% endif %}">{% icone 'journal' %}<span>{% translate "Élèves archivés" %}</span></a>
+  {% endif %}
+  <p class="nav-title">{% translate "Encaissements" %}</p>
+  {% if perms.ecole.add_paiement %}<a href="{% url 'ecole:encaisser_recherche' %}" class="{% if un == 'encaisser_recherche' or un == 'encaisser' %}active{% endif %}">{% icone 'encaisser' %}<span>{% translate "Encaisser" %}</span></a>{% endif %}
+  {% if perms.ecole.view_paiement %}<a href="{% url 'ecole:journal' %}" class="{% if un == 'journal' or un == 'recu' or un == 'paiement_supprimer' %}active{% endif %}">{% icone 'journal' %}<span>{% translate "Journal des paiements" %}</span></a>{% endif %}
+  {% if perms.ecole.view_facture %}<a href="{% url 'ecole:factures' %}" class="{% if un == 'factures' %}active{% endif %}">{% icone 'recu' %}<span>{% translate "Factures" %}</span></a>{% endif %}
+  {% if perms.ecole.view_eleve %}<a href="{% url 'ecole:suivi' %}" class="{% if un == 'suivi' %}active{% endif %}">{% icone 'suivi' %}<span>{% translate "Retards et impayés" %}</span></a>{% endif %}
+  {% if perms.ecole.valider_corrections or perms.ecole.view_demandecorrection %}<a href="{% url 'ecole:corrections' %}" class="{% if un == 'corrections' or un == 'paiement_corriger' %}active{% endif %}">{% icone 'modifier' %}<span>{% translate "Corrections" %}{% if nb_corrections %} <span class="count">{{ nb_corrections }}</span>{% endif %}</span></a>{% endif %}
+  {% if perms.ecole.view_relance or perms.ecole.exporter_donnees %}<p class="nav-title">{% translate "Parents et rapports" %}</p>{% endif %}
+  {% if perms.ecole.view_relance %}<a href="{% url 'ecole:relances' %}" class="{% if un == 'relances' %}active{% endif %}">{% icone 'relances' %}<span>{% translate "Relances parents" %}</span></a>{% endif %}
+  {% if perms.ecole.view_notification %}<a href="{% url 'ecole:messages' %}" class="{% if un == 'messages' %}active{% endif %}">{% icone 'sms' %}<span>{% translate "Messages envoyés" %}</span></a>{% endif %}
+  {% if perms.ecole.exporter_donnees %}<a href="{% url 'ecole:exports' %}" class="{% if un == 'exports' %}active{% endif %}">{% icone 'exports' %}<span>{% translate "Exports Excel / PDF" %}</span></a>{% endif %}
+
+{% elif module == 'controle' %}
+  <p class="nav-title">{% translate "Surveillance" %}</p>
+  <a href="{% url 'ecole:controle' %}" class="{% if not request.GET.statut %}active{% endif %}">{% icone 'eleves' %}<span>{% translate "Tous les élèves" %}</span></a>
+  <a href="{% url 'ecole:controle' %}?statut=retard" class="{% if request.GET.statut == 'retard' %}active{% endif %}">{% icone 'attention' %}<span>{% translate "En retard" %}</span></a>
+
+{% elif module == 'notes' %}
+  <p class="nav-title">{% translate "Pilotage" %}</p>
+  <a href="{% url 'notes:tableau' %}" class="{% if un == 'tableau' %}active{% endif %}">{% icone 'tableau' %}<span>{% if perms.pedagogie.voir_tout %}{% translate "Classes et saisie" %}{% else %}{% translate "Mes classes" %}{% endif %}</span></a>
+  {% if perms.pedagogie.view_matiere %}
+    <p class="nav-title">{% translate "Référentiel" %}</p>
+    <a href="{% url 'notes:matieres' %}" class="{% if un == 'matieres' %}active{% endif %}">{% icone 'notes' %}<span>{% translate "Matières" %}</span></a>
+  {% endif %}
+  {% if request.GET.etab and request.GET.classe %}
+    <p class="nav-title">{% translate "Classe en cours ·" %} {{ request.GET.classe }}</p>
+    {% if perms.pedagogie.change_enseignement %}<a href="{% url 'notes:classe_config' %}?etab={{ request.GET.etab }}&amp;classe={{ request.GET.classe|urlencode }}" class="{% if un == 'classe_config' %}active{% endif %}">{% icone 'reglages' %}<span>{% translate "Matières et coefficients" %}</span></a>{% endif %}
+    <a href="{% url 'notes:resultats' %}?etab={{ request.GET.etab }}&amp;classe={{ request.GET.classe|urlencode }}" class="{% if un == 'resultats' %}active{% endif %}">{% icone 'suivi' %}<span>{% translate "Résultats et rangs" %}</span></a>
+    {% if perms.pedagogie.voir_tout %}<a href="{% url 'notes:bulletins_pdf' %}?etab={{ request.GET.etab }}&amp;classe={{ request.GET.classe|urlencode }}{% if request.GET.periode %}&amp;periode={{ request.GET.periode }}{% endif %}" target="_blank">{% icone 'pdf' %}<span>{% translate "Bulletins PDF" %}</span></a>{% endif %}
+  {% elif un == 'saisie' %}
+    <p class="nav-title">{% translate "Cours en cours" %}</p>
+    <a href="{{ request.path }}" class="active">{% icone 'modifier' %}<span>{% translate "Saisie des notes" %}</span></a>
+  {% endif %}
+
+{% elif module == 'profs' %}
+  {% if perms.pedagogie.voir_tout %}
+    <p class="nav-title">{% translate "Équipe" %}</p>
+    <a href="{% url 'profs:liste' %}" class="{% if un == 'liste' or un == 'detail' or un == 'modifier' %}active{% endif %}">{% icone 'professeur' %}<span>{% translate "Liste des professeurs" %}</span></a>
+    {% if perms.pedagogie.add_professeur %}<a href="{% url 'profs:nouveau' %}" class="{% if un == 'nouveau' %}active{% endif %}">{% icone 'inscrire' %}<span>{% translate "Nouveau professeur" %}</span></a>{% endif %}
+    {% if perms.pedagogie.view_creneau %}
+      <p class="nav-title">{% translate "Organisation" %}</p>
+      <a href="{% url 'profs:emploi_du_temps' %}" class="{% if un == 'emploi_du_temps' %}active{% endif %}">{% icone 'calendrier' %}<span>{% translate "Emplois du temps" %}</span></a>
+    {% endif %}
+  {% elif moi_prof %}
+    <p class="nav-title">{% translate "Mon espace" %}</p>
+    <a href="{% url 'profs:detail' moi_prof.pk %}" class="{% if un == 'detail' %}active{% endif %}">{% icone 'professeur' %}<span>{% translate "Mon tableau de bord" %}</span></a>
+    <a href="{% url 'profs:emploi_du_temps' %}?prof={{ moi_prof.pk }}" class="{% if un == 'emploi_du_temps' %}active{% endif %}">{% icone 'calendrier' %}<span>{% translate "Mon emploi du temps" %}</span></a>
+    <a href="{% url 'profs:detail' moi_prof.pk %}#heures">{% icone 'horloge' %}<span>{% translate "Mes heures" %}</span></a>
+    <a href="{% url 'profs:detail' moi_prof.pk %}#paiements">{% icone 'encaisser' %}<span>{% translate "Mes paiements" %}</span></a>
+  {% endif %}
+
+{% elif module == 'examens' %}
+  <p class="nav-title">{% translate "Compositions" %}</p>
+  <a href="{% url 'examens:liste' %}" class="{% if un == 'liste' or un == 'detail' or un == 'modifier' or un == 'supprimer' %}active{% endif %}">{% icone 'examen' %}<span>{% if perms.pedagogie.voir_tout %}{% translate "Toutes les compositions" %}{% else %}{% translate "Mes surveillances" %}{% endif %}</span></a>
+  {% if perms.pedagogie.add_composition %}<a href="{% url 'examens:nouvelle' %}" class="{% if un == 'nouvelle' %}active{% endif %}">{% icone 'plus' %}<span>{% translate "Nouvelle composition" %}</span></a>{% endif %}
+
+{% elif module == 'admin' %}
+  <p class="nav-title">{% translate "Comptes" %}</p>
+  <a href="{% url 'ecole:utilisateurs' %}" class="{% if un == 'utilisateurs' or un == 'utilisateur_modifier' %}active{% endif %}">{% icone 'utilisateurs' %}<span>{% translate "Utilisateurs et rôles" %}</span></a>
+  <a href="{% url 'ecole:utilisateur_nouveau' %}" class="{% if un == 'utilisateur_nouveau' %}active{% endif %}">{% icone 'inscrire' %}<span>{% translate "Nouvel utilisateur" %}</span></a>
+  <p class="nav-title">{% translate "Établissement" %}</p>
+  <a href="{% url 'ecole:parametres' %}" class="{% if un == 'parametres' %}active{% endif %}">{% icone 'parametres' %}<span>{% translate "Paramètres généraux" %}</span></a>
+  <a href="{% url 'ecole:parametres' %}#etablissements" class="{% if un == 'etablissement_modifier' %}active{% endif %}">{% icone 'ecole' %}<span>{% translate "Établissements (IFU)" %}</span></a>
+  <p class="nav-title">{% translate "Scolarité" %}</p>
+  <a href="{% url 'ecole:regles_relance' %}" class="{% if un == 'regles_relance' or un == 'regle_relance_nouvelle' or un == 'regle_relance_modifier' %}active{% endif %}">{% icone 'relances' %}<span>{% translate "Règles de relance" %}</span></a>
+  <p class="nav-title">{% translate "Avancé" %}</p>
+  <a href="{% url 'admin:index' %}" target="_blank">{% icone 'reglages' %}<span>{% translate "Administration Django" %}</span></a>
+{% endif %}
+
+</nav>
+{% endwith %}

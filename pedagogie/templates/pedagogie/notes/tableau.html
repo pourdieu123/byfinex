@@ -1,0 +1,58 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Notes et moyennes" %}{% endblock %}
+{% block entete %}{% translate "Notes et moyennes" %}{% endblock %}
+{% block sous_titre %}<p>{% if perms.pedagogie.voir_tout %}{% translate "Classes, matières, saisie des notes et bulletins" %}{% else %}{% translate "Vos classes et la saisie de vos notes" %}{% endif %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.pedagogie.view_matiere %}<a class="btn btn-light" href="{% url 'notes:matieres' %}">{% icone 'notes' 18 %}<span>{% translate "Matières (" %}{{ nb_matieres }})</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if perms.pedagogie.voir_tout %}
+  <section class="card" style="margin-bottom:20px">
+    <div class="card-head"><div><h2>{% translate "Classes" %}</h2><p>{% translate "Configurez les matières d'une classe, puis consultez les résultats et les bulletins" %}</p></div></div>
+    {% if classes %}
+    <div class="table-wrap">
+      <table class="table responsive">
+        <thead><tr><th>{% translate "Classe" %}</th><th class="r">{% translate "Effectif" %}</th><th class="r">{% translate "Matières" %}</th><th>{% translate "Saisie de l'année" %}</th><th></th></tr></thead>
+        <tbody>
+        {% for c in classes %}
+          <tr>
+            <td><b>{{ c.classe }}</b>{% if etablissement_unique is None %}<br><small class="muted">{{ c.etablissement.nom }}</small>{% endif %}</td>
+            <td class="r" data-label="Effectif">{{ c.effectif }}</td>
+            <td class="r" data-label="Matières">{{ c.nb_matieres }}{% if c.sans_prof %} <span class="badge badge-partiel">{% icone 'attention' 12 %}{{ c.sans_prof }} {% translate "sans prof" %}</span>{% endif %}</td>
+            <td class="full"><div class="cell-meter"><div class="meter"><span style="width: {{ c.avancement }}%"></span></div><b>{{ c.avancement }} %</b></div></td>
+            <td class="r full">
+              <div class="row-actions" style="justify-content:flex-end;flex-wrap:wrap">
+                {% if perms.pedagogie.change_enseignement %}<a class="btn btn-light btn-sm" href="{% url 'notes:classe_config' %}?etab={{ c.etablissement.pk }}&amp;classe={{ c.classe|urlencode }}">{% icone 'reglages' 16 %}{% translate "Matières" %}</a>{% endif %}
+                {% if c.nb_matieres %}<a class="btn btn-sm" href="{% url 'notes:resultats' %}?etab={{ c.etablissement.pk }}&amp;classe={{ c.classe|urlencode }}">{% icone 'suivi' 16 %}{% translate "Résultats" %}</a>{% endif %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty">{% icone 'eleves' 40 %}<p>{% translate "Aucune classe : inscrivez d'abord des élèves dans le module Scolarité." %}</p></div>
+    {% endif %}
+  </section>
+{% endif %}
+
+<section class="card">
+  <div class="card-head"><div><h2>{% if perms.pedagogie.voir_tout %}{% translate "Saisie des notes par cours" %}{% else %}{% translate "Mes cours" %}{% endif %}</h2><p>{{ nb_cours }} {% translate "cours · cliquez pour saisir les interrogations et les devoirs" %}</p></div></div>
+  {% for etab, cours in mes_groupes %}
+    {% if etablissement_unique is None %}<div class="group-head"><h2>{% icone 'ecole' 16 %}{{ etab.nom }}</h2><small>{{ etab.get_decoupage_display }}</small></div>{% endif %}
+    {% for ens in cours %}
+      <a class="row" href="{% url 'notes:saisie' ens.pk %}">
+        <span class="tile-ico">{% icone 'notes' 18 %}</span>
+        <span class="row-main"><strong>{{ ens.classe }} · {{ ens.matiere }}</strong><small>{% translate "Coefficient" %} {{ ens.coefficient }} · {{ ens.professeur|default:_("Pas de professeur attribué") }}</small></span>
+        <span class="btn btn-light btn-sm">{% icone 'modifier' 16 %}{% translate "Saisir" %}</span>
+      </a>
+    {% endfor %}
+  {% empty %}
+    <div class="empty">{% icone 'notes' 40 %}<p>{% if perms.pedagogie.voir_tout %}{% translate "Aucune matière configurée : ouvrez « Matières » sur une classe ci-dessus." %}{% else %}{% translate "Aucun cours ne vous est encore attribué. Contactez la direction." %}{% endif %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Relances parents" %}{% endblock %}
+{% block entete %}{% translate "Relances parents" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Rappeler aux parents le reste à payer, par SMS ou WhatsApp" %}</p>{% endblock %}
+
+{% block content %}
+{% include 'ecole/_chips_etab.html' %}
+{% include 'ecole/_chips_classes.html' %}
+
+<div class="grid grid-3-1">
+  <section class="card">
+    <div class="summary-bar">
+      <span><b>{{ eleves|length }}</b> {% translate "élève" %}{{ eleves|length|pluralize }} {% translate "à relancer" %}</span>
+      <span>{% translate "Reste total :" %} <b class="num ko-ink">{{ reste_total|fcfa }}</b></span>
+    </div>
+    {% for eleve in eleves %}
+      <div class="row">
+        <span class="avatar">{{ eleve.initiales }}</span>
+        <a class="row-main" href="{% url 'ecole:eleve_detail' eleve.pk %}">
+          <strong>{{ eleve }}</strong>
+          <small>{% if etablissements|length > 1 %}{{ eleve.etablissement.nom }} · {% endif %}{{ eleve.classe }} · {{ eleve.parent }} · {{ eleve.telephone }}</small>
+          <small>{% if eleve.derniere_relance %}{% translate "Relancé il y a" %} {{ eleve.derniere_relance|timesince }}{% else %}{% translate "Jamais relancé" %}{% endif %}</small>
+        </a>
+        <span class="row-side">
+          <b class="num ko-ink">{{ eleve.reste_a_payer|fcfa }}</b>
+          {% if perms.ecole.add_relance %}
+          <span class="row-actions">
+            <form method="post" action="{% url 'ecole:relancer' eleve.pk 'sms' %}" class="inline">{% csrf_token %}<button class="btn btn-light btn-sm" title="{% translate "Envoyer un SMS" %}">{% icone 'sms' 16 %}{% translate "SMS" %}</button></form>
+            <form method="post" action="{% url 'ecole:relancer' eleve.pk 'whatsapp' %}" class="inline">{% csrf_token %}<button class="btn btn-wa btn-sm" title="{% translate "Envoyer sur WhatsApp" %}">{% icone 'whatsapp' 16 %}{% translate "WhatsApp" %}</button></form>
+          </span>
+          {% endif %}
+        </span>
+      </div>
+    {% empty %}
+      <div class="empty">{% icone 'ok' 40 %}<p>{% translate "Aucun impayé" %}{% if classe_active %} {% translate "en" %} {{ classe_active }}{% endif %} {% translate ": rien à relancer." %}</p></div>
+    {% endfor %}
+  </section>
+
+  <aside class="stack">
+    {% if apercu %}
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Aperçu du message" %}</h2><p>{% translate "Pour le premier élève de la liste" %}</p></div></div>
+      <div class="card-pad"><div class="message-preview">{{ apercu }}</div>
+        {% if perms.ecole.gerer_utilisateurs %}<p style="margin:12px 0 0"><a class="lien" href="{% url 'ecole:parametres' %}" style="color:var(--accent-strong);font-weight:600">{% translate "Modifier le message type" %}</a></p>{% endif %}
+      </div>
+    </section>
+    {% endif %}
+    <div class="callout">{% icone 'attention' 18 %}<span>{% translate "Le bouton ouvre l'application SMS ou WhatsApp" %} <b>{% translate "du téléphone utilisé" %}</b>{% translate ", avec le message déjà rédigé : il reste à appuyer sur « Envoyer ». Aucun service payant n'est utilisé." %}</span></div>
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Historique" %}</h2></div>
+      <ul class="timeline">
+        {% for r in historique %}
+          <li>{% icone 'relances' 16 %}<span><a href="{% url 'ecole:eleve_detail' r.eleve.pk %}"><b>{{ r.eleve }}</b></a> · {{ r.get_canal_display }}<br><small class="muted">{{ r.cree_le|date:"d/m/Y H:i" }} {% translate "· reste" %} {{ r.reste_a_payer|fcfa }}</small></span></li>
+        {% empty %}
+          <li class="muted">{% translate "Aucune relance envoyée." %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </aside>
+</div>
+{% endblock %}

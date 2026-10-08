@@ -1,0 +1,14 @@
+{% extends 'ecole/base_portail.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ m.nom }}{% endblock %}
+
+{% block content %}
+<div class="card verrou mod-{{ m.code }}">
+  <span class="module-ico">{% icone 'horloge' 26 %}</span>
+  <h1>{{ m.nom }}</h1>
+  <p><strong>{% translate "Bientôt disponible" %}</strong></p>
+  <p>{% translate "Ce module sera ouvert prochainement. En attendant, vous pouvez utiliser la Scolarité." %}</p>
+  <a class="btn btn-block" href="{% url 'ecole:portail' %}">{% icone 'retour' 18 %}{% translate "Retour à l'accueil" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ titre }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% if comp %}{% url 'examens:detail' comp.pk %}{% else %}{% url 'examens:liste' %}{% endif %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ titre }}{% endblock %}
+{% block sous_titre %}<p>{% translate "Les épreuves (classe, matière, horaire, salle, surveillants) s'ajoutent ensuite" %}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width:760px">
+  {% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="form-section">
+    <h2>{% icone 'examen' 18 %}{% translate "Composition" %}</h2>
+    {% include 'ecole/_champ.html' with field=form.titre %}
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.etablissement %}
+      {% include 'ecole/_champ.html' with field=form.periode %}
+      {% include 'ecole/_champ.html' with field=form.date_debut %}
+      {% include 'ecole/_champ.html' with field=form.date_fin %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.colonne %}
+    <p class="hint" style="margin:0">{% translate "Les notes des épreuves se saisissent ensuite dans la colonne choisie (D1 ou D2) de la période." %}</p>
+  </div>
+  <div class="form-footer">
+    {% if comp and perms.pedagogie.delete_composition %}<a class="btn btn-ghost-danger" href="{% url 'examens:supprimer' comp.pk %}" style="margin-right:auto">{% icone 'supprimer' 18 %}{% translate "Supprimer" %}</a>{% endif %}
+    <a class="btn btn-light" href="{% if comp %}{% url 'examens:detail' comp.pk %}{% else %}{% url 'examens:liste' %}{% endif %}">{% translate "Annuler" %}</a>
+    <button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+  </div>
+</form>
+{% endblock %}

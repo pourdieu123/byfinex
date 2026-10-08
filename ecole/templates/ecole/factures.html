@@ -1,0 +1,49 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Factures" %}{% endblock %}
+{% block entete %}{% translate "Factures" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Une facture par encaissement ; les corrections donnent une facture d'avoir" %}</p>{% endblock %}
+
+{% block content %}
+{% if nb_a_normaliser %}<div class="callout" style="margin-bottom:16px">{% icone 'attention' 18 %}<span>{{ nb_a_normaliser }} {% translate "facture(s) pas encore normalisée(s) e-MECeF. Elles seront reprises par la commande « normaliser_factures » ou une par une ci-dessous." %}</span></div>{% endif %}
+<section class="card" style="margin-bottom: 20px">
+  <form method="get" class="filters">
+    <div class="field"><label class="label" for="f-q">{% translate "Recherche" %}</label><input id="f-q" type="search" name="q" value="{{ q }}" placeholder="{% translate "N° de facture, élève, code MECeF" %}"></div>
+    <div class="field"><label class="label" for="f-statut">{% translate "Statut" %}</label>
+      <select id="f-statut" name="statut"><option value="">{% translate "Tous" %}</option>{% for v, l in statuts %}<option value="{{ v }}"{% if statut == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Filtrer" %}</button><a class="btn btn-light" href="{% url 'ecole:factures' %}">{% translate "Effacer" %}</a></div>
+  </form>
+</section>
+<section class="card">
+  {% if page.object_list %}
+  <div class="table-wrap">
+    <table class="table responsive">
+      <thead><tr><th>{% translate "N°" %}</th><th>{% translate "Date" %}</th><th>{% translate "Élève" %}</th><th>{% translate "Type" %}</th><th class="r">{% translate "Montant" %}</th><th>{% translate "e-MECeF" %}</th><th></th></tr></thead>
+      <tbody>
+      {% for f in page.object_list %}
+        <tr>
+          <td><a href="{% url 'ecole:facture_pdf' f.pk %}" target="_blank"><b>{{ f.numero }}</b></a>{% if f.annulee %} <small class="muted">({% translate "annulée" %})</small>{% endif %}</td>
+          <td data-label="{% translate "Date" %}">{{ f.date|date:"d/m/Y H:i" }}</td>
+          <td class="full"><a href="{% url 'ecole:eleve_detail' f.eleve.pk %}">{{ f.eleve }}</a></td>
+          <td data-label="{% translate "Type" %}">{{ f.get_type_display }}</td>
+          <td class="r num" data-label="{% translate "Montant" %}"><b>{% if f.est_avoir %}− {% endif %}{{ f.montant|fcfa }}</b></td>
+          <td data-label="{% translate "e-MECeF" %}"><span class="etat-facture etat-{{ f.statut }}" title="{{ f.erreur }}">{{ f.get_statut_display }}</span>{% if f.code_mecef %}<br><small class="muted">{{ f.code_mecef }}</small>{% endif %}</td>
+          <td class="r">{% if f.statut != 'normalisee' and perms.ecole.valider_corrections and f.eleve.etablissement.emecef_actif %}<form method="post" action="{% url 'ecole:facture_normaliser' f.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn btn-light btn-sm">{% translate "Normaliser" %}</button></form>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page.has_other_pages %}
+    <div class="summary-bar" style="border-top:1px solid var(--line);border-bottom:0;justify-content:space-between">
+      {% if page.has_previous %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.previous_page_number }}">{% translate "‹ Précédent" %}</a>{% else %}<span></span>{% endif %}
+      <span>{% translate "Page" %} {{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.next_page_number }}">{% translate "Suivant ›" %}</a>{% else %}<span></span>{% endif %}
+    </div>
+  {% endif %}
+  {% else %}
+    <div class="empty">{% icone 'recu' 40 %}<p>{% translate "Aucune facture." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

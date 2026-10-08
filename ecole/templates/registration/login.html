@@ -1,0 +1,46 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Connexion" %}{% endblock %}
+
+{% block public %}
+<div class="login">
+  <section class="login-hero">
+    <div class="brand" style="padding:0">
+      <span class="brand-logo">{% icone 'ecole' 22 %}</span>
+      <span class="brand-text"><strong>{{ app_nom }}</strong><small style="color:#6a6a6a">{% translate "Gestion scolaire" %}</small></span>
+    </div>
+    <div>
+      <h1>{% translate "Scolarité, notes, professeurs et examens, au même endroit." %}</h1>
+      <p>{% translate "Gérez les inscriptions et les paiements, saisissez les notes, éditez les bulletins et organisez les compositions." %}</p>
+      <ul>
+        <li>{% icone 'encaisser' 18 %}{% translate "Scolarité, reçus et relances des parents" %}</li>
+        <li>{% icone 'notes' 18 %}{% translate "Notes, moyennes, rangs et bulletins PDF" %}</li>
+        <li>{% icone 'professeur' 18 %}{% translate "Professeurs, emplois du temps et paiements" %}</li>
+        <li>{% icone 'examen' 18 %}{% translate "Compositions, salles et surveillants" %}</li>
+      </ul>
+    </div>
+    <p class="foot" style="font-size:13px">© {% now "Y" %} {{ app_nom }}</p>
+  </section>
+
+  <section class="login-panel">
+    <div class="login-langue">{% include 'ecole/_langues.html' %}</div>
+    <form method="post" class="login-card" novalidate>
+      {% csrf_token %}
+      <h2>{% translate "Connexion" %}</h2>
+      <p>{% translate "Connectez-vous avec le compte fourni par la direction." %}</p>
+      {% if form.errors %}<div class="errors">{% if bloque %}<p>{{ bloque }}</p>{% else %}<p>{% translate "Identifiant ou mot de passe incorrect." %}</p>{% endif %}</div>{% endif %}
+      <div class="field">
+        <label class="label" for="{{ form.username.id_for_label }}">{% translate "Identifiant" %}</label>
+        {{ form.username }}
+      </div>
+      <div class="field">
+        <label class="label" for="{{ form.password.id_for_label }}">{% translate "Mot de passe" %}</label>
+        {{ form.password }}
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn btn-block" style="padding:12px">{% translate "Se connecter" %}</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

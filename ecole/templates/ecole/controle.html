@@ -1,0 +1,35 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Contrôle des paiements" %}{% endblock %}
+{% block entete %}{% translate "Contrôle des paiements" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Statut de paiement des élèves, mis à jour en temps réel" %}</p>{% endblock %}
+
+{% block content %}
+<nav class="tabs">
+  <a class="{% if not statut %}active{% endif %}" href="?q={{ q|urlencode }}&amp;classe={{ classe_active|urlencode }}">{% translate "Tous" %}</a>
+  <a class="{% if statut == 'retard' %}active{% endif %}" href="?statut=retard&amp;q={{ q|urlencode }}&amp;classe={{ classe_active|urlencode }}">{% icone 'attention' 16 %}{% translate "En retard" %} <span class="count">{{ compte.retard }}</span></a>
+  <a class="{% if statut == 'a_jour' %}active{% endif %}" href="?statut=a_jour&amp;q={{ q|urlencode }}&amp;classe={{ classe_active|urlencode }}">{% icone 'horloge' 16 %}{% translate "À jour" %} <span class="count">{{ compte.a_jour }}</span></a>
+  <a class="{% if statut == 'solde' %}active{% endif %}" href="?statut=solde&amp;q={{ q|urlencode }}&amp;classe={{ classe_active|urlencode }}">{% icone 'ok' 16 %}{% translate "Soldés" %} <span class="count">{{ compte.solde }}</span></a>
+</nav>
+<section class="card" style="margin-bottom:16px">
+  <form method="get" class="filters">
+    <input type="hidden" name="statut" value="{{ statut }}">
+    <div class="field"><label class="label" for="f-q">{% translate "Élève" %}</label><input id="f-q" type="search" name="q" value="{{ q }}" placeholder="{% translate "Nom, prénom, Educ Master" %}" autofocus></div>
+    <div class="field"><label class="label" for="f-classe">{% translate "Classe" %}</label>
+      <select id="f-classe" name="classe"><option value="">{% translate "Toutes" %}</option>{% for etab, c in classes %}<option value="{{ c }}"{% if classe_active == c %} selected{% endif %}>{{ c }}</option>{% endfor %}</select></div>
+    <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Rechercher" %}</button></div>
+  </form>
+</section>
+<section class="card">
+  {% for e in eleves %}
+    <div class="row">
+      <span class="avatar">{{ e.initiales }}</span>
+      <span class="row-main"><strong>{{ e }}</strong><small>{{ e.classe }}{% if e.educ_master %} · {{ e.educ_master }}{% endif %}{% if e.situation.en_retard %} · {% translate "retard de" %} {{ e.situation.jours_de_retard }} {% translate "jour(s)" %}{% endif %}</small></span>
+      <span class="row-side">{% badge_situation e %}</span>
+    </div>
+  {% empty %}
+    <div class="empty">{% icone 'eleves' 40 %}<p>{% translate "Aucun élève." %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

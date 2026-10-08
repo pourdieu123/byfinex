@@ -1,0 +1,64 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Échéancier" %} — {{ eleve }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleve_detail' eleve.pk %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Personnaliser l'échéancier" %}{% endblock %}
+{% block sous_titre %}<p>{{ eleve }} · {{ eleve.classe }} · {% translate "déjà versé :" %} {{ eleve.total_verse|fcfa }}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width: 1100px">
+  <form method="post" class="card" novalidate>
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% if formset.non_form_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in formset.non_form_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+    <div class="form-section" id="lignes">
+      <h2>{% icone 'calendrier' 18 %}{% translate "Tranches de cet élève" %}</h2>
+      <p class="hint">{% translate "Montants avant réduction : les réductions (fratrie, bourse, remise) sont appliquées ensuite automatiquement." %}</p>
+      {% for f in formset %}
+        <div class="formset-ligne">
+          {{ f.id }}
+          {% include 'ecole/_champ.html' with field=f.libelle %}
+          {% include 'ecole/_champ.html' with field=f.montant_brut %}
+          {% include 'ecole/_champ.html' with field=f.echeance %}
+          {% if f.instance.pk %}<label class="checkbox">{{ f.DELETE }} {% translate "Retirer" %}</label>{% else %}<span></span>{% endif %}
+        </div>
+      {% endfor %}
+      <template id="modele-ligne">
+        <div class="formset-ligne">
+          {% with f=formset.empty_form %}
+          {% include 'ecole/_champ.html' with field=f.libelle %}
+          {% include 'ecole/_champ.html' with field=f.montant_brut %}
+          {% include 'ecole/_champ.html' with field=f.echeance %}
+          <span></span>
+          {% endwith %}
+        </div>
+      </template>
+      <button type="button" class="btn btn-light btn-sm" data-ajouter="ech" style="margin-top:12px">{% icone 'plus' 16 %}{% translate "Ajouter une tranche" %}</button>
+    </div>
+    <div class="form-footer">
+      <a class="btn btn-light" href="{% url 'ecole:eleve_detail' eleve.pk %}">{% translate "Annuler" %}</a>
+      <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer l'échéancier" %}</button>
+    </div>
+  </form>
+  <aside class="stack">
+    {% if grille %}
+    <form method="post" class="card card-pad">{% csrf_token %}
+      <p style="margin-top:0">{% translate "Revenir à la grille de la classe" %} <b>{{ grille.classe }}</b> ({{ grille.total|fcfa }}).</p>
+      <button class="btn btn-light btn-block" name="grille" value="1">{% icone 'retour' 16 %}{% translate "Utiliser la grille" %}</button>
+    </form>
+    {% endif %}
+    <div class="callout">{% icone 'attention' 18 %}<span>{% translate "Un échéancier personnalisé n'est plus modifié quand la grille de la classe change." %}</span></div>
+  </aside>
+</div>
+<script nonce="{{ csp_nonce }}">
+  document.querySelectorAll('[data-ajouter]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.dataset.ajouter, total = document.getElementById('id_' + p + '-TOTAL_FORMS');
+      var html = document.getElementById('modele-ligne').innerHTML.replace(/__prefix__/g, total.value);
+      b.insertAdjacentHTML('beforebegin', html);
+      total.value = parseInt(total.value, 10) + 1;
+    });
+  });
+</script>
+{% endblock %}

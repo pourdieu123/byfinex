@@ -1,0 +1,116 @@
+{% load static ecole_extras i18n %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B0D12">
+  <title>{% block title %}{% translate "Tableau de bord" %}{% endblock %} · {{ app_nom }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="{% static_versionne 'ecole/style.css' %}">
+</head>
+<body class="mod-{{ module|default:'portail' }} {% block body_class %}{% endblock %}">
+{% if user.is_authenticated %}
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <div class="app">
+    <aside class="sidebar" aria-label="{% translate "Menu du module" %}">
+      <div class="brand">
+        <a class="brand-link" href="{% url 'ecole:portail' %}" title="{% translate "Retour aux modules" %}">
+          <span class="brand-logo">{% icone 'ecole' 20 %}</span>
+          <span class="brand-text"><strong>{{ app_nom }}</strong><small>{{ etablissement_unique.nom|default:_("Gestion scolaire") }}</small></span>
+        </a>
+        <label for="nav-toggle" class="nav-close" title="{% translate "Fermer le menu" %}">{% icone 'fermer' %}</label>
+      </div>
+
+      {% if module_info %}
+      <div class="module-carte">
+        <span class="module-carte-ico">{% icone module_info.icone 22 %}</span>
+        <span class="module-carte-txt"><small>{{ module_info.accroche }}</small><strong>{{ module_info.nom }}</strong></span>
+      </div>
+      {% endif %}
+
+      {% include 'ecole/_nav.html' %}
+
+      <div class="sidebar-pied">
+        <div class="sidebar-langues">{% include 'ecole/_langues.html' %}</div>
+        <a class="retour-modules" href="{% url 'ecole:portail' %}">{% icone 'retour' 16 %}<span>{% translate "Tous les modules" %}</span></a>
+        <div class="user-card">
+          <span class="avatar">{{ user.first_name|first|default:user.username|first|upper }}{{ user.last_name|first|upper }}</span>
+          <span class="user-info">
+            <strong>{{ user.get_full_name|default:user.username }}</strong>
+            <small>{{ role|default:_("Aucun rôle") }}</small>
+          </span>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="icon-btn" title="{% translate "Se déconnecter" %}">{% icone 'deconnexion' 18 %}</button>
+          </form>
+        </div>
+      </div>
+    </aside>
+    <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
+
+    <div class="main">
+      <header class="topbar">
+        <label for="nav-toggle" class="icon-btn nav-open" title="{% translate "Menu" %}">{% icone 'menu' 22 %}</label>
+        {% block retour %}{% endblock %}
+        <div class="topbar-title">
+          <nav class="fil" aria-label="{% translate "Fil d'Ariane" %}">
+            <a href="{% url 'ecole:portail' %}">{% translate "Accueil" %}</a>
+            {% if module_info %}<span aria-hidden="true">/</span><a href="{% url module_info.url %}">{{ module_info.nom }}</a>{% endif %}
+          </nav>
+          <h1>{% block entete %}{% translate "Tableau de bord" %}{% endblock %}</h1>
+          {% block sous_titre %}<p>{% if etablissement_unique %}{{ etablissement_unique.nom }} · {% endif %}{% translate "Année scolaire" %} {{ parametres.annee_scolaire }}</p>{% endblock %}
+        </div>
+        <div class="topbar-actions">{% block actions %}{% endblock %}</div>
+        {% include 'ecole/_langues.html' %}
+        <details class="switcher">
+          <summary class="icon-btn" title="{% translate "Changer de module" %}">{% icone 'tableau' 20 %}</summary>
+          <div class="switcher-menu">
+            <p>{% translate "Changer de module" %}</p>
+            {% for m in mes_modules %}
+              <a href="{% url m.url %}" class="switcher-item mod-{{ m.code }}{% if module == m.code %} actif{% endif %}">
+                <span class="switcher-ico">{% icone m.icone 18 %}</span><span><strong>{{ m.nom }}</strong><small>{{ m.accroche }}</small></span>
+              </a>
+            {% endfor %}
+            {% if admin_module %}
+              <a href="{% url admin_module.url %}" class="switcher-item mod-admin{% if module == 'admin' %} actif{% endif %}">
+                <span class="switcher-ico">{% icone admin_module.icone 18 %}</span><span><strong>{{ admin_module.nom }}</strong><small>{{ admin_module.accroche }}</small></span>
+              </a>
+            {% endif %}
+            <a href="{% url 'ecole:portail' %}" class="switcher-accueil">{% icone 'accueil' 16 %}{% translate "Retour à l'accueil" %}</a>
+          </div>
+        </details>
+      </header>
+
+      <main class="content">
+        {% for message in messages %}
+          <div class="flash flash-{{ message.tags }}" role="status">{% if message.tags == 'success' %}{% icone 'ok' 18 %}{% else %}{% icone 'attention' 18 %}{% endif %}<span>{{ message }}</span></div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+{% else %}
+  {% block public %}{% endblock %}
+{% endif %}
+{% if temps_reel %}
+<script nonce="{{ csp_nonce }}">
+  (function () {
+    var version = null, url = '{% url "ecole:version" %}';
+    function verifier() {
+      if (document.hidden) return;
+      var actif = document.activeElement;
+      if (actif && /INPUT|TEXTAREA|SELECT/.test(actif.tagName) && actif.value) return;
+      fetch(url, {credentials: 'same-origin'}).then(function (r) { return r.json(); }).then(function (d) {
+        if (version !== null && d.v !== version) { location.reload(); }
+        version = d.v;
+      }).catch(function () {});
+    }
+    verifier();
+    setInterval(verifier, 10000);
+  })();
+</script>
+{% endif %}
+</body>
+</html>

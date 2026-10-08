@@ -1,0 +1,21 @@
+{% load ecole_extras i18n %}
+{# Grille de la semaine. Variables : semaine, par_prof (affiche la classe au lieu du professeur), supprimable #}
+<div class="edt">
+  {% for j, libelle, cours in semaine %}
+    <div class="edt-jour">
+      <h3>{{ libelle }}</h3>
+      {% for c in cours %}
+        <div class="edt-cours">
+          <span class="heure">{{ c.heure_debut|time:"H:i" }} – {{ c.heure_fin|time:"H:i" }}</span>
+          <strong>{{ c.enseignement.matiere }}</strong>
+          <small>{% if par_prof %}{{ c.enseignement.classe }}{% else %}{{ c.enseignement.professeur|default:_("Sans professeur") }}{% endif %}{% if c.salle %} · {{ c.salle }}{% endif %}</small>
+          {% if supprimable and perms.pedagogie.delete_creneau %}
+            <form method="post" action="{% url 'profs:creneau_supprimer' c.pk %}">{% csrf_token %}<button class="lien-mini" type="submit">{% translate "Retirer" %}</button></form>
+          {% endif %}
+        </div>
+      {% empty %}
+        <p class="edt-vide">{% translate "Pas de cours" %}</p>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

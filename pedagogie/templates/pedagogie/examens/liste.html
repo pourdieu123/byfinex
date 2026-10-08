@@ -1,0 +1,34 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Examens" %}{% endblock %}
+{% block entete %}{% if perms.pedagogie.voir_tout %}{% translate "Compositions" %}{% else %}{% translate "Mes surveillances" %}{% endif %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Planning des compositions internes, salles et surveillants" %}</p>{% endblock %}
+{% block actions %}{% if perms.pedagogie.add_composition %}<a class="btn" href="{% url 'examens:nouvelle' %}">{% icone 'plus' 18 %}<span>{% translate "Nouvelle composition" %}</span></a>{% endif %}{% endblock %}
+
+{% block content %}
+{% if mes_surveillances %}
+<section class="card" style="margin-bottom:20px">
+  <div class="card-head"><div><h2>{% translate "Mes surveillances" %}</h2><p>{% translate "Épreuves où vous êtes surveillant" %}</p></div></div>
+  {% for s in mes_surveillances %}
+    <a class="row" href="{% url 'examens:detail' s.composition.pk %}">
+      <span class="tile-ico">{% icone 'examen' 18 %}</span>
+      <span class="row-main"><strong>{{ s.date|date:"l d F" }} · {{ s.heure_debut|time:"H:i" }}–{{ s.heure_fin|time:"H:i" }}</strong><small>{{ s.enseignement }}{% if s.salle %} · {{ s.salle }}{% endif %} · {{ s.composition }}</small></span>
+    </a>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section class="card" style="margin-bottom:20px">
+  <div class="card-head"><h2>{% translate "À venir et en cours" %}</h2></div>
+  {% for c in a_venir %}{% include 'pedagogie/examens/_ligne.html' %}
+  {% empty %}<div class="empty">{% icone 'examen' 40 %}<p>{% translate "Aucune composition programmée." %}</p>{% if perms.pedagogie.add_composition %}<a class="btn" href="{% url 'examens:nouvelle' %}">{% icone 'plus' 18 %}{% translate "Programmer une composition" %}</a>{% endif %}</div>{% endfor %}
+</section>
+
+{% if terminees %}
+<section class="card">
+  <div class="card-head"><h2>{% translate "Terminées" %}</h2></div>
+  {% for c in terminees %}{% include 'pedagogie/examens/_ligne.html' %}{% endfor %}
+</section>
+{% endif %}
+{% endblock %}

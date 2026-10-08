@@ -1,0 +1,36 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Corriger un paiement" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:recu' p.pk %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% if directe %}{% translate "Corriger un paiement" %}{% else %}{% translate "Demander une correction" %}{% endif %}{% endblock %}
+{% block sous_titre %}<p>{{ p.numero_recu }} · {{ p.eleve }} · {{ p.montant|fcfa }} · {{ p.date|date:"d/m/Y" }}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width: 1100px">
+  <form method="post" class="card" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+    <div class="form-section">
+      {% include 'ecole/_champ.html' with field=form.action %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.montant %}
+        {% include 'ecole/_champ.html' with field=form.date %}
+      </div>
+      {% include 'ecole/_champ.html' with field=form.mode %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.reference %}
+        {% include 'ecole/_champ.html' with field=form.observation %}
+      </div>
+      {% include 'ecole/_champ.html' with field=form.motif %}
+    </div>
+    <div class="form-footer">
+      <a class="btn btn-light" href="{% url 'ecole:recu' p.pk %}">{% translate "Annuler" %}</a>
+      <button type="submit" class="btn">{% icone 'ok' 18 %}{% if directe %}{% translate "Appliquer la correction" %}{% else %}{% translate "Envoyer à la direction" %}{% endif %}</button>
+    </div>
+  </form>
+  <aside class="stack">
+    <div class="callout">{% icone 'attention' 18 %}<span>{% if directe %}{% translate "La facture du paiement est annulée par une facture d'avoir et une nouvelle facture est émise et envoyée au parent. La correction est tracée : qui, quand, pourquoi, valeurs avant et après." %}{% else %}{% translate "Votre demande sera appliquée après validation par la direction. Elle restera tracée dans l'historique du paiement." %}{% endif %}</span></div>
+  </aside>
+</div>
+{% endblock %}

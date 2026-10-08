@@ -1,0 +1,266 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ eleve }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleves' %}?classe={{ eleve.classe|urlencode }}" title="{% translate "Retour à la classe" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Fiche élève" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Inscrit le" %} {{ eleve.cree_le|date:"d/m/Y" }}</p>{% endblock %}
+{% block actions %}
+  <a class="btn btn-light" href="{% url 'ecole:eleve_fiche_pdf' eleve.pk %}">{% icone 'pdf' 18 %}<span>{% translate "Télécharger la fiche" %}</span></a>
+  {% if perms.ecole.change_eleve %}<a class="btn btn-light" href="{% url 'ecole:eleve_modifier' eleve.pk %}">{% icone 'modifier' 18 %}<span>{% translate "Modifier" %}</span></a>{% endif %}
+  {% if perms.ecole.add_paiement and not eleve.archive %}<a class="btn" href="{% url 'ecole:encaisser' eleve.pk %}">{% icone 'encaisser' 18 %}<span>{% translate "Encaisser" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if eleve.archive %}
+  <div class="flash flash-warning" role="status">{% icone 'attention' 18 %}<span><b>{% translate "Élève archivé" %}</b> {% translate "le" %} {{ eleve.archive_le|date:"d/m/Y" }}{% if eleve.archive_par %} {% translate "par" %} {{ eleve.archive_par.get_full_name|default:eleve.archive_par.username }}{% endif %} — {{ eleve.motif_archive }}. {% translate "Il n'apparaît plus dans les listes, statistiques et relances ; son historique est conservé." %}</span></div>
+{% endif %}
+<div class="grid grid-3-1">
+  <div class="stack">
+    <section class="card">
+      <div class="profile">
+        <span class="avatar">{{ eleve.initiales }}</span>
+        <div class="profile-main">
+          <h2>{{ eleve }}</h2>
+          <p>{{ eleve.etablissement.nom }} · {{ eleve.classe }}{% if eleve.educ_master %} {% translate "· Educ Master" %} {{ eleve.educ_master }}{% endif %}</p>
+        </div>
+        {% badge_situation eleve %}
+      </div>
+      <div class="paybox" style="border-top: 1px solid var(--line)">
+        <div class="paybox-top">
+          <div><small class="muted">{% translate "Versé sur la scolarité" %}</small><div class="big num">{{ eleve.total_verse|fcfa }}</div></div>
+          <div style="text-align:right"><small class="muted">{% translate "Reste à payer" %}</small><div class="num {% if eleve.reste_a_payer %}ko-ink{% else %}ok-ink{% endif %}" style="font-size:20px;font-weight:700">{{ eleve.reste_a_payer|fcfa }}</div></div>
+        </div>
+        <div class="meter" role="meter" aria-valuenow="{{ eleve.taux_paye }}" aria-valuemin="0" aria-valuemax="100" aria-label="{% translate "Part de la scolarité versée" %}"><span style="width: {{ eleve.taux_paye }}%"></span></div>
+        <p class="muted" style="font-size:13px;margin:6px 0 0">{{ eleve.taux_paye }} {% translate "% de" %} {{ eleve.montant_scolarite|fcfa }}</p>
+        <div class="inscription-bloc">
+          <div><small class="muted">{% translate "Frais d'inscription" %}</small>
+            <div><b class="num">{{ inscription|fcfa }}</b> {% if eleve.frais_inscription %}/ {{ eleve.inscription_due|fcfa }}{% else %}<span class="muted">{% translate "(montant dû non défini)" %}</span>{% endif %}
+            {% if eleve.inscription_reste %} · {% translate "reste" %} <b class="num ko-ink">{{ eleve.inscription_reste|fcfa }}</b>{% endif %}</div></div>
+          {% badge_inscription eleve %}
+          {% if eleve.inscription_reste and perms.ecole.add_paiement and not eleve.archive %}<a class="btn btn-sm" href="{% url 'ecole:encaisser' eleve.pk %}">{% icone 'encaisser' 16 %}{% translate "Encaisser l'inscription" %}</a>{% endif %}
+        </div>
+        {% if eleve.reductions_inscription %}
+          <ul class="affectation" style="margin-top:6px">
+            <li class="muted">{% translate "Frais d'inscription de la classe :" %} {{ eleve.frais_inscription|fcfa }}</li>
+            {% for libelle, montant in eleve.reductions_inscription %}<li>{{ libelle }} : <b class="num">− {{ montant|fcfa }}</b></li>{% endfor %}
+          </ul>
+        {% endif %}
+        {% if sit.en_retard %}
+          <div class="callout" style="margin-top:12px">{% icone 'attention' 18 %}<span><b>{% translate "En retard" %}</b> {% translate "de" %} {{ sit.jours_de_retard }} {% translate "jour(s) :" %} <b class="num">{{ sit.montant_en_retard|fcfa }}</b> {% translate "échus et non réglés." %}</span></div>
+        {% elif sit.prochaine %}
+          <p class="muted" style="font-size:13px;margin:8px 0 0">{% translate "Prochaine échéance :" %} <b>{{ sit.prochaine.reste|fcfa }}</b> {% translate "le" %} {{ sit.prochaine.echeance.echeance|date:"d/m/Y" }}</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="card" id="echeancier">
+      <div class="card-head">
+        <div><h2>{% translate "Échéancier" %}</h2>
+          <p>{% if eleve.echeancier_personnalise %}{% translate "Personnalisé pour cet élève" %}{% elif grille %}{% translate "Grille de la classe" %} {{ eleve.classe }}{% else %}{% translate "Tranche unique : aucun frais défini pour cette classe (Scolarité › Frais par classe)" %}{% endif %}</p></div>
+        {% if perms.ecole.change_echeance %}<a class="btn btn-light btn-sm" href="{% url 'ecole:eleve_echeancier' eleve.pk %}">{% icone 'reglages' 16 %}{% translate "Personnaliser" %}</a>{% endif %}
+      </div>
+      {% if sit.lignes %}
+      <div class="table-wrap">
+        <table class="table responsive">
+          <thead><tr><th>{% translate "Tranche" %}</th><th>{% translate "Échéance" %}</th><th class="r">{% translate "Montant" %}</th><th class="r">{% translate "Réduction" %}</th><th class="r">{% translate "Payé" %}</th><th class="r">{% translate "Reste sur la tranche" %}</th><th>{% translate "Statut" %}</th></tr></thead>
+          <tbody>
+          {% for l in sit.lignes %}
+            <tr class="{% if l.statut == 'retard' %}ligne-retard{% endif %}">
+              <td><b>{{ l.echeance }}</b></td>
+              <td data-label="{% translate "Échéance" %}">{{ l.echeance.echeance|date:"d/m/Y" }}</td>
+              <td class="r num" data-label="{% translate "Montant" %}">{{ l.echeance.montant_brut|fcfa }}</td>
+              <td class="r num" data-label="{% translate "Réduction" %}">{% if l.echeance.reduction %}− {{ l.echeance.reduction|fcfa }}{% else %}—{% endif %}</td>
+              <td class="r num" data-label="{% translate "Payé" %}">{{ l.paye|fcfa }}</td>
+              <td class="r num" data-label="{% translate "Reste" %}"><b>{{ l.reste|fcfa }}</b></td>
+              <td data-label="{% translate "Statut" %}"><span class="badge {{ l.statut|statut_ligne }}">{{ l.statut_libelle }}</span></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="empty">{% translate "Aucune tranche : indiquez le montant de la scolarité sur la fiche, définissez les frais de la classe (Scolarité › Frais par classe) ou personnalisez l'échéancier." %}</p>
+      {% endif %}
+
+      <div class="card-head" style="border-top:1px solid var(--line)"><div><h2>{% translate "Réductions" %}</h2><p>{% translate "Réparties automatiquement sur les tranches restantes" %}</p></div></div>
+      {% for libelle, montant in reductions %}
+        <div class="kv"><span>{{ libelle }}</span><b class="num">− {{ montant|fcfa }}</b></div>
+      {% empty %}
+        <p class="muted" style="padding:0 20px">{% translate "Aucune réduction." %}</p>
+      {% endfor %}
+      {% if perms.ecole.delete_reductioneleve %}
+        {% for r in eleve.reductions.all %}
+          <form method="post" action="{% url 'ecole:reduction_supprimer' r.pk %}" class="kv">{% csrf_token %}
+            <span class="muted">{{ r.get_porte_sur_display }} · {{ r.get_type_display }} · {% if r.mode == 'pourcentage' %}{{ r.valeur }} %{% else %}{{ r.valeur|fcfa }}{% endif %}{% if r.motif %} · {{ r.motif }}{% endif %}</span>
+            <button class="btn btn-ghost-danger btn-sm" title="{% translate "Retirer cette réduction" %}">{% icone 'supprimer' 14 %}</button>
+          </form>
+        {% endfor %}
+      {% endif %}
+      {% if perms.ecole.add_reductioneleve %}
+        <details style="padding: 8px 20px 20px">
+          <summary class="lien">{% icone 'plus' 16 %}{% translate "Ajouter une bourse ou une remise (scolarité ou inscription)" %}</summary>
+          <form method="post" action="{% url 'ecole:reduction_ajouter' eleve.pk %}" class="mini-form" style="padding:12px 0 0">{% csrf_token %}
+            {% include 'ecole/_champ.html' with field=reduction_form.porte_sur %}
+            {% include 'ecole/_champ.html' with field=reduction_form.type %}
+            {% include 'ecole/_champ.html' with field=reduction_form.mode %}
+            <div class="form-grid">{% include 'ecole/_champ.html' with field=reduction_form.valeur %}{% include 'ecole/_champ.html' with field=reduction_form.motif %}</div>
+            <button class="btn btn-sm" type="submit">{% icone 'ok' 16 %}{% translate "Appliquer" %}</button>
+          </form>
+        </details>
+      {% endif %}
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div><h2>{% translate "Historique des paiements" %}</h2><p>{{ paiements|length }} {% translate "paiement" %}{{ paiements|length|pluralize }}</p></div>
+        {% if perms.ecole.add_paiement and not eleve.archive %}<a class="btn btn-sm" href="{% url 'ecole:encaisser' eleve.pk %}">{% icone 'plus' 16 %}{% translate "Encaisser" %}</a>{% endif %}
+      </div>
+      {% if paiements %}
+      <div class="table-wrap">
+        <table class="table responsive">
+          <thead><tr><th>{% translate "Référence" %}</th><th>{% translate "Date" %}</th><th class="r">{% translate "Montant" %}</th><th>{% translate "Affecté aux tranches" %}</th><th class="r">{% translate "Reste après" %}</th><th>{% translate "Mode" %}</th><th>{% translate "Facture" %}</th><th></th></tr></thead>
+          <tbody>
+          {% for p in paiements %}
+            <tr>
+              <td><a href="{% url 'ecole:recu' p.pk %}"><b>{{ p.numero_recu }}</b></a></td>
+              <td class="r" data-label="{% translate "Date" %}">{{ p.date|date:"d/m/Y" }}</td>
+              <td class="r num" data-label="{% translate "Montant" %}"><b>{{ p.montant|fcfa }}</b></td>
+              <td data-label="{% translate "Affecté aux tranches" %}">{% if p.imputations.all %}<ul class="affectation">{% for i in p.imputations.all %}<li>{{ i.libelle }} : <b class="num">{{ i.montant|fcfa }}</b> — {% if i.echeance_id and i.reste_tranche == 0 %}{% translate "soldée" %}{% elif i.echeance_id %}{% translate "reste" %} {{ i.reste_tranche|fcfa }}{% endif %}</li>{% endfor %}</ul>{% elif p.motif == 'inscription' %}<span class="muted">{% translate "Frais d'inscription" %}</span>{% endif %}{% if p.observation %}<small class="muted">{{ p.observation }}</small>{% endif %}</td>
+              <td class="r num" data-label="{% translate "Reste après" %}">{% for i in p.imputations.all %}{% if forloop.last %}{{ i.reste_total|fcfa }}{% endif %}{% empty %}—{% endfor %}</td>
+              <td class="r" data-label="{% translate "Mode" %}">{{ p.get_mode_display }}{% if p.reference %} <span class="muted">({{ p.reference }})</span>{% endif %}</td>
+              <td data-label="{% translate "Facture" %}">{% if p.facture_active %}<a href="{% url 'ecole:facture_pdf' p.facture_active.pk %}" target="_blank">{{ p.facture_active.numero }}</a>{% else %}<span class="muted">{% translate "reçu" %}</span>{% endif %}</td>
+              <td class="r">
+                <div class="row-actions" style="justify-content:flex-end">
+                  <a class="btn btn-light btn-sm" href="{% url 'ecole:recu' p.pk %}" title="{% translate "Facture" %}">{% icone 'imprimer' 16 %}</a>
+                  {% if perms.ecole.valider_corrections or perms.ecole.add_demandecorrection %}<a class="btn btn-light btn-sm" href="{% url 'ecole:paiement_corriger' p.pk %}" title="{% translate "Corriger" %}">{% icone 'modifier' 16 %}</a>{% endif %}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="empty">{% translate "Aucun paiement enregistré pour cet élève." %}</p>
+      {% endif %}
+      {% if demandes %}
+        <div class="callout" style="margin:0 20px 20px">{% icone 'attention' 18 %}<span>{{ demandes|length }} {% translate "demande(s) de correction en attente de validation par la direction." %}</span></div>
+      {% endif %}
+    </section>
+
+    {% if historique %}
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Corrections et annulations" %}</h2><p>{% translate "Qui, quand, pourquoi" %}</p></div></div>
+      <ul class="timeline">
+        {% for h in historique %}
+          <li>{% icone 'modifier' 16 %}<span class="trace"><b>{{ h.get_action_display }}</b> {% translate "du paiement" %} {{ h.numero_recu }} · {{ h.cree_le|date:"d/m/Y H:i" }}<br>
+            {% if h.apres %}<del>{{ h.avant.montant|fcfa }} · {{ h.avant.date }}</del> → <b>{{ h.apres.montant|fcfa }} · {{ h.apres.date }}</b><br>{% else %}<del>{{ h.avant.montant|fcfa }} · {{ h.avant.date }}</del><br>{% endif %}
+            <small class="muted">{% translate "Motif :" %} {{ h.motif }} · {% translate "validé par" %} {{ h.valide_par.get_full_name|default:h.valide_par.username|default:"—" }}{% if h.demande_par and h.demande_par != h.valide_par %} · {% translate "demandé par" %} {{ h.demande_par.get_full_name|default:h.demande_par.username }}{% endif %}</small></span></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </div>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Élève" %}</h2></div>
+      <dl class="infos">
+        <dt>{% translate "Établissement" %}</dt><dd>{{ eleve.etablissement.nom }}</dd>
+        <dt>{% translate "Classe" %}</dt><dd>{{ eleve.classe }}</dd>
+        <dt>{% translate "N° Educ Master" %}</dt><dd>{{ eleve.educ_master|default:"—" }}</dd>
+        <dt>{% translate "Sexe" %}</dt><dd>{{ eleve.get_sexe_display|default:"—" }}</dd>
+        <dt>{% translate "Naissance" %}</dt><dd>{% if eleve.date_naissance %}{{ eleve.date_naissance|date:"d/m/Y" }}{% else %}—{% endif %}{% if eleve.lieu_naissance %} {% translate "à" %} {{ eleve.lieu_naissance }}{% endif %}</dd>
+        <dt>{% translate "Résidence" %}</dt><dd>{{ eleve.residence|default:"—" }}</dd>
+        <dt>{% translate "Scolarité" %}</dt><dd class="num">{{ eleve.montant_scolarite|fcfa }}</dd>
+        <dt>{% translate "Frais d'inscription dus" %}</dt><dd class="num">{{ eleve.inscription_due|fcfa }}{% if eleve.reduction_inscription %} <small class="muted">({% translate "au lieu de" %} {{ eleve.frais_inscription|fcfa }})</small>{% endif %}</dd>
+        <dt>{% translate "Rappels automatiques" %}</dt><dd>{% if eleve.suivi_actif %}{% translate "Activés" %}{% else %}{% translate "Désactivés" %}{% endif %}</dd>
+      </dl>
+    </section>
+
+    <section class="card" id="parents">
+      <div class="card-head"><h2>{% translate "Parents / tuteurs" %}</h2></div>
+      <dl class="infos">
+        <dt>{% translate "Nom" %}</dt><dd>{{ eleve.parent }}{% if eleve.nature_parent %} <span class="muted">({{ eleve.get_nature_parent_display }})</span>{% endif %}</dd>
+        <dt>{% translate "Téléphone" %}</dt><dd>{{ eleve.telephone }}</dd>
+        <dt>{% translate "WhatsApp" %}</dt><dd>{{ eleve.whatsapp|default:_("même numéro") }}</dd>
+        <dt>{% translate "E-mail" %}</dt><dd>{{ eleve.email|default:"—" }}</dd>
+        {% if fratrie|length > 1 %}<dt>{% translate "Fratrie" %}</dt><dd>{% for f in fratrie %}{% if f.pk == eleve.pk %}<b>{{ f.prenom }} ({{ forloop.counter }})</b>{% else %}<a href="{% url 'ecole:eleve_detail' f.pk %}">{{ f.prenom }} ({{ forloop.counter }})</a>{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+      </dl>
+      <div class="btn-row" style="padding: 0 20px 16px">
+        {% if perms.ecole.add_eleve %}<a class="btn btn-sm" href="{% url 'ecole:eleve_nouveau' %}?frere={{ eleve.pk }}">{% icone 'inscrire' 16 %}{% translate "Inscrire un frère / une sœur" %}</a>{% endif %}
+        <a class="btn btn-light btn-sm" href="tel:+{{ eleve.telephone_international }}">{% icone 'telephone' 16 %}{% translate "Appeler" %}</a>
+        {% if perms.ecole.add_relance and eleve.reste_a_payer %}
+          <form method="post" action="{% url 'ecole:relancer' eleve.pk 'sms' %}" class="inline">{% csrf_token %}<button class="btn btn-light btn-sm">{% icone 'sms' 16 %}{% translate "Relance SMS" %}</button></form>
+          <form method="post" action="{% url 'ecole:relancer' eleve.pk 'whatsapp' %}" class="inline">{% csrf_token %}<button class="btn btn-wa btn-sm">{% icone 'whatsapp' 16 %}{% translate "WhatsApp" %}</button></form>
+        {% endif %}
+      </div>
+      {% for c in eleve.contacts.all %}
+        <div class="kv">
+          <span><b>{{ c.nom }}</b>{% if c.nature %} <span class="muted">({{ c.get_nature_display }})</span>{% endif %}<br><small class="muted">{{ c.telephone }}{% if c.whatsapp %} · WA {{ c.whatsapp }}{% endif %}{% if c.email %} · {{ c.email }}{% endif %}{% if not c.notifier %} · {% translate "sans messages" %}{% endif %}</small></span>
+          {% if perms.ecole.delete_contactparent %}<form method="post" action="{% url 'ecole:contact_supprimer' c.pk %}">{% csrf_token %}<button class="btn btn-ghost-danger btn-sm" title="{% translate "Retirer" %}">{% icone 'supprimer' 14 %}</button></form>{% endif %}
+        </div>
+      {% endfor %}
+      {% if perms.ecole.add_contactparent %}
+        <details style="padding: 8px 20px 16px">
+          <summary class="lien">{% icone 'plus' 16 %}{% translate "Ajouter un autre parent" %}</summary>
+          <form method="post" action="{% url 'ecole:contact_ajouter' eleve.pk %}" class="mini-form" style="padding:12px 0 0">{% csrf_token %}
+            {% include 'ecole/_champ.html' with field=contact_form.nom %}
+            {% include 'ecole/_champ.html' with field=contact_form.nature %}
+            <div class="form-grid">{% include 'ecole/_champ.html' with field=contact_form.telephone %}{% include 'ecole/_champ.html' with field=contact_form.whatsapp %}</div>
+            {% include 'ecole/_champ.html' with field=contact_form.email %}
+            {% include 'ecole/_champ.html' with field=contact_form.notifier %}
+            <button class="btn btn-sm" type="submit">{% icone 'ok' 16 %}{% translate "Ajouter" %}</button>
+          </form>
+        </details>
+      {% endif %}
+      <div class="card-head" style="border-top:1px solid var(--line)"><div><h2>{% translate "Espace parents" %}</h2><p>{% translate "Accès en ligne : situation, paiements, factures" %}</p></div></div>
+      {% for compte in comptes_parents %}
+        <div class="kv"><span>{% icone 'utilisateurs' 14 %} {{ compte.utilisateur.username }} <small class="muted">· {% translate "créé le" %} {{ compte.cree_le|date:"d/m/Y" }}</small></span>
+          {% if perms.ecole.delete_compteparent %}<form method="post" action="{% url 'ecole:acces_parent_retirer' eleve.pk compte.pk %}">{% csrf_token %}<button class="btn btn-ghost-danger btn-sm" title="{% translate "Retirer l'accès à cet élève" %}">{% icone 'supprimer' 14 %}</button></form>{% endif %}</div>
+      {% empty %}
+        {% if perms.ecole.add_compteparent %}
+          <form method="post" action="{% url 'ecole:acces_parent' eleve.pk %}" class="mini-form">{% csrf_token %}
+            {% include 'ecole/_champ.html' with field=acces_form.identifiant %}
+            {% include 'ecole/_champ.html' with field=acces_form.mot_de_passe %}
+            <button class="btn btn-sm" type="submit">{% icone 'plus' 16 %}{% translate "Créer l'accès parent" %}</button>
+          </form>
+        {% else %}
+          <p class="muted" style="padding:0 20px 16px">{% translate "Pas encore d'accès parent." %}</p>
+        {% endif %}
+      {% endfor %}
+    </section>
+
+    {% if notifications %}
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Messages au parent" %}</h2>{% if perms.ecole.view_notification %}<a class="lien" href="{% url 'ecole:messages' %}?q={{ eleve.nom|urlencode }}">{% translate "Tout voir" %}</a>{% endif %}</div>
+      <ul class="timeline">
+        {% for n in notifications %}
+          <li>{% if n.canal == 'whatsapp' %}{% icone 'whatsapp' 16 %}{% elif n.canal == 'sms' %}{% icone 'sms' 16 %}{% else %}{% icone 'journal' 16 %}{% endif %}<span>{{ n.get_type_display }} · {{ n.get_canal_display }} · {{ n.cree_le|date:"d/m/Y H:i" }}<br><small class="muted">{{ n.get_statut_display }}{% if n.erreur %} — {{ n.erreur|truncatechars:80 }}{% endif %}</small></span></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if relances %}
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Dernières relances manuelles" %}</h2></div>
+      <ul class="timeline">
+        {% for r in relances %}
+          <li>{% icone 'relances' 16 %}<span>{{ r.get_canal_display }} {% translate "le" %} {{ r.cree_le|date:"d/m/Y à H:i" }}<br><small class="muted">{% translate "Reste" %} {{ r.reste_a_payer|fcfa }}{% if r.envoye_par %} {% translate "· par" %} {{ r.envoye_par.get_full_name|default:r.envoye_par.username }}{% endif %}</small></span></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if perms.ecole.archiver_eleve %}
+      {% if eleve.archive %}
+        <form method="post" action="{% url 'ecole:eleve_reactiver' eleve.pk %}">{% csrf_token %}<button class="btn btn-block">{% icone 'retour' 18 %}{% translate "Réactiver l'élève" %}</button></form>
+      {% else %}
+        <a class="btn btn-ghost-danger btn-block" href="{% url 'ecole:eleve_archiver' eleve.pk %}">{% icone 'journal' 18 %}{% translate "Archiver l'élève" %}</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

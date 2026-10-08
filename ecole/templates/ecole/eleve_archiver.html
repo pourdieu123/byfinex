@@ -1,0 +1,29 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Archiver l'élève" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleve_detail' eleve.pk %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Archiver l'élève" %}{% endblock %}
+{% block sous_titre %}<p>{{ eleve }} · {{ eleve.classe }}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" style="max-width: 620px" novalidate>
+  {% csrf_token %}
+  <div class="form-section">
+    <p style="margin-top:0">{% blocktranslate with eleve=eleve %}<b>{{ eleve }}</b> ne sera pas supprimé(e) : sa fiche, ses paiements et ses factures sont conservés. Il (elle) disparaît des listes, du tableau de bord, des retards, des relances et des exports, et peut être réactivé(e) à tout moment.{% endblocktranslate %}</p>
+    {% if eleve.reste_a_payer %}<p class="ko-ink" style="margin:0 0 12px">{% blocktranslate with reste=eleve.reste_a_payer|fcfa %}Attention : il reste {{ reste }} à payer sur sa scolarité.{% endblocktranslate %}</p>{% endif %}
+    <div class="field">
+      <label class="label" for="motif">{% translate "Motif de l'archivage" %} <span class="req">*</span></label>
+      <input type="text" name="motif" id="motif" maxlength="200" required list="motifs-archive" placeholder="{% translate "Ex. Départ en cours d'année, transfert, fin de scolarité" %}">
+      <datalist id="motifs-archive">
+        <option value="{% translate "Départ en cours d'année" %}"><option value="{% translate "Transfert vers un autre établissement" %}">
+        <option value="{% translate "Fin de scolarité" %}"><option value="{% translate "Abandon" %}"><option value="{% translate "Inscrit par erreur" %}">
+      </datalist>
+    </div>
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% url 'ecole:eleve_detail' eleve.pk %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn btn-danger">{% icone 'journal' 18 %}{% translate "Archiver" %}</button>
+  </div>
+</form>
+{% endblock %}

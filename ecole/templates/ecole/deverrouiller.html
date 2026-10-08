@@ -1,0 +1,42 @@
+{% extends 'ecole/base_portail.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Code d'accès" %}{% endblock %}
+
+{% block content %}
+<form method="post" class="card verrou mod-{{ m.code }}" novalidate>
+  {% csrf_token %}
+  <span class="module-ico">{% icone 'cadenas' 26 %}</span>
+  <h1>{{ m.nom }}</h1>
+  {% if sans_code %}
+    <p>{% translate "Vous n'avez pas encore de code pour ce module. Demandez-le à la direction." %}</p>
+  {% elif creation %}
+    <p>{% translate "Première entrée : choisissez votre code personnel pour ce module. Il vous sera demandé à chaque fois." %}</p>
+    {% if erreur %}<div class="errors"><p>{{ erreur }}</p></div>{% endif %}
+    <div class="field">
+      <label class="label" for="code">{% translate "Nouveau code" %}</label>
+      <input type="password" name="code" id="code" autocomplete="new-password" autofocus required>
+    </div>
+    <div class="field">
+      <label class="label" for="confirmation">{% translate "Confirmez le code" %}</label>
+      <input type="password" name="confirmation" id="confirmation" autocomplete="new-password" required>
+    </div>
+    <input type="hidden" name="next" value="{{ suivant }}">
+    <button type="submit" class="btn btn-block">{% icone 'ok' 18 %}{% translate "Enregistrer et entrer" %}</button>
+  {% else %}
+    <p>{% translate "Saisissez votre code personnel pour ce module." %}</p>
+    {% if attente_minutes %}
+      <div class="errors"><p>{% blocktranslate with n=attente_minutes %}Trop d'essais incorrects. Réessayez dans {{ n }} min.{% endblocktranslate %}</p></div>
+    {% elif erreur %}
+      <div class="errors"><p>{{ erreur }}</p></div>
+    {% endif %}
+    <div class="field">
+      <label class="label" for="code">{% translate "Votre code" %}</label>
+      <input type="password" name="code" id="code" autocomplete="off" autofocus required{% if attente_minutes %} disabled{% endif %}>
+    </div>
+    <input type="hidden" name="next" value="{{ suivant }}">
+    <button type="submit" class="btn btn-block"{% if attente_minutes %} disabled{% endif %}>{% icone 'ok' 18 %}{% translate "Entrer dans le module" %}</button>
+  {% endif %}
+  <a class="btn btn-light btn-block" href="{% url 'ecole:portail' %}">{% icone 'retour' 18 %}{% translate "Retour à l'accueil" %}</a>
+</form>
+{% endblock %}

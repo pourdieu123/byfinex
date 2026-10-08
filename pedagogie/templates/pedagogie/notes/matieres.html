@@ -1,0 +1,33 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Matières" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'notes:tableau' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Matières" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Liste commune à tous les établissements ; le coefficient se règle par classe" %}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width:1100px">
+  <section class="card">
+    {% for m in matieres %}
+      <div class="row">
+        <span class="tile-ico">{% icone 'notes' 18 %}</span>
+        <span class="row-main"><strong>{{ m.nom }}</strong><small>{{ m.abreviation|default:"—" }} {% translate "· enseignée dans" %} {{ m.enseignements.all|length }} {% translate "classe" %}{{ m.enseignements.all|length|accord:"s|es" }}</small></span>
+      </div>
+    {% empty %}
+      <div class="empty">{% icone 'notes' 40 %}<p>{% translate "Aucune matière. Ajoutez la première à droite." %}</p></div>
+    {% endfor %}
+  </section>
+  {% if perms.pedagogie.add_matiere %}
+  <form method="post" class="card" novalidate>
+    {% csrf_token %}
+    <div class="form-section">
+      <h2>{% icone 'plus' 18 %}{% translate "Ajouter une matière" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.nom %}
+      {% include 'ecole/_champ.html' with field=form.abreviation %}
+    </div>
+    <div class="form-footer"><button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Ajouter" %}</button></div>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

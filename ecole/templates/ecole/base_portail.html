@@ -1,0 +1,60 @@
+{% load static ecole_extras i18n %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B0D12">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <title>{% block title %}{% translate "Accueil" %}{% endblock %} · {{ app_nom }}</title>
+  <link rel="stylesheet" href="{% static_versionne 'ecole/style.css' %}">
+</head>
+<body class="page-portail">
+  {# Page d'arrivée après la connexion : pas de menu latéral, seulement les cartes des modules. #}
+  <header class="portail-top">
+    <div class="portail-top-in">
+      <a class="brand" href="{% url 'ecole:portail' %}" style="padding:0">
+        <span class="brand-logo">{% icone 'ecole' 22 %}</span>
+        <span class="brand-text"><strong>{{ app_nom }}</strong><small>{{ etablissement_unique.nom|default:_("Gestion scolaire") }}</small></span>
+      </a>
+      <div class="portail-user">
+        {% include 'ecole/_langues.html' %}
+        {% if perms.ecole.gerer_utilisateurs %}
+          <a class="btn btn-ghost-light btn-sm" href="{% url 'ecole:utilisateurs' %}">{% icone 'utilisateurs' 16 %}<span>{% translate "Utilisateurs" %}</span></a>
+          <a class="btn btn-ghost-light btn-sm" href="{% url 'ecole:parametres' %}">{% icone 'parametres' 16 %}<span>{% translate "Paramètres" %}</span></a>
+        {% endif %}
+        <span class="avatar">{{ user.first_name|first|default:user.username|first|upper }}{{ user.last_name|first|upper }}</span>
+        <span class="user-info"><strong>{{ user.get_full_name|default:user.username }}</strong><small>{{ role|default:_("Aucun rôle") }}</small></span>
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="icon-btn" title="{% translate "Se déconnecter" %}">{% icone 'deconnexion' 18 %}</button></form>
+      </div>
+    </div>
+  </header>
+
+  <main class="portail-main">
+    {% for message in messages %}
+      <div class="flash flash-{{ message.tags }}" role="status">{% if message.tags == 'success' %}{% icone 'ok' 18 %}{% else %}{% icone 'attention' 18 %}{% endif %}<span>{{ message }}</span></div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="portail-pied">{{ app_nom }} {% translate "· Année scolaire" %} {{ parametres.annee_scolaire }}</footer>
+{% if temps_reel %}
+<script nonce="{{ csp_nonce }}">
+  (function () {
+    var version = null, url = '{% url "ecole:version" %}';
+    function verifier() {
+      if (document.hidden) return;
+      var actif = document.activeElement;
+      if (actif && /INPUT|TEXTAREA|SELECT/.test(actif.tagName) && actif.value) return;
+      fetch(url, {credentials: 'same-origin'}).then(function (r) { return r.json(); }).then(function (d) {
+        if (version !== null && d.v !== version) { location.reload(); }
+        version = d.v;
+      }).catch(function () {});
+    }
+    verifier();
+    setInterval(verifier, 10000);
+  })();
+</script>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'ecole/base_portail.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ eleve }}{% endblock %}
+
+{% block content %}
+<p><a class="lien" href="{% url 'parents:accueil' %}">{% icone 'retour' 16 %}{% translate "Mes enfants" %}</a></p>
+<section class="card" style="margin-bottom:20px">
+  <div class="profile"><span class="avatar">{{ eleve.initiales }}</span><div class="profile-main"><h2>{{ eleve }}</h2><p>{{ eleve.etablissement.nom }} · {{ eleve.classe }}</p></div>{% badge_situation eleve %}</div>
+  <div class="paybox" style="border-top:1px solid var(--line)">
+    <div class="paybox-top">
+      <div><small class="muted">{% translate "Scolarité" %}</small><div class="big num">{{ eleve.montant_scolarite|fcfa }}</div></div>
+      <div style="text-align:right"><small class="muted">{% translate "Reste à payer" %}</small><div class="num" style="font-size:20px;font-weight:700">{{ eleve.reste_a_payer|fcfa }}</div></div>
+    </div>
+    <div class="meter"><span style="width: {{ eleve.taux_paye }}%"></span></div>
+    <div class="inscription-bloc"><div><small class="muted">{% translate "Frais d'inscription" %}</small><div><b class="num">{{ eleve.total_inscription|fcfa }}</b>{% if eleve.frais_inscription %} / {{ eleve.inscription_due|fcfa }}{% endif %}</div></div>{% badge_inscription eleve %}</div>
+  </div>
+</section>
+
+{% if sit.lignes %}
+<section class="card" style="margin-bottom:20px">
+  <div class="card-head"><h2>{% translate "Échéancier" %}</h2></div>
+  <div class="table-wrap"><table class="table responsive">
+    <thead><tr><th>{% translate "Tranche" %}</th><th>{% translate "Échéance" %}</th><th class="r">{% translate "Montant" %}</th><th class="r">{% translate "Payé" %}</th><th>{% translate "Statut" %}</th></tr></thead>
+    <tbody>{% for l in sit.lignes %}<tr class="{% if l.statut == 'retard' %}ligne-retard{% endif %}"><td><b>{{ l.echeance }}</b></td><td data-label="{% translate "Échéance" %}">{{ l.echeance.echeance|date:"d/m/Y" }}</td><td class="r num" data-label="{% translate "Montant" %}">{{ l.montant|fcfa }}</td><td class="r num" data-label="{% translate "Payé" %}">{{ l.paye|fcfa }}</td><td><span class="badge {{ l.statut|statut_ligne }}">{{ l.statut_libelle }}</span></td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endif %}
+
+<section class="card">
+  <div class="card-head"><div><h2>{% translate "Paiements et factures" %}</h2></div></div>
+  {% for f in factures %}
+    <a class="row" href="{% url 'parents:facture_pdf' f.pk %}" target="_blank">
+      <span class="tile-ico">{% icone 'pdf' 18 %}</span>
+      <span class="row-main"><strong>{{ f.get_type_display }} {{ f.numero }}</strong><small>{{ f.date|date:"d/m/Y" }} · {{ f.get_mode_display }}{% if f.annulee %} · {% translate "annulée" %}{% endif %}</small></span>
+      <span class="row-side"><b class="num">{% if f.est_avoir %}− {% endif %}{{ f.montant|fcfa }}</b></span>
+      {% icone 'suivant' 18 'chev' %}
+    </a>
+  {% empty %}
+    {% for p in paiements %}
+      <div class="row"><span class="row-main"><strong>{{ p.numero_recu }}</strong><small>{{ p.date|date:"d/m/Y" }} · {{ p.get_motif_display }}</small></span><span class="row-side"><b class="num">{{ p.montant|fcfa }}</b></span></div>
+    {% empty %}
+      <p class="empty">{% translate "Aucun paiement pour le moment." %}</p>
+    {% endfor %}
+  {% endfor %}
+</section>
+{% endblock %}

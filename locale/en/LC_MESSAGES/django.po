@@ -1,0 +1,5555 @@
+# Traductions de l'application (source : français).
+# Modifier les lignes msgstr puis lancer : python manage.py traductions compiler
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ecole/templates/403.html
+msgid "Accès refusé"
+msgstr "Access denied"
+
+#: ecole/templates/403.html
+msgid "Votre rôle ("
+msgstr "Your role ("
+
+#: ecole/templates/403.html
+msgid ") ne permet pas d'accéder à cette page."
+msgstr ") does not give access to this page."
+
+#: ecole/templates/403.html
+msgid "Demandez à la direction de modifier vos droits si nécessaire."
+msgstr "Ask the management to change your permissions if needed."
+
+#: ecole/templates/403.html
+msgid "Retour au tableau de bord"
+msgstr "Back to the dashboard"
+
+#: ecole/templates/403.html
+msgid "Accès refusé."
+msgstr "Access denied."
+
+#: ecole/templates/403.html ecole/templates/registration/login.html
+msgid "Se connecter"
+msgstr "Sign in"
+
+#: ecole/templates/403.html ecole/templates/ecole/portail.html
+msgid "aucun rôle"
+msgstr "no role"
+
+#: ecole/templates/ecole/_champ.html
+msgid "Aucun choix disponible."
+msgstr "No option available."
+
+#: ecole/templates/ecole/_chips_classes.html
+msgid "Filtrer par classe"
+msgstr "Filter by class"
+
+#: ecole/templates/ecole/_chips_classes.html ecole/templates/ecole/exports.html
+msgid "Toutes les classes"
+msgstr "All classes"
+
+#: ecole/templates/ecole/_chips_etab.html
+msgid "Filtrer par établissement"
+msgstr "Filter by school"
+
+#: ecole/pdf.py:132 ecole/templates/ecole/_chips_etab.html ecole/templates/ecole/exports.html
+msgid "Tous les établissements"
+msgstr "All schools"
+
+#: ecole/pdf.py:302 ecole/pdf.py:540 ecole/pdf.py:554 ecole/templates/ecole/_eleve_ligne.html
+msgid "Reste"
+msgstr "Balance"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Navigation du module"
+msgstr "Module navigation"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Pilotage"
+msgstr "Overview"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/base.html
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Frais"
+msgstr "Fees"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/grilles.html
+msgid "Frais par classe"
+msgstr "Fees by class"
+
+#: ecole/pdf.py:293 ecole/templates/ecole/_nav.html ecole/templates/ecole/accueil.html ecole/templates/ecole/exports.html
+msgid "Élèves"
+msgstr "Students"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/eleves_liste.html
+msgid "Élèves par classe"
+msgstr "Students by class"
+
+#: ecole/templates/ecole/_nav.html ecole/views/eleves.py:188
+msgid "Inscrire un élève"
+msgstr "Enrol a student"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Importer (Excel / CSV)"
+msgstr "Import (Excel / CSV)"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/eleves_archives.html
+msgid "Élèves archivés"
+msgstr "Archived students"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Encaissements"
+msgstr "Collections"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/accueil.html ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/eleve_form.html
+msgid "Encaisser"
+msgstr "Collect payment"
+
+#: ecole/pdf.py:621 ecole/templates/ecole/_nav.html ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html
+msgid "Journal des paiements"
+msgstr "Payment log"
+
+#: ecole/modules.py:26 ecole/templates/ecole/_nav.html ecole/templates/ecole/factures.html
+msgid "Factures"
+msgstr "Invoices"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/suivi.html
+msgid "Retards et impayés"
+msgstr "Overdue and unpaid"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Corrections"
+msgstr "Corrections"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Parents et rapports"
+msgstr "Parents & reports"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/relances.html
+msgid "Relances parents"
+msgstr "Parent reminders"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Messages envoyés"
+msgstr "Messages sent"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Exports Excel / PDF"
+msgstr "Excel / PDF exports"
+
+#: ecole/modules.py:28 ecole/templates/ecole/_nav.html
+msgid "Surveillance"
+msgstr "Supervision"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Tous les élèves"
+msgstr "All students"
+
+#: ecole/echeancier.py:304 ecole/echeancier.py:339 ecole/modules.py:29 ecole/templates/ecole/_nav.html
+msgid "En retard"
+msgstr "Overdue"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Classes et saisie"
+msgstr "Classes & grade entry"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Mes classes"
+msgstr "My classes"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Référentiel"
+msgstr "Reference data"
+
+#: ecole/modules.py:32 ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/notes/classe_config.html pedagogie/templates/pedagogie/notes/matieres.html
+msgid "Matières"
+msgstr "Subjects"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Classe en cours ·"
+msgstr "Current class ·"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Matières et coefficients"
+msgstr "Subjects & weights"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Résultats et rangs"
+msgstr "Results & rankings"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Bulletins PDF"
+msgstr "PDF report cards"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Cours en cours"
+msgstr "Current course"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Saisie des notes"
+msgstr "Grade entry"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Équipe"
+msgstr "Team"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Liste des professeurs"
+msgstr "Teacher list"
+
+#: ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/profs/liste.html pedagogie/views/professeurs.py:60
+msgid "Nouveau professeur"
+msgstr "New teacher"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Organisation"
+msgstr "Planning"
+
+#: ecole/modules.py:35 ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/profs/liste.html
+msgid "Emplois du temps"
+msgstr "Timetables"
+
+#: ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Mon espace"
+msgstr "My space"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Mon tableau de bord"
+msgstr "My dashboard"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Mon emploi du temps"
+msgstr "My timetable"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Mes heures"
+msgstr "My hours"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Mes paiements"
+msgstr "My payments"
+
+#: ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/examens/liste.html
+msgid "Compositions"
+msgstr "Exams"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Toutes les compositions"
+msgstr "All exams"
+
+#: ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/examens/liste.html
+msgid "Mes surveillances"
+msgstr "My invigilation duties"
+
+#: ecole/templates/ecole/_nav.html pedagogie/templates/pedagogie/examens/liste.html pedagogie/views/examens.py:39
+msgid "Nouvelle composition"
+msgstr "New exam session"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Comptes"
+msgstr "Accounts"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Utilisateurs et rôles"
+msgstr "Users & roles"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/utilisateurs.html ecole/views/administration.py:34
+msgid "Nouvel utilisateur"
+msgstr "New user"
+
+#: ecole/forms.py:22 ecole/pdf.py:508 ecole/pdf.py:510 ecole/templates/ecole/_nav.html
+msgid "Établissement"
+msgstr "School"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Paramètres généraux"
+msgstr "General settings"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Établissements (IFU)"
+msgstr "Schools (IFU)"
+
+#: ecole/echeancier.py:284 ecole/echeancier.py:394 ecole/models.py:146 ecole/models.py:502
+msgid "Scolarité"
+msgstr "Tuition"
+
+#: ecole/templates/ecole/_nav.html ecole/templates/ecole/regles_relance.html
+msgid "Règles de relance"
+msgstr "Reminder rules"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Avancé"
+msgstr "Advanced"
+
+#: ecole/templates/ecole/_nav.html
+msgid "Administration Django"
+msgstr "Django administration"
+
+#: ecole/templates/ecole/accueil.html ecole/templates/ecole/eleves_liste.html
+msgid "Inscrire"
+msgstr "Enrol"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Élèves inscrits"
+msgstr "Enrolled students"
+
+#: ecole/models.py:203 ecole/models.py:428 ecole/templates/ecole/accueil.html pedagogie/models.py:90
+msgid "classe"
+msgstr "class"
+
+#: ecole/pdf.py:631 ecole/templates/ecole/accueil.html
+msgid "Total encaissé"
+msgstr "Total collected"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Aujourd'hui :"
+msgstr "Today:"
+
+#: ecole/models.py:370 ecole/templates/ecole/accueil.html ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/journal.html
+msgid "paiement"
+msgstr "payment"
+
+#: ecole/pdf.py:296 ecole/templates/ecole/accueil.html
+msgid "Reste à recouvrer"
+msgstr "Outstanding balance"
+
+#: ecole/models.py:235 ecole/models.py:353 ecole/models.py:388 ecole/models.py:471
+msgid "élève"
+msgstr "student"
+
+#: ecole/templates/ecole/accueil.html
+msgid "non soldé"
+msgstr "not paid in full"
+
+#: ecole/templates/ecole/accueil.html
+msgid "avec une échéance dépassée"
+msgstr "with an overdue instalment"
+
+#: ecole/pdf.py:297 ecole/templates/ecole/accueil.html
+msgid "Taux de recouvrement"
+msgstr "Collection rate"
+
+#: ecole/templates/ecole/accueil.html ecole/templates/ecole/eleves_liste.html
+msgid "soldé"
+msgstr "paid in full"
+
+#: ecole/templates/ecole/accueil.html
+msgid "partiel"
+msgstr "partial"
+
+#: ecole/templates/ecole/accueil.html
+msgid "sans paiement"
+msgstr "with no payment"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Encaissements des 6 derniers mois"
+msgstr "Collections over the last 6 months"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Inscriptions et tranches, en FCFA"
+msgstr "Registration fees and instalments, in FCFA"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Journal"
+msgstr "Log"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Voir les chiffres"
+msgstr "Show the figures"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Mois"
+msgstr "Month"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Encaissé"
+msgstr "Collected"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Recouvrement par classe"
+msgstr "Collection by class"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Part de la scolarité déjà versée"
+msgstr "Share of tuition already paid"
+
+#: ecole/pdf.py:507 ecole/pdf.py:510 ecole/pdf.py:639 ecole/pdf.py:700
+msgid "Classe"
+msgstr "Class"
+
+#: ecole/templates/ecole/accueil.html pedagogie/pdf.py:60 pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Effectif"
+msgstr "Students"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Recouvré"
+msgstr "Collected"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Aucun élève inscrit pour le moment."
+msgstr "No students enrolled yet."
+
+#: ecole/models.py:147 ecole/models.py:503 ecole/templates/ecole/accueil.html ecole/templates/ecole/eleve_detail.html
+msgid "Frais d'inscription"
+msgstr "Registration fee"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Non payées"
+msgstr "Unpaid"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Payées"
+msgstr "Paid"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Partielles"
+msgstr "Partly paid"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Montant dû non défini"
+msgstr "Amount due not set"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Derniers paiements"
+msgstr "Latest payments"
+
+#: ecole/templates/ecole/accueil.html ecole/templates/ecole/eleve_detail.html
+msgid "Tout voir"
+msgstr "See all"
+
+#: ecole/pdf.py:602 ecole/templates/ecole/accueil.html
+msgid "Aucun paiement enregistré."
+msgstr "No payments recorded."
+
+#: ecole/templates/ecole/accueil.html
+msgid "À relancer en priorité"
+msgstr "Priority reminders"
+
+#: ecole/modules.py:26 ecole/templates/ecole/accueil.html ecole/templates/ecole/parametres.html
+msgid "Relances"
+msgstr "Reminders"
+
+#: ecole/templates/ecole/accueil.html
+msgid "j de retard"
+msgstr "days overdue"
+
+#: ecole/templates/ecole/accueil.html
+msgid "Tous les élèves sont à jour."
+msgstr "All students are up to date."
+
+#: ecole/templates/ecole/base.html
+msgid "Menu du module"
+msgstr "Module menu"
+
+#: ecole/templates/ecole/base.html
+msgid "Retour aux modules"
+msgstr "Back to modules"
+
+#: ecole/templates/ecole/base.html
+msgid "Fermer le menu"
+msgstr "Close menu"
+
+#: ecole/templates/ecole/base.html
+msgid "Tous les modules"
+msgstr "All modules"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/base_portail.html
+msgid "Se déconnecter"
+msgstr "Sign out"
+
+#: ecole/templates/ecole/base.html
+msgid "Menu"
+msgstr "Menu"
+
+#: ecole/templates/ecole/base.html
+msgid "Fil d'Ariane"
+msgstr "Breadcrumb"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/base_portail.html ecole/templates/ecole/portail.html
+msgid "Accueil"
+msgstr "Home"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/parametres.html ecole/templates/ecole/portail.html ecole/templates/ecole/recu.html
+msgid "Année scolaire"
+msgstr "School year"
+
+#: ecole/templates/ecole/base.html
+msgid "Changer de module"
+msgstr "Switch module"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/bientot.html ecole/templates/ecole/deverrouiller.html
+msgid "Retour à l'accueil"
+msgstr "Back to home"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/base_portail.html ecole/templates/registration/login.html
+msgid "Gestion scolaire"
+msgstr "School management"
+
+#: ecole/templates/ecole/base.html ecole/templates/ecole/base_portail.html ecole/templates/ecole/utilisateurs.html
+msgid "Aucun rôle"
+msgstr "No role"
+
+#: ecole/modules.py:42 ecole/templates/ecole/base_portail.html ecole/templates/ecole/utilisateurs.html
+msgid "Utilisateurs"
+msgstr "Users"
+
+#: ecole/modules.py:42 ecole/templates/ecole/base_portail.html ecole/templates/ecole/parametres.html
+msgid "Paramètres"
+msgstr "Settings"
+
+#: ecole/templates/ecole/base_portail.html
+msgid "· Année scolaire"
+msgstr "· School year"
+
+#: ecole/templates/ecole/bientot.html ecole/templates/ecole/portail.html
+msgid "Bientôt disponible"
+msgstr "Coming soon"
+
+#: ecole/templates/ecole/bientot.html
+msgid "Ce module sera ouvert prochainement. En attendant, vous pouvez utiliser la Scolarité."
+msgstr "This module will open soon. In the meantime, you can use Tuition."
+
+#: ecole/templates/ecole/confirmer_suppression.html ecole/templates/ecole/eleve_archiver.html ecole/templates/ecole/eleve_echeancier.html ecole/templates/ecole/eleve_form.html
+msgid "Retour"
+msgstr "Back"
+
+#: ecole/templates/ecole/confirmer_suppression.html
+msgid "Cette action est irréversible."
+msgstr "This action cannot be undone."
+
+#: ecole/templates/ecole/confirmer_suppression.html ecole/templates/ecole/paiement_annuler.html
+msgid "Non, revenir"
+msgstr "No, go back"
+
+#: ecole/templates/ecole/confirmer_suppression.html
+msgid "Oui, supprimer"
+msgstr "Yes, delete"
+
+#: ecole/modules.py:27 ecole/templates/ecole/controle.html
+msgid "Contrôle des paiements"
+msgstr "Payment status check"
+
+#: ecole/templates/ecole/controle.html
+msgid "Statut de paiement des élèves, mis à jour en temps réel"
+msgstr "Student payment status, updated in real time"
+
+#: ecole/templates/ecole/controle.html ecole/templates/ecole/exports.html ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html
+msgid "Tous"
+msgstr "All"
+
+#: ecole/echeancier.py:339 ecole/modules.py:29 ecole/pdf.py:434 ecole/templates/ecole/controle.html
+msgid "À jour"
+msgstr "Up to date"
+
+#: ecole/modules.py:29 ecole/templates/ecole/controle.html
+msgid "Soldés"
+msgstr "Paid in full"
+
+#: ecole/pdf.py:301 ecole/pdf.py:503 ecole/pdf.py:639 ecole/pdf.py:700
+msgid "Élève"
+msgstr "Student"
+
+#: ecole/templates/ecole/controle.html
+msgid "Nom, prénom, Educ Master"
+msgstr "Last name, first name, Educ Master"
+
+#: ecole/templates/ecole/controle.html ecole/templates/ecole/journal.html
+msgid "Toutes"
+msgstr "All"
+
+#: ecole/templates/ecole/controle.html ecole/templates/ecole/eleves_archives.html ecole/templates/ecole/eleves_liste.html ecole/templates/ecole/encaisser_recherche.html
+msgid "Rechercher"
+msgstr "Search"
+
+#: ecole/templates/ecole/controle.html
+msgid "retard de"
+msgstr "overdue by"
+
+#: ecole/templates/ecole/controle.html
+msgid "jour(s)"
+msgstr "day(s)"
+
+#: ecole/templates/ecole/controle.html
+msgid "Aucun élève."
+msgstr "No students."
+
+#: ecole/templates/ecole/corrections.html
+msgid "Corrections de paiements"
+msgstr "Payment corrections"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Demandes de la caisse et du secrétariat à valider"
+msgstr "Requests from the cash desk and the office awaiting approval"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Vos demandes de correction"
+msgstr "Your correction requests"
+
+#: ecole/models.py:620 ecole/templates/ecole/corrections.html
+msgid "En attente"
+msgstr "Pending"
+
+#: ecole/templates/ecole/corrections.html
+msgid "demande(s)"
+msgstr "request(s)"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Actuel :"
+msgstr "Current:"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Demandé :"
+msgstr "Requested:"
+
+#: ecole/templates/ecole/corrections.html ecole/templates/ecole/eleve_detail.html
+msgid "Motif :"
+msgstr "Reason:"
+
+#: ecole/templates/ecole/corrections.html ecole/templates/ecole/journal.html
+msgid "Par"
+msgstr "By"
+
+#: ecole/templates/ecole/corrections.html ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/parents/accueil.html
+msgid "le"
+msgstr "on"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Commentaire (facultatif)"
+msgstr "Comment (optional)"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Valider"
+msgstr "Approve"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Refuser"
+msgstr "Reject"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Aucune demande en attente."
+msgstr "No pending requests."
+
+#: ecole/templates/ecole/corrections.html
+msgid "Déjà traitées"
+msgstr "Already processed"
+
+#: ecole/templates/ecole/corrections.html ecole/templates/ecole/eleve_detail.html
+msgid "par"
+msgstr "by"
+
+#: ecole/templates/ecole/corrections.html
+msgid "Aucune."
+msgstr "None."
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Code d'accès"
+msgstr "Access code"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Vous n'avez pas encore de code pour ce module. Demandez-le à la direction."
+msgstr "You do not have a code for this module yet. Ask the management for it."
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Première entrée : choisissez votre code personnel pour ce module. Il vous sera demandé à chaque fois."
+msgstr "First entry: choose your personal code for this module. It will be asked every time."
+
+#: ecole/forms.py:217 ecole/templates/ecole/deverrouiller.html
+msgid "Nouveau code"
+msgstr "New code"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Confirmez le code"
+msgstr "Confirm the code"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Enregistrer et entrer"
+msgstr "Save and enter"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Saisissez votre code personnel pour ce module."
+msgstr "Enter your personal code for this module."
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Votre code"
+msgstr "Your code"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Entrer dans le module"
+msgstr "Enter the module"
+
+#: ecole/templates/ecole/deverrouiller.html
+msgid "Trop d'essais incorrects. Réessayez dans %(n)s min."
+msgstr "Too many incorrect attempts. Try again in %(n)s min."
+
+#: ecole/templates/ecole/eleve_archiver.html ecole/templates/ecole/eleve_detail.html
+msgid "Archiver l'élève"
+msgstr "Archive student"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Motif de l'archivage"
+msgstr "Reason for archiving"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Ex. Départ en cours d'année, transfert, fin de scolarité"
+msgstr "E.g. Left during the year, transfer, end of schooling"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Départ en cours d'année"
+msgstr "Left during the year"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Transfert vers un autre établissement"
+msgstr "Transfer to another school"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Fin de scolarité"
+msgstr "End of schooling"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Abandon"
+msgstr "Dropped out"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Inscrit par erreur"
+msgstr "Enrolled by mistake"
+
+#: ecole/templates/ecole/eleve_archiver.html ecole/templates/ecole/eleve_echeancier.html ecole/templates/ecole/eleve_form.html ecole/templates/ecole/eleves_import.html
+msgid "Annuler"
+msgstr "Cancel"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Archiver"
+msgstr "Archive"
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "<b>%(eleve)s</b> ne sera pas supprimé(e) : sa fiche, ses paiements et ses factures sont conservés. Il (elle) disparaît des listes, du tableau de bord, des retards, des relances et des exports, et peut être réactivé(e) à tout moment."
+msgstr "<b>%(eleve)s</b> will not be deleted: the record, payments and invoices are kept. The student disappears from lists, the dashboard, late payments, reminders and exports, and can be reactivated at any time."
+
+#: ecole/templates/ecole/eleve_archiver.html
+msgid "Attention : il reste %(reste)s à payer sur sa scolarité."
+msgstr "Warning: %(reste)s of tuition is still unpaid."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Retour à la classe"
+msgstr "Back to the class"
+
+#: ecole/pdf.py:476 ecole/templates/ecole/eleve_detail.html
+msgid "Fiche élève"
+msgstr "Student record"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Inscrit le"
+msgstr "Enrolled on"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Télécharger la fiche"
+msgstr "Download record"
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/grilles.html pedagogie/templates/pedagogie/examens/detail.html pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Modifier"
+msgstr "Edit"
+
+#: ecole/pdf.py:483 ecole/templates/ecole/eleve_detail.html
+msgid "Élève archivé"
+msgstr "Archived student"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Il n'apparaît plus dans les listes, statistiques et relances ; son historique est conservé."
+msgstr "No longer shown in lists, statistics and reminders; history is kept."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "· Educ Master"
+msgstr "· Educ Master"
+
+#: ecole/forms.py:114 ecole/templates/ecole/eleve_detail.html
+msgid "Versé sur la scolarité"
+msgstr "Paid towards tuition"
+
+#: ecole/pdf.py:493 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/encaisser.html ecole/templates/ecole/parents/accueil.html
+msgid "Reste à payer"
+msgstr "Balance due"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Part de la scolarité versée"
+msgstr "Share of tuition paid"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "% de"
+msgstr "% of"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "(montant dû non défini)"
+msgstr "(amount due not set)"
+
+#: ecole/agent.py:86 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/encaisser.html ecole/templates/ecole/recu.html
+msgid "reste"
+msgstr "remaining"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Encaisser l'inscription"
+msgstr "Collect enrolment fee"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Frais d'inscription de la classe :"
+msgstr "Class enrolment fee:"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "de"
+msgstr "by"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "jour(s) :"
+msgstr "day(s):"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "échus et non réglés."
+msgstr "due and unpaid."
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/parents/accueil.html
+msgid "Prochaine échéance :"
+msgstr "Next due date:"
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/eleve_echeancier.html ecole/templates/ecole/encaisser.html ecole/templates/ecole/parents/enfant.html
+msgid "Échéancier"
+msgstr "Payment schedule"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Personnalisé pour cet élève"
+msgstr "Customised for this student"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Grille de la classe"
+msgstr "Fee structure for class"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Tranche unique : aucun frais défini pour cette classe (Scolarité › Frais par classe)"
+msgstr "Single instalment: no fees defined for this class (Tuition › Fees by class)"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Personnaliser"
+msgstr "Customise"
+
+#: ecole/pdf.py:554 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/grilles.html ecole/templates/ecole/parents/enfant.html
+msgid "Tranche"
+msgstr "Instalment"
+
+#: ecole/pdf.py:554 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/grilles.html ecole/templates/ecole/parents/enfant.html
+msgid "Échéance"
+msgstr "Due date"
+
+#: ecole/forms.py:372 ecole/forms.py:431 ecole/pdf.py:443 ecole/pdf.py:554
+msgid "Montant"
+msgstr "Amount"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Réduction"
+msgstr "Reduction"
+
+#: ecole/pdf.py:554 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/parents/enfant.html
+msgid "Payé"
+msgstr "Paid"
+
+#: ecole/pdf.py:443 ecole/templates/ecole/eleve_detail.html
+msgid "Reste sur la tranche"
+msgstr "Remaining on instalment"
+
+#: ecole/pdf.py:302 ecole/pdf.py:541 ecole/pdf.py:554 ecole/templates/ecole/eleve_detail.html
+msgid "Statut"
+msgstr "Status"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Aucune tranche : indiquez le montant de la scolarité sur la fiche, définissez les frais de la classe (Scolarité › Frais par classe) ou personnalisez l'échéancier."
+msgstr "No instalment: enter the tuition amount on the record, define the class fees (Tuition › Fees by class) or customise the payment schedule."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Réductions"
+msgstr "Reductions"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Réparties automatiquement sur les tranches restantes"
+msgstr "Spread automatically over the remaining instalments"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Aucune réduction."
+msgstr "No reductions."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Retirer cette réduction"
+msgstr "Remove this reduction"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Ajouter une bourse ou une remise (scolarité ou inscription)"
+msgstr "Add a scholarship or discount (tuition or enrolment)"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Appliquer"
+msgstr "Apply"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Historique des paiements"
+msgstr "Payment history"
+
+#: ecole/forms.py:437 ecole/pdf.py:639 ecole/templates/ecole/eleve_detail.html ecole/views/exports.py:118
+msgid "Référence"
+msgstr "Reference"
+
+#: ecole/pdf.py:579 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html
+msgid "Date"
+msgstr "Date"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Affecté aux tranches"
+msgstr "Allocated to instalments"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Reste après"
+msgstr "Balance after"
+
+#: ecole/pdf.py:639 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html
+msgid "Mode"
+msgstr "Method"
+
+#: ecole/models.py:551 ecole/models.py:727 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/recu.html
+msgid "Facture"
+msgstr "Invoice"
+
+#: ecole/pdf.py:584 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/encaisser.html ecole/templates/ecole/recu.html
+msgid "soldée"
+msgstr "paid in full"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "reçu"
+msgstr "receipt"
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/recu.html
+msgid "Corriger"
+msgstr "Correct"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Aucun paiement enregistré pour cet élève."
+msgstr "No payments recorded for this student."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "demande(s) de correction en attente de validation par la direction."
+msgstr "correction request(s) awaiting approval by the management."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Corrections et annulations"
+msgstr "Corrections and cancellations"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Qui, quand, pourquoi"
+msgstr "Who, when, why"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "du paiement"
+msgstr "of payment"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "validé par"
+msgstr "approved by"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "demandé par"
+msgstr "requested by"
+
+#: ecole/pdf.py:301 ecole/pdf.py:702 ecole/templates/ecole/eleve_detail.html ecole/views/exports.py:103
+msgid "N° Educ Master"
+msgstr "Educ Master no."
+
+#: ecole/pdf.py:504 ecole/templates/ecole/eleve_detail.html
+msgid "Sexe"
+msgstr "Sex"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Naissance"
+msgstr "Birth"
+
+#: ecole/templates/ecole/eleve_detail.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "à"
+msgstr "at"
+
+#: ecole/pdf.py:509 ecole/templates/ecole/eleve_detail.html ecole/views/exports.py:104
+msgid "Résidence"
+msgstr "Address"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Frais d'inscription dus"
+msgstr "Enrolment fee due"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "au lieu de"
+msgstr "instead of"
+
+#: ecole/pdf.py:521 ecole/templates/ecole/eleve_detail.html
+msgid "Rappels automatiques"
+msgstr "Automatic reminders"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Activés"
+msgstr "Enabled"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Désactivés"
+msgstr "Disabled"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Parents / tuteurs"
+msgstr "Parents / guardians"
+
+#: ecole/forms.py:238 ecole/forms.py:262 ecole/templates/ecole/eleve_detail.html ecole/views/exports.py:103
+msgid "Nom"
+msgstr "Name"
+
+#: ecole/pdf.py:301 ecole/pdf.py:514 ecole/pdf.py:523 ecole/templates/ecole/eleve_detail.html
+msgid "Téléphone"
+msgstr "Phone"
+
+#: ecole/models.py:386 ecole/models.py:536 ecole/models.py:691 ecole/models.py:721
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: ecole/models.py:723 ecole/pdf.py:516 ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/regles_relance.html
+msgid "E-mail"
+msgstr "Email"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Fratrie"
+msgstr "Siblings"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Inscrire un frère / une sœur"
+msgstr "Enrol a brother / sister"
+
+#: ecole/templates/ecole/eleve_detail.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Appeler"
+msgstr "Call"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Relance SMS"
+msgstr "SMS reminder"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "sans messages"
+msgstr "no messages"
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/eleve_echeancier.html ecole/templates/ecole/grille_form.html pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Retirer"
+msgstr "Remove"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Ajouter un autre parent"
+msgstr "Add another parent"
+
+#: ecole/templates/ecole/eleve_detail.html pedagogie/templates/pedagogie/examens/detail.html pedagogie/templates/pedagogie/notes/matieres.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Ajouter"
+msgstr "Add"
+
+#: ecole/templates/ecole/eleve_detail.html ecole/templates/ecole/parents/accueil.html
+msgid "Espace parents"
+msgstr "Parent portal"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Accès en ligne : situation, paiements, factures"
+msgstr "Online access: status, payments, invoices"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "créé le"
+msgstr "created on"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Retirer l'accès à cet élève"
+msgstr "Remove access to this student"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Créer l'accès parent"
+msgstr "Create parent access"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Pas encore d'accès parent."
+msgstr "No parent access yet."
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Messages au parent"
+msgstr "Messages to the parent"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Dernières relances manuelles"
+msgstr "Latest manual reminders"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "· par"
+msgstr "· by"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "Réactiver l'élève"
+msgstr "Reactivate student"
+
+#: ecole/templates/ecole/eleve_detail.html
+msgid "même numéro"
+msgstr "same number"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Personnaliser l'échéancier"
+msgstr "Customise the payment schedule"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "déjà versé :"
+msgstr "already paid:"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Tranches de cet élève"
+msgstr "This student's instalments"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Montants avant réduction : les réductions (fratrie, bourse, remise) sont appliquées ensuite automatiquement."
+msgstr "Amounts before reduction: reductions (siblings, scholarship, discount) are then applied automatically."
+
+#: ecole/templates/ecole/eleve_echeancier.html ecole/templates/ecole/grille_form.html
+msgid "Ajouter une tranche"
+msgstr "Add an instalment"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Enregistrer l'échéancier"
+msgstr "Save the payment schedule"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Revenir à la grille de la classe"
+msgstr "Revert to the class fee structure"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Utiliser la grille"
+msgstr "Use the fee structure"
+
+#: ecole/templates/ecole/eleve_echeancier.html
+msgid "Un échéancier personnalisé n'est plus modifié quand la grille de la classe change."
+msgstr "A customised payment schedule is no longer updated when the class fee structure changes."
+
+#: ecole/templates/ecole/eleve_form.html pedagogie/templates/pedagogie/profs/form.html
+msgid "Les champs marqués d'un"
+msgstr "Fields marked with"
+
+#: ecole/templates/ecole/eleve_form.html pedagogie/templates/pedagogie/profs/form.html
+msgid "sont obligatoires"
+msgstr "are required"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Identité de l'élève"
+msgstr "Student details"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Parent ou tuteur"
+msgstr "Parent or guardian"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Le parent reçoit ses factures et rappels sur WhatsApp et par e-mail (SMS pour les retards)."
+msgstr "The parent receives invoices and reminders on WhatsApp and by e-mail (SMS for overdue payments)."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "et paiements à l'inscription"
+msgstr "and payments at enrolment"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Chaque montant saisi crée un paiement avec sa facture, envoyée au parent. Laissez vide ce qui n'est pas encore payé."
+msgstr "Each amount entered creates a payment with its invoice, sent to the parent. Leave blank anything not yet paid."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Aucun frais défini pour cette classe : saisissez le montant de la scolarité."
+msgstr "No fees defined for this class: enter the tuition amount."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Définir les frais de la classe"
+msgstr "Define the class fees"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Pour enregistrer un nouveau paiement, utilisez le bouton"
+msgstr "To record a new payment, use the"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "de la fiche élève : chaque versement a ainsi sa date et son reçu."
+msgstr "button on the student record: each payment then gets its own date and receipt."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Les paiements sont enregistrés par la caisse après l'inscription."
+msgstr "Payments are recorded by the cashier after enrolment."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Scolarité de la classe :"
+msgstr "Class tuition:"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "frais d’inscription :"
+msgstr "enrolment fee:"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "avant le"
+msgstr "due by"
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Les frais de la classe %(classe)s sont définis pour : %(etabs)s. Vérifiez l’établissement choisi."
+msgstr "Fees for class %(classe)s are defined for: %(etabs)s. Check the selected school."
+
+#: ecole/templates/ecole/eleve_form.html
+msgid "Fratrie (%(rang)se enfant) : inscription −%(taux)s %, à payer"
+msgstr "Siblings (child no. %(rang)s): enrolment −%(taux)s %, to pay"
+
+#: ecole/templates/ecole/eleves_archives.html
+msgid "Élèves partis ou transférés : leur fiche et leur historique sont conservés"
+msgstr "Students who left or transferred: records and history are kept"
+
+#: ecole/templates/ecole/eleves_archives.html ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "Recherche"
+msgstr "Search"
+
+#: ecole/templates/ecole/eleves_archives.html
+msgid "Nom, parent, téléphone, n° Educ Master"
+msgstr "Name, parent, phone, Educ Master no."
+
+#: ecole/models.py:225 ecole/templates/ecole/eleves_archives.html
+msgid "archivé le"
+msgstr "archived on"
+
+#: ecole/echeancier.py:339 ecole/models.py:322 ecole/templates/ecole/eleves_archives.html
+msgid "Soldé"
+msgstr "Paid in full"
+
+#: ecole/templates/ecole/eleves_archives.html
+msgid "Réactiver"
+msgstr "Reactivate"
+
+#: ecole/templates/ecole/eleves_archives.html
+msgid "Aucun élève archivé."
+msgstr "No archived students."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Importer des élèves"
+msgstr "Import students"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Faire entrer des élèves dans la base à partir d'un fichier Excel ou CSV : une fiche complète par ligne"
+msgstr "Add students to the database from an Excel or CSV file: one complete record per row"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "1. Choisir le fichier à importer"
+msgstr "1. Choose the file to import"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Rien n'est enregistré à cette étape : chaque ligne s'affiche en vert (prête) ou en rouge (à corriger)."
+msgstr "Nothing is saved at this step: each row is shown in green (ready) or red (to fix)."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Analyser le fichier"
+msgstr "Analyse the file"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "2. Résultat de la vérification"
+msgstr "2. Check results"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "ligne(s) prête(s) à importer"
+msgstr "row(s) ready to import"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "ligne(s) en erreur"
+msgstr "row(s) with errors"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "déjà dans la base"
+msgstr "already in the database"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "ligne(s) ignorée(s)"
+msgstr "row(s) skipped"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Ligne"
+msgstr "Line"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Colonnes reconnues :"
+msgstr "Recognised columns:"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Colonnes non utilisées :"
+msgstr "Unused columns:"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Envoyer aux parents les factures des paiements repris"
+msgstr "Send parents the invoices for the imported payments"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Les montants déjà versés ne seront pas repris : seule la caisse peut enregistrer des paiements."
+msgstr "Amounts already paid will not be imported: only the cash desk can record payments."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Prêtes"
+msgstr "Ready"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Erreurs"
+msgstr "Errors"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Déjà dans la base"
+msgstr "Already in the database"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Ignorées"
+msgstr "Skipped"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Prête — à compléter"
+msgstr "Ready — to complete"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Prête"
+msgstr "Ready"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Erreur"
+msgstr "Error"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Ignorée"
+msgstr "Skipped"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "paiement(s)"
+msgstr "payment(s)"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Voir la fiche"
+msgstr "View record"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Ce que le fichier peut contenir"
+msgstr "What the file can contain"
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Titres des colonnes trouvés à la ligne %(ligne)s."
+msgstr "Column titles found on row %(ligne)s."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "%(n)s élève(s) de ce fichier sont déjà dans la base (en bleu) : ils ne seront pas importés une seconde fois. Pour modifier leurs informations, ouvrez leur fiche."
+msgstr "%(n)s student(s) in this file are already in the database (in blue): they will not be imported a second time. To change their details, open their record."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "%(n)s élève(s) sans établissement : ils seront rangés dans l'établissement « Néant ». Pour l'éviter, indiquez l'établissement au-dessus du fichier ; sinon renommez « Néant » ensuite dans Administration › Paramètres."
+msgstr "%(n)s student(s) without a school: they will be placed in the “Néant” school. To avoid this, enter the school above the file; otherwise rename “Néant” afterwards in Administration › Paramètres."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "%(n)s élève(s) sans téléphone ni e-mail de parent : ils seront importés, mais aucune facture ni aucun rappel ne pourra leur être envoyé tant que ces coordonnées ne sont pas complétées sur leur fiche."
+msgstr "%(n)s student(s) with no parent phone or e-mail: they will be imported, but no invoice or reminder can be sent until these details are completed on their record."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Ligne(s) en rouge non importée(s) : %(n)s. Corrigez-les dans le fichier et réimportez-les plus tard (les élèves déjà importés seront ignorés)."
+msgstr "Red row(s) not imported: %(n)s. Fix them in the file and import them again later (students already imported will be skipped)."
+
+#: ecole/templates/ecole/eleves_import.html
+msgid "Importer les %(n)s élève(s) en vert"
+msgstr "Import the %(n)s student(s) in green"
+
+#: ecole/templates/ecole/eleves_liste.html ecole/templates/ecole/relances.html ecole/templates/ecole/suivi.html
+msgid "en"
+msgstr "in"
+
+#: ecole/templates/ecole/eleves_liste.html ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html ecole/templates/ecole/suivi.html
+msgid "Excel"
+msgstr "Excel"
+
+#: ecole/templates/ecole/eleves_liste.html ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html ecole/templates/ecole/recu.html
+msgid "PDF"
+msgstr "PDF"
+
+#: ecole/templates/ecole/eleves_liste.html
+msgid "Importer"
+msgstr "Import"
+
+#: ecole/templates/ecole/eleves_liste.html
+msgid "Nom, parent, téléphone, n° Educ Master…"
+msgstr "Name, parent, phone, Educ Master no.…"
+
+#: ecole/templates/ecole/eleves_liste.html
+msgid "Aucun élève enregistré pour le moment."
+msgstr "No students recorded yet."
+
+#: ecole/templates/ecole/eleves_liste.html
+msgid "Aucun élève ne correspond à votre recherche."
+msgstr "No student matches your search."
+
+#: ecole/templates/ecole/eleves_liste.html
+msgid "Inscrire le premier élève"
+msgstr "Enrol the first student"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Encaisser —"
+msgstr "Collect payment —"
+
+#: ecole/templates/ecole/encaisser.html ecole/templates/ecole/encaisser_recherche.html
+msgid "Encaisser un paiement"
+msgstr "Collect a payment"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Paiement"
+msgstr "Payment"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Ce paiement sera affecté ainsi :"
+msgstr "This payment will be allocated as follows:"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Encaisser et émettre la facture"
+msgstr "Collect payment and issue the invoice"
+
+#: ecole/pdf.py:295 ecole/pdf.py:492 ecole/templates/ecole/encaisser.html pedagogie/pdf.py:148
+msgid "Déjà versé"
+msgstr "Already paid"
+
+#: ecole/templates/ecole/encaisser.html ecole/views/exports.py:105
+msgid "Inscription versée"
+msgstr "Registration fee paid"
+
+#: ecole/pdf.py:494 ecole/pdf.py:545 ecole/templates/ecole/encaisser.html ecole/templates/ecole/grilles.html
+msgid "Inscription"
+msgstr "Registration"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Le paiement de scolarité est imputé dans cet ordre"
+msgstr "The tuition payment is allocated in this order"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Chaque paiement reçoit une référence unique et une facture, envoyée immédiatement au parent (WhatsApp, e-mail)."
+msgstr "Each payment gets a unique reference and an invoice, sent immediately to the parent (WhatsApp, e-mail)."
+
+#: ecole/templates/ecole/encaisser.html ecole/templates/ecole/recu.html
+msgid "partiellement payée"
+msgstr "partly paid"
+
+#: ecole/templates/ecole/encaisser.html
+msgid "Excédent : dépasse le reste de la scolarité"
+msgstr "Excess: exceeds the remaining tuition"
+
+#: ecole/templates/ecole/encaisser_recherche.html
+msgid "Recherchez l'élève concerné"
+msgstr "Find the student"
+
+#: ecole/templates/ecole/encaisser_recherche.html
+msgid "Nom, prénom, parent, téléphone, Educ Master…"
+msgstr "Last name, first name, parent, phone, Educ Master…"
+
+#: ecole/templates/ecole/encaisser_recherche.html
+msgid "Rechercher un élève"
+msgstr "Search for a student"
+
+#: ecole/templates/ecole/encaisser_recherche.html
+msgid "Aucun élève trouvé pour «"
+msgstr "No student found for “"
+
+#: ecole/templates/ecole/encaisser_recherche.html
+msgid "Tapez au moins une partie du nom de l'élève ou du parent, puis choisissez l'élève dans la liste."
+msgstr "Type at least part of the student's or parent's name, then pick the student from the list."
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Paramétrage de l'établissement"
+msgstr "School settings"
+
+#: ecole/templates/ecole/etablissement_form.html pedagogie/templates/pedagogie/profs/form.html
+msgid "Identité"
+msgstr "Details"
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Identité fiscale et factures normalisées"
+msgstr "Tax identity and standardised invoices"
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "La normalisation passe par l'API e-MECeF de la DGI : demandez le jeton d'accès pour votre IFU, testez d'abord en environnement « Test », puis passez en « Production ». Faites valider le groupe de taxation (frais de scolarité exonérés ou non) par votre comptable."
+msgstr "Standardisation goes through the DGI e-MECeF API: request the access token for your IFU, test first in the “Test” environment, then switch to “Production”. Have your accountant confirm the tax group (tuition fees exempt or not)."
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Réduction pour fratrie"
+msgstr "Sibling reduction"
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Appliquée automatiquement aux élèves dont le parent a le même numéro de téléphone (du plus ancien inscrit au plus récent)."
+msgstr "Applied automatically to students whose parent has the same phone number (from the earliest enrolled to the most recent)."
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Sur la scolarité"
+msgstr "On tuition"
+
+#: ecole/templates/ecole/etablissement_form.html
+msgid "Sur les frais d'inscription"
+msgstr "On the enrolment fee"
+
+#: ecole/templates/ecole/etablissement_form.html ecole/templates/ecole/parametres.html ecole/templates/ecole/regle_relance_form.html ecole/templates/ecole/utilisateur_form.html
+msgid "Enregistrer"
+msgstr "Save"
+
+#: ecole/modules.py:26 ecole/templates/ecole/exports.html
+msgid "Exports"
+msgstr "Exports"
+
+#: ecole/templates/ecole/exports.html
+msgid "Exports Excel et PDF"
+msgstr "Excel and PDF exports"
+
+#: ecole/templates/ecole/exports.html
+msgid "Téléchargez vos listes en Excel (.xlsx) ou en PDF prêt à imprimer"
+msgstr "Download your lists as Excel (.xlsx) or print-ready PDF"
+
+#: ecole/templates/ecole/exports.html ecole/views/exports.py:102 ecole/views/exports.py:157
+msgid "Liste des élèves"
+msgstr "Student list"
+
+#: ecole/templates/ecole/exports.html
+msgid "Identité, parent, téléphone, scolarité, versé, reste et statut."
+msgstr "Details, parent, phone, tuition, paid, balance and status."
+
+#: ecole/templates/ecole/exports.html ecole/templates/ecole/suivi.html
+msgid "Ont payé"
+msgstr "Paid"
+
+#: ecole/templates/ecole/exports.html
+msgid "N'ont pas payé"
+msgstr "Not paid"
+
+#: ecole/templates/ecole/exports.html
+msgid "N° de reçu, date, élève, motif, montant, mode et caissier."
+msgstr "Receipt no., date, student, purpose, amount, method and cashier."
+
+#: ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html
+msgid "Du"
+msgstr "From"
+
+#: ecole/templates/ecole/exports.html ecole/templates/ecole/journal.html
+msgid "Au"
+msgstr "To"
+
+#: ecole/forms.py:483 ecole/pdf.py:639 ecole/pdf.py:706 ecole/templates/ecole/exports.html
+msgid "Motif"
+msgstr "Purpose"
+
+#: ecole/templates/ecole/factures.html
+msgid "Une facture par encaissement ; les corrections donnent une facture d'avoir"
+msgstr "One invoice per payment; corrections produce a credit note"
+
+#: ecole/templates/ecole/factures.html
+msgid "facture(s) pas encore normalisée(s) e-MECeF. Elles seront reprises par la commande « normaliser_factures » ou une par une ci-dessous."
+msgstr "invoice(s) not yet e-MECeF standardised. They will be processed by the “normaliser_factures” command or one by one below."
+
+#: ecole/templates/ecole/factures.html
+msgid "N° de facture, élève, code MECeF"
+msgstr "Invoice no., student, MECeF code"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "Filtrer"
+msgstr "Filter"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "Effacer"
+msgstr "Clear"
+
+#: ecole/pdf.py:301 ecole/templates/ecole/factures.html
+msgid "N°"
+msgstr "No."
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/messages.html
+msgid "Type"
+msgstr "Type"
+
+#: ecole/templates/ecole/factures.html
+msgid "e-MECeF"
+msgstr "e-MECeF"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/parents/enfant.html ecole/templates/ecole/recu.html
+msgid "annulée"
+msgstr "cancelled"
+
+#: ecole/templates/ecole/factures.html
+msgid "Normaliser"
+msgstr "Standardise"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "‹ Précédent"
+msgstr "‹ Previous"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "Page"
+msgstr "Page"
+
+#: ecole/templates/ecole/factures.html ecole/templates/ecole/journal.html ecole/templates/ecole/messages.html
+msgid "Suivant ›"
+msgstr "Next ›"
+
+#: ecole/templates/ecole/factures.html
+msgid "Aucune facture."
+msgstr "No invoices."
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Frais de la classe"
+msgstr "Class fees"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Frais de la"
+msgstr "Fees for"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Frais d'une classe"
+msgstr "Class fees"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Affichés automatiquement à l'inscription ; les élèves de la classe reçoivent cet échéancier"
+msgstr "Shown automatically at enrolment; students of the class receive this payment schedule"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Tranches"
+msgstr "Instalments"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Le total des tranches est le montant de la scolarité de la classe. Une seule tranche si la scolarité se paie en une fois."
+msgstr "The total of the instalments is the class tuition. Use a single instalment if tuition is paid in one go."
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Enregistrer et appliquer aux élèves"
+msgstr "Save and apply to students"
+
+#: ecole/templates/ecole/grille_form.html
+msgid "Scolarité :"
+msgstr "Tuition:"
+
+#: ecole/templates/ecole/grilles.html
+msgid "Scolarité et frais d'inscription de chaque classe, scolarité découpée en tranches avec leur date d'échéance"
+msgstr "Tuition and enrolment fee for each class, tuition split into instalments with their due dates"
+
+#: ecole/templates/ecole/grilles.html
+msgid "Définir les frais d'une classe"
+msgstr "Define a class's fees"
+
+#: ecole/templates/ecole/grilles.html
+msgid "Classes sans frais définis :"
+msgstr "Classes without defined fees:"
+
+#: ecole/templates/ecole/grilles.html
+msgid "tranche(s)"
+msgstr "instalment(s)"
+
+#: ecole/templates/ecole/grilles.html
+msgid "Copier cette grille vers d'autres classes"
+msgstr "Copy this fee structure to other classes"
+
+#: ecole/templates/ecole/grilles.html pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Copier"
+msgstr "Copy"
+
+#: ecole/templates/ecole/grilles.html
+msgid "Aucun frais défini. Définissez la scolarité et les frais d'inscription d'une classe : ils s'afficheront automatiquement à l'inscription et chaque élève recevra son échéancier."
+msgstr "No fees defined. Define a class's tuition and enrolment fee: they will be shown automatically at enrolment and each student will receive their payment schedule."
+
+#: ecole/templates/ecole/journal.html
+msgid "Tous les encaissements, du plus récent au plus ancien"
+msgstr "All collections, most recent first"
+
+#: ecole/templates/ecole/journal.html
+msgid "Élève, n° reçu, référence"
+msgstr "Student, receipt no., reference"
+
+#: ecole/templates/ecole/journal.html
+msgid "Total :"
+msgstr "Total:"
+
+#: ecole/models.py:738 ecole/templates/ecole/journal.html ecole/templates/ecole/recu.html
+msgid "Reçu"
+msgstr "Receipt"
+
+#: ecole/templates/ecole/journal.html
+msgid "Aucun paiement ne correspond à ces filtres."
+msgstr "No payment matches these filters."
+
+#: ecole/templates/ecole/messages.html
+msgid "Messages aux parents"
+msgstr "Messages to parents"
+
+#: ecole/templates/ecole/messages.html
+msgid "Factures, rappels, relances et échanges avec l'assistant (WhatsApp, SMS, e-mail)"
+msgstr "Invoices, reminders, overdue notices and conversations with the assistant (WhatsApp, SMS, e-mail)"
+
+#: ecole/templates/ecole/messages.html
+msgid "message(s) en échec : vérifiez les coordonnées du parent ou la configuration des envois."
+msgstr "failed message(s): check the parent's contact details or the sending configuration."
+
+#: ecole/templates/ecole/messages.html
+msgid "Élève, numéro, e-mail"
+msgstr "Student, number, e-mail"
+
+#: ecole/templates/ecole/messages.html
+msgid "Canal"
+msgstr "Channel"
+
+#: ecole/templates/ecole/messages.html
+msgid "Aucun message pour le moment."
+msgstr "No messages yet."
+
+#: ecole/templates/ecole/paiement_annuler.html
+msgid "Annuler un paiement"
+msgstr "Cancel a payment"
+
+#: ecole/templates/ecole/paiement_annuler.html
+msgid "Une facture d'avoir annule la facture du paiement. L'annulation est tracée (qui, quand, pourquoi) et le parent est prévenu."
+msgstr "A credit note cancels the payment's invoice. The cancellation is logged (who, when, why) and the parent is notified."
+
+#: ecole/templates/ecole/paiement_annuler.html
+msgid "Oui, annuler ce paiement"
+msgstr "Yes, cancel this payment"
+
+#: ecole/templates/ecole/paiement_annuler.html
+msgid "Annuler le paiement %(numero)s de %(montant)s FCFA de %(eleve)s ?"
+msgstr "Cancel payment %(numero)s of %(montant)s FCFA for %(eleve)s?"
+
+#: ecole/templates/ecole/paiement_corriger.html
+msgid "Corriger un paiement"
+msgstr "Correct a payment"
+
+#: ecole/templates/ecole/paiement_corriger.html ecole/templates/ecole/recu.html
+msgid "Demander une correction"
+msgstr "Request a correction"
+
+#: ecole/templates/ecole/paiement_corriger.html
+msgid "Appliquer la correction"
+msgstr "Apply the correction"
+
+#: ecole/templates/ecole/paiement_corriger.html
+msgid "Envoyer à la direction"
+msgstr "Send to the management"
+
+#: ecole/templates/ecole/paiement_corriger.html
+msgid "La facture du paiement est annulée par une facture d'avoir et une nouvelle facture est émise et envoyée au parent. La correction est tracée : qui, quand, pourquoi, valeurs avant et après."
+msgstr "The payment's invoice is cancelled by a credit note, and a new invoice is issued and sent to the parent. The correction is logged: who, when, why, values before and after."
+
+#: ecole/templates/ecole/paiement_corriger.html
+msgid "Votre demande sera appliquée après validation par la direction. Elle restera tracée dans l'historique du paiement."
+msgstr "Your request will be applied after approval by the management. It will remain logged in the payment history."
+
+#: ecole/templates/ecole/parametres.html
+msgid "Année scolaire et message envoyé aux parents"
+msgstr "School year and message sent to parents"
+
+#: ecole/templates/ecole/parametres.html
+msgid "{ecole} est remplacé par l'établissement de l'élève."
+msgstr "{ecole} is replaced by the student's school."
+
+#: ecole/templates/ecole/parametres.html
+msgid "Établissements"
+msgstr "Schools"
+
+#: ecole/templates/ecole/parametres.html
+msgid "Créés automatiquement à l'inscription des élèves"
+msgstr "Created automatically when students are enrolled"
+
+#: ecole/templates/ecole/parametres.html
+msgid "· voir la liste"
+msgstr "· see the list"
+
+#: ecole/templates/ecole/parametres.html
+msgid "Découpage de l'année"
+msgstr "Year structure"
+
+#: ecole/templates/ecole/parametres.html
+msgid "IFU, factures, fratrie"
+msgstr "IFU, invoices, siblings"
+
+#: ecole/templates/ecole/parametres.html
+msgid "IFU manquant"
+msgstr "IFU missing"
+
+#: ecole/templates/ecole/parametres.html
+msgid "Aucun établissement : il sera créé à la première inscription."
+msgstr "No school yet: it will be created at the first enrolment."
+
+#: ecole/templates/ecole/parents/accueil.html ecole/templates/ecole/portail.html
+msgid "Bonjour"
+msgstr "Hello"
+
+#: ecole/templates/ecole/parents/accueil.html
+msgid "Situation de la scolarité de vos enfants, mise à jour à chaque paiement."
+msgstr "Tuition status of your children, updated with every payment."
+
+#: ecole/pdf.py:302 ecole/pdf.py:539 ecole/templates/ecole/parents/accueil.html
+msgid "Versé"
+msgstr "Paid"
+
+#: ecole/templates/ecole/parents/accueil.html
+msgid "En retard :"
+msgstr "Overdue:"
+
+#: ecole/templates/ecole/parents/accueil.html
+msgid "Aucun enfant n'est rattaché à votre compte. Contactez l'établissement."
+msgstr "No child is linked to your account. Contact the school."
+
+#: ecole/templates/ecole/parents/enfant.html
+msgid "Mes enfants"
+msgstr "My children"
+
+#: ecole/templates/ecole/parents/enfant.html
+msgid "Paiements et factures"
+msgstr "Payments and invoices"
+
+#: ecole/templates/ecole/parents/enfant.html
+msgid "Aucun paiement pour le moment."
+msgstr "No payments yet."
+
+#: ecole/templates/ecole/portail.html
+msgid ". Choisissez l'espace de travail dans lequel vous voulez entrer : chacun a son propre menu."
+msgstr ". Choose the workspace you want to open: each one has its own menu."
+
+#: ecole/templates/ecole/portail.html
+msgid "Modules"
+msgstr "Modules"
+
+#: ecole/templates/ecole/portail.html
+msgid "Ce module sera ouvert prochainement."
+msgstr "This module will open soon."
+
+#: ecole/templates/ecole/portail.html
+msgid "Ouvrir le module"
+msgstr "Open module"
+
+#: ecole/templates/ecole/portail.html
+msgid "Aucun module n'est ouvert pour votre rôle ("
+msgstr "No module is available for your role ("
+
+#: ecole/templates/ecole/portail.html
+msgid "Demandez à la direction de vous attribuer un rôle."
+msgstr "Ask the management to assign you a role."
+
+#: ecole/templates/ecole/recu.html
+msgid "Retour à la fiche"
+msgstr "Back to the record"
+
+#: ecole/templates/ecole/recu.html pedagogie/models.py:259 pedagogie/templates/pedagogie/examens/_ligne.html
+msgid "du"
+msgstr "from"
+
+#: ecole/templates/ecole/recu.html
+msgid "Imprimer"
+msgstr "Print"
+
+#: ecole/templates/ecole/recu.html
+msgid "Fiche de l'élève"
+msgstr "Student record"
+
+#: ecole/templates/ecole/recu.html
+msgid "Nouvel encaissement"
+msgstr "New payment"
+
+#: ecole/templates/ecole/recu.html
+msgid "Une demande de correction de ce paiement attend la validation de la direction."
+msgstr "A correction request for this payment is awaiting approval by the management."
+
+#: ecole/models.py:574 ecole/models.py:77 ecole/templates/ecole/recu.html
+msgid "IFU"
+msgstr "IFU"
+
+#: ecole/models.py:80 ecole/templates/ecole/recu.html
+msgid "RCCM"
+msgstr "RCCM"
+
+#: ecole/templates/ecole/recu.html
+msgid "Facture n°"
+msgstr "Invoice no."
+
+#: ecole/templates/ecole/recu.html
+msgid "Reçu n°"
+msgstr "Receipt no."
+
+#: ecole/templates/ecole/recu.html
+msgid "Reçu de paiement"
+msgstr "Payment receipt"
+
+#: ecole/pdf.py:794 ecole/templates/ecole/recu.html
+msgid "Client"
+msgstr "Customer"
+
+#: ecole/templates/ecole/recu.html
+msgid "Educ Master"
+msgstr "Educ Master"
+
+#: ecole/pdf.py:802 ecole/templates/ecole/recu.html
+msgid "Désignation"
+msgstr "Description"
+
+#: ecole/forms.py:117 ecole/forms.py:433 ecole/pdf.py:707 ecole/pdf.py:822
+msgid "Mode de paiement"
+msgstr "Payment method"
+
+#: ecole/templates/ecole/recu.html
+msgid "— réf."
+msgstr "— ref."
+
+#: ecole/pdf.py:823 ecole/templates/ecole/recu.html
+msgid "Référence du paiement"
+msgstr "Payment reference"
+
+#: ecole/forms.py:438 ecole/templates/ecole/recu.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Observation"
+msgstr "Note"
+
+#: ecole/templates/ecole/recu.html
+msgid "Hors taxe / TVA 18 %"
+msgstr "Excl. tax / VAT 18 %"
+
+#: ecole/pdf.py:828 ecole/templates/ecole/recu.html
+msgid "Taxation"
+msgstr "Taxation"
+
+#: ecole/pdf.py:828 ecole/templates/ecole/recu.html
+msgid "Groupe A — exonéré de TVA"
+msgstr "Group A — VAT exempt"
+
+#: ecole/templates/ecole/recu.html
+msgid "Affectation du paiement aux tranches"
+msgstr "Allocation of the payment to instalments"
+
+#: ecole/models.py:479 ecole/templates/ecole/recu.html
+msgid "échéance"
+msgstr "due date"
+
+#: ecole/templates/ecole/recu.html
+msgid "payé"
+msgstr "paid"
+
+#: ecole/templates/ecole/recu.html
+msgid "Reste sur la scolarité après ce paiement"
+msgstr "Remaining tuition after this payment"
+
+#: ecole/templates/ecole/recu.html
+msgid "Facture normalisée e-MECeF"
+msgstr "e-MECeF standardised invoice"
+
+#: ecole/templates/ecole/recu.html
+msgid "Code MECeF/DGI :"
+msgstr "MECeF/DGI code:"
+
+#: ecole/templates/ecole/recu.html
+msgid "NIM :"
+msgstr "NIM:"
+
+#: ecole/templates/ecole/recu.html
+msgid "Compteurs :"
+msgstr "Counters:"
+
+#: ecole/templates/ecole/recu.html
+msgid "Heure MECeF :"
+msgstr "MECeF time:"
+
+#: ecole/templates/ecole/recu.html
+msgid "Normalisation e-MECeF en attente :"
+msgstr "e-MECeF standardisation pending:"
+
+#: ecole/templates/ecole/recu.html
+msgid "Facture non normalisée : la normalisation e-MECeF n'est pas activée pour cet établissement (Administration › Établissement)."
+msgstr "Invoice not standardised: e-MECeF standardisation is not enabled for this school (Administration › School)."
+
+#: ecole/templates/ecole/recu.html
+msgid "Réessayer la normalisation"
+msgstr "Retry standardisation"
+
+#: ecole/templates/ecole/recu.html
+msgid "Total versé"
+msgstr "Total paid"
+
+#: ecole/pdf.py:731 ecole/templates/ecole/recu.html
+msgid "Le parent"
+msgstr "Parent"
+
+#: ecole/pdf.py:732 ecole/templates/ecole/recu.html
+msgid "Le caissier"
+msgstr "Cashier"
+
+#: ecole/templates/ecole/recu.html
+msgid "Édité le"
+msgstr "Issued on"
+
+#: ecole/templates/ecole/recu.html
+msgid "· Situation à la date d'édition · Conservez ce document."
+msgstr "· Status as of the issue date · Keep this document."
+
+#: ecole/templates/ecole/recu.html
+msgid "Factures et corrections de ce paiement"
+msgstr "Invoices and corrections for this payment"
+
+#: ecole/templates/ecole/regle_relance_form.html
+msgid "Règle de relance"
+msgstr "Reminder rule"
+
+#: ecole/templates/ecole/regle_relance_form.html
+msgid "Modifier la règle"
+msgstr "Edit the rule"
+
+#: ecole/templates/ecole/regle_relance_form.html
+msgid "Nouvelle règle de relance"
+msgstr "New reminder rule"
+
+#: ecole/templates/ecole/regle_relance_form.html
+msgid "Canaux"
+msgstr "Channels"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Quand et comment prévenir les parents avant et après chaque échéance"
+msgstr "When and how to notify parents before and after each due date"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Envoyer les rappels du jour"
+msgstr "Send today's reminders"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Nouvelle règle"
+msgstr "New rule"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "inactive"
+msgstr "inactive"
+
+#: ecole/models.py:537 ecole/models.py:693 ecole/models.py:71 ecole/templates/ecole/regles_relance.html
+msgid "e-mail"
+msgstr "email"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "SMS par envoi (message long : raccourcir pour payer moins)"
+msgstr "SMS per send (long message: shorten it to pay less)"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "SMS par envoi"
+msgstr "SMS per send"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Aucune règle : aucun rappel automatique n'est envoyé."
+msgstr "No rules: no automatic reminders are sent."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Canaux d'envoi"
+msgstr "Sending channels"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Configuré"
+msgstr "Configured"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Simulé"
+msgstr "Simulated"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "« Simulé » : les messages sont notés dans le journal mais pas envoyés. Voir le README (section « Envois aux parents ») pour brancher WhatsApp, SMS et e-mail."
+msgstr "“Simulated”: messages are recorded in the log but not sent. See the README (section “Envois aux parents”) to connect WhatsApp, SMS and e-mail."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Envoyer un SMS d'essai"
+msgstr "Send a test SMS"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Numéro (MTN ou Celtiis)"
+msgstr "Number (MTN or Celtiis)"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Ex. 01 97 12 34 56"
+msgstr "E.g. 01 97 12 34 56"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Message"
+msgstr "Message"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Envoyer l'essai"
+msgstr "Send test"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Brancher les SMS (MTN / Celtiis)"
+msgstr "Connect SMS (MTN / Celtiis)"
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Sur un téléphone Android de l'école avec une puce MTN ou Celtiis (forfait SMS conseillé), installez l'application gratuite « SMS Gateway for Android » (sms-gate.app)."
+msgstr "On a school Android phone with an MTN or Celtiis SIM (SMS bundle recommended), install the free “SMS Gateway for Android” app (sms-gate.app)."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Ouvrez-la, autorisez l'envoi de SMS, activez « Local server » (même Wi-Fi que l'ordinateur) ou « Cloud server » (par Internet), puis appuyez sur « Online »."
+msgstr "Open it, allow sending SMS, enable “Local server” (same Wi-Fi as the computer) or “Cloud server” (over the Internet), then tap “Online”."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Notez l'adresse, l'utilisateur et le mot de passe affichés, copiez le fichier « reglages.env.exemple » en « reglages.env » dans le dossier de FinMob, complétez-le et redémarrez FinMob."
+msgstr "Note the address, user and password shown, copy “reglages.env.exemple” to “reglages.env” in the FinMob folder, fill it in and restart FinMob."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Revenez ici et envoyez un SMS d'essai à votre propre numéro."
+msgstr "Come back here and send a test SMS to your own number."
+
+#: ecole/templates/ecole/regles_relance.html
+msgid "Les rappels partent automatiquement si la commande « envoyer_relances » est planifiée chaque jour. Un même rappel n'est jamais envoyé deux fois."
+msgstr "Reminders go out automatically if the “envoyer_relances” command is scheduled daily. The same reminder is never sent twice."
+
+#: ecole/templates/ecole/relances.html
+msgid "Rappeler aux parents le reste à payer, par SMS ou WhatsApp"
+msgstr "Remind parents of the balance due, by SMS or WhatsApp"
+
+#: ecole/templates/ecole/relances.html
+msgid "à relancer"
+msgstr "to remind"
+
+#: ecole/templates/ecole/relances.html
+msgid "Reste total :"
+msgstr "Total balance:"
+
+#: ecole/templates/ecole/relances.html
+msgid "Relancé il y a"
+msgstr "Reminded"
+
+#: ecole/templates/ecole/relances.html
+msgid "Jamais relancé"
+msgstr "Never reminded"
+
+#: ecole/templates/ecole/relances.html
+msgid "Envoyer un SMS"
+msgstr "Send an SMS"
+
+#: ecole/models.py:385 ecole/models.py:692 ecole/models.py:722 ecole/templates/ecole/relances.html
+msgid "SMS"
+msgstr "SMS"
+
+#: ecole/templates/ecole/relances.html
+msgid "Envoyer sur WhatsApp"
+msgstr "Send on WhatsApp"
+
+#: ecole/templates/ecole/relances.html
+msgid "Aucun impayé"
+msgstr "No unpaid balance"
+
+#: ecole/templates/ecole/relances.html
+msgid ": rien à relancer."
+msgstr ": nothing to remind."
+
+#: ecole/templates/ecole/relances.html
+msgid "Aperçu du message"
+msgstr "Message preview"
+
+#: ecole/templates/ecole/relances.html
+msgid "Pour le premier élève de la liste"
+msgstr "For the first student in the list"
+
+#: ecole/templates/ecole/relances.html
+msgid "Modifier le message type"
+msgstr "Edit the message template"
+
+#: ecole/templates/ecole/relances.html
+msgid "Le bouton ouvre l'application SMS ou WhatsApp"
+msgstr "The button opens the SMS or WhatsApp app"
+
+#: ecole/templates/ecole/relances.html
+msgid "du téléphone utilisé"
+msgstr "of the phone being used"
+
+#: ecole/templates/ecole/relances.html
+msgid ", avec le message déjà rédigé : il reste à appuyer sur « Envoyer ». Aucun service payant n'est utilisé."
+msgstr ", with the message already written: just press “Send”. No paid service is used."
+
+#: ecole/templates/ecole/relances.html
+msgid "Historique"
+msgstr "History"
+
+#: ecole/templates/ecole/relances.html
+msgid "· reste"
+msgstr "· balance"
+
+#: ecole/templates/ecole/relances.html
+msgid "Aucune relance envoyée."
+msgstr "No reminders sent."
+
+#: ecole/templates/ecole/suivi.html
+msgid "Suivi des paiements"
+msgstr "Payment tracking"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Élèves soldés et élèves ayant un reste à payer sur la scolarité"
+msgstr "Students paid in full and students with a tuition balance"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Relancer"
+msgstr "Send reminders"
+
+#: ecole/models.py:300 ecole/templates/ecole/suivi.html
+msgid "Inscription non payée"
+msgstr "Enrolment fee unpaid"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Reste total à recouvrer :"
+msgstr "Total outstanding:"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Frais d'inscription restant à encaisser :"
+msgstr "Enrolment fees still to collect:"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Montant échu non réglé :"
+msgstr "Overdue unpaid amount:"
+
+#: ecole/templates/ecole/suivi.html
+msgid "Aucun élève soldé pour le moment."
+msgstr "No student has paid in full yet."
+
+#: ecole/templates/ecole/suivi.html
+msgid "Aucun retard : toutes les échéances passées sont réglées."
+msgstr "Nothing overdue: all past due dates have been paid."
+
+#: ecole/templates/ecole/suivi.html
+msgid "Tous les frais d'inscription dus sont payés."
+msgstr "All enrolment fees due have been paid."
+
+#: ecole/templates/ecole/suivi.html
+msgid "Aucun impayé : tous les élèves sont à jour !"
+msgstr "No unpaid balance: every student is up to date!"
+
+#: ecole/templates/ecole/utilisateur_form.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Compte"
+msgstr "Account"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Vous ne pouvez pas changer votre propre rôle ni désactiver votre compte."
+msgstr "You cannot change your own role or deactivate your own account."
+
+#: ecole/forms.py:512 ecole/templates/ecole/utilisateur_form.html ecole/templates/registration/login.html pedagogie/forms.py:69
+msgid "Mot de passe"
+msgstr "Password"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Périmètre du surveillant"
+msgstr "Supervisor scope"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Classes dont il peut consulter le statut de paiement (à jour, en retard, soldé). Il ne voit aucun montant."
+msgstr "Classes for which they can view the payment status (up to date, overdue, paid in full). They do not see any amounts."
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Enregistrer le périmètre"
+msgstr "Save the scope"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Codes d'accès aux modules"
+msgstr "Module access codes"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Code personnel de cet utilisateur pour chaque module de son rôle. Une fois connecté, il le saisit à chaque fois qu'il entre dans ce module ; sans code, il ne peut pas y entrer. Laissez vide pour ne rien changer (4 caractères minimum)."
+msgstr "This user's personal code for each module of their role. Once signed in, they enter it every time they enter that module; without a code they cannot enter it. Leave blank to keep the current code (4 characters minimum)."
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Code défini"
+msgstr "Code set"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Sans code"
+msgstr "No code"
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Aucun module : attribuez d'abord un rôle à ce compte."
+msgstr "No module: assign a role to this account first."
+
+#: ecole/templates/ecole/utilisateur_form.html
+msgid "Enregistrer les codes"
+msgstr "Save codes"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "Comptes du personnel et leurs rôles"
+msgstr "Staff accounts and their roles"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "(vous)"
+msgstr "(you)"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "· dernière connexion :"
+msgstr "· last sign-in:"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "· admin"
+msgstr "· admin"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "Désactivé"
+msgstr "Deactivated"
+
+#: ecole/modules.py:42 ecole/templates/ecole/utilisateurs.html
+msgid "Rôles"
+msgstr "Roles"
+
+#: ecole/templates/ecole/utilisateurs.html
+msgid "jamais"
+msgstr "never"
+
+#: ecole/templates/registration/login.html
+msgid "Connexion"
+msgstr "Sign in"
+
+#: ecole/templates/registration/login.html
+msgid "Scolarité, notes, professeurs et examens, au même endroit."
+msgstr "Tuition, grades, teachers and exams, all in one place."
+
+#: ecole/templates/registration/login.html
+msgid "Gérez les inscriptions et les paiements, saisissez les notes, éditez les bulletins et organisez les compositions."
+msgstr "Manage enrolments and payments, enter grades, print report cards and organise exams."
+
+#: ecole/templates/registration/login.html
+msgid "Scolarité, reçus et relances des parents"
+msgstr "Tuition, receipts and parent reminders"
+
+#: ecole/templates/registration/login.html
+msgid "Notes, moyennes, rangs et bulletins PDF"
+msgstr "Grades, averages, rankings and PDF report cards"
+
+#: ecole/templates/registration/login.html
+msgid "Professeurs, emplois du temps et paiements"
+msgstr "Teachers, timetables and payments"
+
+#: ecole/templates/registration/login.html
+msgid "Compositions, salles et surveillants"
+msgstr "Exams, rooms and invigilators"
+
+#: ecole/templates/registration/login.html
+msgid "Connectez-vous avec le compte fourni par la direction."
+msgstr "Sign in with the account provided by the management."
+
+#: ecole/templates/registration/login.html
+msgid "Identifiant ou mot de passe incorrect."
+msgstr "Incorrect username or password."
+
+#: ecole/forms.py:511 ecole/templates/registration/login.html
+msgid "Identifiant"
+msgstr "Username"
+
+#: ecole/agent.py:61
+msgid "Répondez par :\n1 - Situation (reste à payer)\n2 - Échéances\n3 - Dernière facture\n4 - Historique des paiements"
+msgstr "Reply with:\n1 - Status (balance due)\n2 - Due dates\n3 - Latest invoice\n4 - Payment history"
+
+#: ecole/agent.py:93
+msgid "aucun paiement enregistré."
+msgstr "no payment recorded."
+
+#: ecole/agent.py:101
+msgid "Bonjour. Ce numéro n’est rattaché à aucun élève. Merci de contacter l’établissement pour mettre à jour vos coordonnées."
+msgstr "Hello. This number is not linked to any student. Please contact the school to update your contact details."
+
+#: ecole/agent.py:127
+msgid "Tapez MENU pour les autres options."
+msgstr "Type MENU for other options."
+
+#: ecole/agent.py:66
+msgid "versé %(verse)s, reste %(reste)s."
+msgstr "paid %(verse)s, %(reste)s remaining."
+
+#: ecole/agent.py:69
+msgid "En retard : %(montant)s (depuis %(jours)s jour(s))."
+msgstr "Overdue: %(montant)s (for %(jours)s day(s))."
+
+#: ecole/agent.py:82
+msgid "pas d’échéancier défini, reste %(reste)s."
+msgstr "no payment schedule set, %(reste)s remaining."
+
+#: ecole/agent.py:72
+msgid "Prochaine échéance : %(montant)s le %(date)s."
+msgstr "Next due date: %(montant)s on %(date)s."
+
+#: ecole/agent.py:75
+msgid "Scolarité soldée. Merci !"
+msgstr "Tuition paid in full. Thank you!"
+
+#: ecole/agent.py:145
+msgid "Facture %(numero)s"
+msgstr "Invoice %(numero)s"
+
+#: ecole/agent.py:154
+msgid "Votre scolarité"
+msgstr "Your tuition"
+
+#: ecole/agent.py:121
+msgid "Aucune facture pour le moment."
+msgstr "No invoices yet."
+
+#: ecole/agent.py:124
+msgid "Bonjour ! Assistant scolarité de %(ecole)s (%(noms)s)."
+msgstr "Hello! Tuition assistant for %(ecole)s (%(noms)s)."
+
+#: ecole/agent.py:117
+msgid "Facture %(numero)s du %(date)s : %(montant)s (%(eleve)s)."
+msgstr "Invoice %(numero)s of %(date)s: %(montant)s (%(eleve)s)."
+
+#: ecole/echeancier.py:302
+msgid "En retard — partiellement payée"
+msgstr "Overdue — partly paid"
+
+#: ecole/echeancier.py:303 ecole/pdf.py:449
+msgid "Soldée"
+msgstr "Paid in full"
+
+#: ecole/echeancier.py:303
+msgid "Partiellement payée"
+msgstr "Partly paid"
+
+#: ecole/echeancier.py:303 pedagogie/templates/pedagogie/examens/_ligne.html
+msgid "En cours"
+msgstr "In progress"
+
+#: ecole/echeancier.py:304 pedagogie/templates/pedagogie/examens/_ligne.html
+msgid "À venir"
+msgstr "Upcoming"
+
+#: ecole/echeancier.py:114 ecole/echeancier.py:80
+msgid "Fratrie (%(rang)se enfant) : %(taux)s %%"
+msgstr "Siblings (child no. %(rang)s): %(taux)s %%"
+
+#: ecole/echeancier.py:368 ecole/echeancier.py:390
+msgid "Scolarité — %(tranche)s (échéance du %(date)s)"
+msgstr "Tuition — %(tranche)s (due %(date)s)"
+
+#: ecole/echeancier.py:383
+msgid "Scolarité %(annee)s"
+msgstr "Tuition %(annee)s"
+
+#: ecole/echeancier.py:209
+msgid "Tranche unique"
+msgstr "Single instalment"
+
+#: ecole/echeancier.py:284
+msgid "Excédent"
+msgstr "Excess"
+
+#: ecole/forms.py:52
+msgid "Frais d'inscription (avant réduction)"
+msgstr "Enrolment fee (before discount)"
+
+#: ecole/forms.py:57
+msgid "Rempli automatiquement si les frais de la classe sont définis (Scolarité › Frais par classe)."
+msgstr "Filled in automatically if the class fees are defined (Tuition › Fees by class)."
+
+#: ecole/forms.py:24
+msgid "Choisissez un établissement proposé ou tapez un nouveau nom : il sera créé automatiquement."
+msgstr "Pick a suggested school or type a new name: it will be created automatically."
+
+#: ecole/forms.py:112
+msgid "Frais d'inscription versés aujourd'hui"
+msgstr "Enrolment fee paid today"
+
+#: ecole/forms.py:116
+msgid "Imputé automatiquement sur les tranches, dans l’ordre."
+msgstr "Allocated automatically to the instalments, in order."
+
+#: ecole/forms.py:237 ecole/forms.py:262
+msgid "Prénom"
+msgstr "First name"
+
+#: ecole/forms.py:239 ecole/forms.py:253
+msgid "Rôle"
+msgstr "Role"
+
+#: ecole/forms.py:255
+msgid "Nouveau mot de passe"
+msgstr "New password"
+
+#: ecole/forms.py:256
+msgid "Laisser vide pour ne pas changer le mot de passe."
+msgstr "Leave blank to keep the current password."
+
+#: ecole/forms.py:262
+msgid "Compte actif"
+msgstr "Active account"
+
+#: ecole/forms.py:307
+msgid "Un jeton est enregistré. Laissez vide pour le conserver."
+msgstr "A token is saved. Leave blank to keep it."
+
+#: ecole/forms.py:429
+msgid "Correction demandée"
+msgstr "Requested correction"
+
+#: ecole/forms.py:435 pedagogie/pdf.py:130
+msgid "Date du paiement"
+msgstr "Payment date"
+
+#: ecole/forms.py:439
+msgid "Motif de la correction"
+msgstr "Reason for the correction"
+
+#: ecole/forms.py:440
+msgid "Obligatoire : il est conservé dans l’historique du paiement."
+msgstr "Required: it is kept in the payment history."
+
+#: ecole/forms.py:490
+msgid "Établissement des élèves"
+msgstr "Students' school"
+
+#: ecole/forms.py:492
+msgid "Utilisé pour les lignes sans colonne « Établissement ». Un nouveau nom crée l’établissement."
+msgstr "Used for rows without a “Établissement” column. A new name creates the school."
+
+#: ecole/forms.py:493
+msgid "Fichier Excel (.xlsx) ou CSV"
+msgstr "Excel file (.xlsx) or CSV"
+
+#: ecole/forms.py:513
+msgid "À communiquer au parent ; il pourra se connecter sur la même adresse."
+msgstr "To be given to the parent; they can sign in at the same address."
+
+#: ecole/forms.py:528
+msgid "Classes surveillées"
+msgstr "Supervised classes"
+
+#: ecole/forms.py:530
+msgid "Aucune case cochée : toutes les classes."
+msgstr "No box ticked: all classes."
+
+#: ecole/forms.py:94
+msgid "Aucune grille des frais pour cette classe : saisissez le montant."
+msgstr "No fee structure for this class: enter the amount."
+
+#: ecole/forms.py:131
+msgid "Le versement dépasse le montant de la scolarité."
+msgstr "The payment exceeds the tuition amount."
+
+#: ecole/forms.py:177 ecole/forms.py:454
+msgid "La date ne peut pas être dans le futur."
+msgstr "The date cannot be in the future."
+
+#: ecole/forms.py:321
+msgid "Pour normaliser les factures, renseignez l’IFU et le jeton e-MECeF."
+msgstr "To standardise invoices, enter the IFU and the e-MECeF token."
+
+#: ecole/forms.py:354
+msgid "Ajoutez au moins une tranche."
+msgstr "Add at least one instalment."
+
+#: ecole/forms.py:357
+msgid "Les échéances doivent être dans l’ordre chronologique."
+msgstr "Due dates must be in chronological order."
+
+#: ecole/forms.py:380
+msgid "Gardez au moins une échéance."
+msgstr "Keep at least one due date."
+
+#: ecole/forms.py:396
+msgid "Un pourcentage ne peut pas dépasser 100."
+msgstr "A percentage cannot exceed 100."
+
+#: ecole/forms.py:409
+msgid "Indiquez au moins un téléphone ou un e-mail."
+msgstr "Enter at least a phone number or an e-mail."
+
+#: ecole/forms.py:422
+msgid "Choisissez au moins un canal."
+msgstr "Choose at least one channel."
+
+#: ecole/forms.py:470
+msgid "Aucune valeur n’a changé."
+msgstr "No value has changed."
+
+#: ecole/forms.py:504
+msgid "Format accepté : .xlsx ou .csv."
+msgstr "Accepted format: .xlsx or .csv."
+
+#: ecole/forms.py:506
+msgid "Fichier trop volumineux (5 Mo au maximum)."
+msgstr "File too large (5 MB maximum)."
+
+#: ecole/forms.py:518 pedagogie/forms.py:74
+msgid "Cet identifiant est déjà utilisé."
+msgstr "This username is already taken."
+
+#: ecole/forms.py:99
+msgid "Déjà %(total_verse)s versés sur les tranches : le montant ne peut pas être inférieur."
+msgstr "%(total_verse)s has already been paid in instalments: the amount cannot be lower."
+
+#: ecole/forms.py:134
+msgid "Plus que les frais d'inscription dus (%(du)s)."
+msgstr "More than the enrolment fee due (%(du)s)."
+
+#: ecole/forms.py:312 ecole/views/administration.py:100
+msgid "Un établissement « %(nom)s » existe déjà."
+msgstr "A school named “%(nom)s” already exists."
+
+#: ecole/forms.py:463
+msgid "Ce champ est obligatoire."
+msgstr "This field is required."
+
+#: ecole/forms.py:23
+msgid "Ex. CEG Akpakpa"
+msgstr "e.g. CEG Akpakpa"
+
+#: ecole/forms.py:35
+msgid "Même numéro"
+msgstr "Same number"
+
+#: ecole/forms.py:330 ecole/forms.py:36
+msgid "Ex. CM2, 6ème A"
+msgstr "e.g. CM2, 6ème A"
+
+#: ecole/forms.py:37
+msgid "Quartier, ville"
+msgstr "Neighbourhood, town"
+
+#: ecole/forms.py:185
+msgid "Le reste à payer sur la scolarité n’est que de %(reste)s."
+msgstr "The tuition balance due is only %(reste)s."
+
+#: ecole/forms.py:190
+msgid "Les frais d'inscription sont déjà entièrement payés."
+msgstr "The enrolment fee is already paid in full."
+
+#: ecole/forms.py:221
+msgid "Retirer le code"
+msgstr "Remove the code"
+
+#: ecole/forms.py:343
+msgid "Ex. 1ʳᵉ tranche"
+msgstr "E.g. 1st instalment"
+
+#: ecole/forms.py:468
+msgid "Au plus %(plafond)s pour cet élève."
+msgstr "At most %(plafond)s for this student."
+
+#: ecole/forms.py:491
+msgid "Ex. CS Romaric"
+msgstr "E.g. CS Romaric"
+
+#: ecole/forms.py:189
+msgid "Il ne reste que %(reste)s à payer sur les frais d'inscription."
+msgstr "Only %(reste)s remains to be paid on the enrolment fee."
+
+#: ecole/forms.py:217
+msgid "Aucun code"
+msgstr "No code"
+
+#: ecole/importation.py:343
+msgid "Non importé une seconde fois."
+msgstr "Not imported a second time."
+
+#: ecole/importation.py:335
+msgid "Déjà dans la base : %(eleve)s (%(classe)s, %(ecole)s), importé(e) le %(date)s par %(par)s."
+msgstr "Already in the database: %(eleve)s (%(classe)s, %(ecole)s), imported on %(date)s by %(par)s."
+
+#: ecole/importation.py:339
+msgid "Déjà dans la base : %(eleve)s (%(classe)s, %(ecole)s), enregistré(e) le %(date)s."
+msgstr "Already in the database: %(eleve)s (%(classe)s, %(ecole)s), recorded on %(date)s."
+
+#: ecole/importation.py:342
+msgid "(élève archivé)"
+msgstr "(archived student)"
+
+#: ecole/importation.py:440
+msgid "Prénom absent : « Néant »."
+msgstr "First name missing: “Néant”."
+
+#: ecole/importation.py:444
+msgid "Classe absente : « Néant » (à corriger sur la fiche)."
+msgstr "Class missing: “Néant” (to correct on the record)."
+
+#: ecole/importation.py:630
+msgid "Nom (ou « Nom et prénom »)"
+msgstr "Surname (or “Nom et prénom”)"
+
+#: ecole/importation.py:645
+msgid "Ligne sans nom d’élève (total ou ligne vide) : ignorée."
+msgstr "Row without a student name (total or empty row): skipped."
+
+#: ecole/importation.py:455
+msgid "Nouvel établissement « %(nom)s » : il sera créé."
+msgstr "New school “%(nom)s”: it will be created."
+
+#: ecole/importation.py:470
+msgid "Date de naissance dans le futur : laissée vide."
+msgstr "Date of birth in the future: left empty."
+
+#: ecole/importation.py:526
+msgid "Montant de la scolarité absent : 0 (à compléter sur la fiche ou dans « Frais par classe »)."
+msgstr "Tuition amount missing: 0 (to complete on the record or in “Frais par classe”)."
+
+#: ecole/importation.py:583
+msgid "Scolarité payée (%(v)s) supérieure au montant (%(m)s) : seuls %(m)s seront enregistrés."
+msgstr "Tuition paid (%(v)s) exceeds the amount (%(m)s): only %(m)s will be recorded."
+
+#: ecole/importation.py:586
+msgid "Inscription payée (%(v)s) supérieure aux frais (%(m)s) : seuls %(m)s seront enregistrés."
+msgstr "Enrolment fee paid (%(v)s) exceeds the fee (%(m)s): only %(m)s will be recorded."
+
+#: ecole/importation.py:620
+msgid "Le fichier est vide."
+msgstr "The file is empty."
+
+#: ecole/importation.py:665
+msgid "Même élève que la ligne %(n)s du fichier : ligne non importée (doublon)."
+msgstr "Same student as row %(n)s of the file: row not imported (duplicate)."
+
+#: ecole/importation.py:465
+msgid "Sexe « %(v)s » non reconnu : laissé vide."
+msgstr "Sex “%(v)s” not recognised: left empty."
+
+#: ecole/importation.py:473
+msgid "Date de naissance « %(v)s » illisible : laissée vide."
+msgstr "Date of birth “%(v)s” unreadable: left empty."
+
+#: ecole/importation.py:509
+msgid "Scolarité vide : %(m)s repris des autres élèves de la classe %(classe)s dans le fichier."
+msgstr "Empty tuition: %(m)s taken from the other students of class %(classe)s in the file."
+
+#: ecole/importation.py:519
+msgid "Scolarité du fichier (%(f)s) différente de celle de la classe (%(c)s) : les tranches de la classe sont gardées, avec des montants ajustés au fichier."
+msgstr "Tuition in the file (%(f)s) differs from the class tuition (%(c)s): the class instalments are kept, with amounts adjusted to the file."
+
+#: ecole/importation.py:549
+msgid "Mode de paiement « %(v)s » non reconnu : « Espèces »."
+msgstr "Payment method “%(v)s” not recognised: “Espèces” (cash)."
+
+#: ecole/importation.py:554
+msgid "Date du versement « %(v)s » illisible : date du jour."
+msgstr "Payment date “%(v)s” unreadable: today's date used."
+
+#: ecole/importation.py:563
+msgid "Paiement « %(v)s » illisible : non repris."
+msgstr "Payment “%(v)s” unreadable: not carried over."
+
+#: ecole/importation.py:571
+msgid "Total payé réparti : %(i)s sur l’inscription, %(s)s sur la scolarité."
+msgstr "Total paid split: %(i)s to enrolment, %(s)s to tuition."
+
+#: ecole/importation.py:578
+msgid "Paiement daté du %(d)s (dans le futur) : enregistré à la date du jour."
+msgstr "Payment dated %(d)s (in the future): recorded with today's date."
+
+#: ecole/importation.py:591
+msgid "Rappels « %(v)s » non reconnu : « Oui »."
+msgstr "Reminders “%(v)s” not recognised: “Oui” (yes)."
+
+#: ecole/importation.py:617
+msgid "Fichier trop long : %(n)s lignes au maximum par import."
+msgstr "File too long: at most %(n)s rows per import."
+
+#: ecole/importation.py:632
+msgid "Colonnes obligatoires introuvables : %(colonnes)s."
+msgstr "Required columns not found: %(colonnes)s."
+
+#: ecole/importation.py:482
+msgid "Lien « %(v)s » non reconnu : laissé vide."
+msgstr "Relationship “%(v)s” not recognised: left empty."
+
+#: ecole/importation.py:487
+msgid "Numéro « %(v)s » trop court : à vérifier."
+msgstr "Number “%(v)s” too short: to check."
+
+#: ecole/importation.py:534
+msgid "Type de réduction « %(v)s » non reconnu : « Remise »."
+msgstr "Discount type “%(v)s” not recognised: “Remise” (discount)."
+
+#: ecole/importation.py:539
+msgid "Réduction « %(v)s » illisible : non appliquée."
+msgstr "Discount “%(v)s” unreadable: not applied."
+
+#: ecole/importation.py:493
+msgid "E-mail « %(v)s » invalide : laissé vide."
+msgstr "E-mail “%(v)s” invalid: left empty."
+
+#: ecole/importation.py:747
+msgid "Repris à l’import"
+msgstr "Carried over at import"
+
+#: ecole/models.py:15
+msgid "année scolaire"
+msgstr "school year"
+
+#: ecole/models.py:26 ecole/models.py:27
+msgid "paramètres"
+msgstr "settings"
+
+#: ecole/models.py:39
+msgid "Trimestres"
+msgstr "Terms"
+
+#: ecole/models.py:40
+msgid "Semestres"
+msgstr "Semesters"
+
+#: ecole/models.py:44
+msgid "Test (développeur)"
+msgstr "Test (developer)"
+
+#: ecole/models.py:45
+msgid "Production"
+msgstr "Production"
+
+#: ecole/models.py:49
+msgid "A — Exonéré"
+msgstr "A — Exempt"
+
+#: ecole/models.py:50
+msgid "B — Taxable (TVA 18 %)"
+msgstr "B — Taxable (VAT 18 %)"
+
+#: ecole/models.py:68
+msgid "nom de l'établissement"
+msgstr "school name"
+
+#: ecole/models.py:69
+msgid "adresse"
+msgstr "address"
+
+#: ecole/models.py:204 ecole/models.py:535 ecole/models.py:70 ecole/models.py:768
+msgid "téléphone"
+msgstr "phone"
+
+#: ecole/models.py:83
+msgid "réduction 2ᵉ enfant (%)"
+msgstr "2nd child reduction (%)"
+
+#: ecole/models.py:85
+msgid "réduction 3ᵉ enfant et suivants (%)"
+msgstr "3rd and subsequent children reduction (%)"
+
+#: ecole/models.py:87
+msgid "réduction sur l'inscription, 2ᵉ enfant (%)"
+msgstr "enrolment discount, 2nd child (%)"
+
+#: ecole/models.py:89
+msgid "réduction sur l'inscription, 3ᵉ enfant et suivants (%)"
+msgstr "enrolment discount, 3rd child and beyond (%)"
+
+#: ecole/models.py:92
+msgid "normaliser les factures (e-MECeF)"
+msgstr "standardise invoices (e-MECeF)"
+
+#: ecole/models.py:93
+msgid "environnement e-MECeF"
+msgstr "e-MECeF environment"
+
+#: ecole/models.py:95
+msgid "jeton e-MECeF"
+msgstr "e-MECeF token"
+
+#: ecole/models.py:575 ecole/models.py:97
+msgid "groupe de taxation"
+msgstr "tax group"
+
+#: ecole/models.py:101 ecole/models.py:218 ecole/models.py:427 ecole/models.py:684
+msgid "établissement"
+msgstr "school"
+
+#: ecole/models.py:135
+msgid "Masculin"
+msgstr "Male"
+
+#: ecole/models.py:136
+msgid "Féminin"
+msgstr "Female"
+
+#: ecole/models.py:140
+msgid "Père"
+msgstr "Father"
+
+#: ecole/models.py:141
+msgid "Mère"
+msgstr "Mother"
+
+#: ecole/models.py:142
+msgid "Tuteur"
+msgstr "Guardian"
+
+#: ecole/models.py:143
+msgid "Tutrice"
+msgstr "Guardian (female)"
+
+#: ecole/models.py:144
+msgid "Autre"
+msgstr "Other"
+
+#: ecole/models.py:149
+msgid "1ʳᵉ tranche"
+msgstr "1st instalment"
+
+#: ecole/models.py:150
+msgid "2ᵉ tranche"
+msgstr "2nd instalment"
+
+#: ecole/models.py:151
+msgid "3ᵉ tranche"
+msgstr "3rd instalment"
+
+#: ecole/models.py:194 ecole/models.py:533 pedagogie/models.py:27 pedagogie/models.py:42
+msgid "nom"
+msgstr "last name"
+
+#: ecole/models.py:195 pedagogie/models.py:43
+msgid "prénom(s)"
+msgstr "first name(s)"
+
+#: ecole/models.py:196
+msgid "sexe"
+msgstr "sex"
+
+#: ecole/models.py:197
+msgid "date de naissance"
+msgstr "date of birth"
+
+#: ecole/models.py:198
+msgid "lieu de naissance"
+msgstr "place of birth"
+
+#: ecole/models.py:199
+msgid "parent ou tuteur"
+msgstr "parent or guardian"
+
+#: ecole/models.py:205
+msgid "WhatsApp du parent"
+msgstr "parent's WhatsApp"
+
+#: ecole/models.py:207
+msgid "e-mail du parent"
+msgstr "parent's e-mail"
+
+#: ecole/models.py:208
+msgid "rappels automatiques"
+msgstr "automatic reminders"
+
+#: ecole/models.py:210
+msgid "échéancier personnalisé"
+msgstr "customised payment schedule"
+
+#: ecole/models.py:211
+msgid "résidence"
+msgstr "address"
+
+#: ecole/models.py:212
+msgid "numéro Educ Master"
+msgstr "Educ Master number"
+
+#: ecole/models.py:213
+msgid "montant total de la scolarité"
+msgstr "total tuition amount"
+
+#: ecole/models.py:215
+msgid "frais d'inscription (avant réduction)"
+msgstr "enrolment fee (before discount)"
+
+#: ecole/models.py:221 ecole/models.py:367
+msgid "enregistré le"
+msgstr "recorded on"
+
+#: ecole/models.py:222 ecole/models.py:410 ecole/models.py:430
+msgid "modifié le"
+msgstr "modified on"
+
+#: ecole/models.py:224
+msgid "archivé"
+msgstr "archived"
+
+#: ecole/models.py:228
+msgid "motif de l'archivage"
+msgstr "reason for archiving"
+
+#: ecole/models.py:348
+msgid "Espèces"
+msgstr "Cash"
+
+#: ecole/models.py:349
+msgid "Mobile Money"
+msgstr "Mobile Money"
+
+#: ecole/models.py:350
+msgid "Virement bancaire"
+msgstr "Bank transfer"
+
+#: ecole/models.py:351
+msgid "Chèque"
+msgstr "Cheque"
+
+#: ecole/models.py:354 ecole/models.py:515 ecole/models.py:660
+msgid "motif"
+msgstr "purpose"
+
+#: ecole/models.py:355 ecole/models.py:450 ecole/models.py:569 pedagogie/models.py:229
+msgid "montant"
+msgstr "amount"
+
+#: ecole/models.py:356 ecole/models.py:570 pedagogie/models.py:230
+msgid "mode de paiement"
+msgstr "payment method"
+
+#: ecole/models.py:357
+msgid "date du paiement"
+msgstr "payment date"
+
+#: ecole/models.py:361 pedagogie/models.py:216
+msgid "observation"
+msgstr "note"
+
+#: ecole/models.py:362 ecole/models.py:630 ecole/models.py:656
+msgid "n° de reçu"
+msgstr "receipt no."
+
+#: ecole/models.py:389 ecole/models.py:746
+msgid "canal"
+msgstr "channel"
+
+#: ecole/models.py:390
+msgid "reste à payer au moment de la relance"
+msgstr "balance due at the time of the reminder"
+
+#: ecole/models.py:394 ecole/models.py:568 ecole/models.py:664 ecole/models.py:754
+msgid "date"
+msgstr "date"
+
+#: ecole/models.py:397
+msgid "relance"
+msgstr "reminder"
+
+#: ecole/models.py:408
+msgid "module"
+msgstr "module"
+
+#: ecole/models.py:409
+msgid "code chiffré"
+msgstr "encrypted code"
+
+#: ecole/models.py:413
+msgid "code d'accès d'un module"
+msgstr "module access code"
+
+#: ecole/models.py:414
+msgid "codes d'accès des modules"
+msgstr "module access codes"
+
+#: ecole/models.py:429
+msgid "frais d'inscription"
+msgstr "registration fees"
+
+#: ecole/models.py:433
+msgid "grille des frais"
+msgstr "fee structure"
+
+#: ecole/models.py:434
+msgid "grilles des frais"
+msgstr "fee structures"
+
+#: ecole/models.py:448 ecole/models.py:472
+msgid "n°"
+msgstr "no."
+
+#: ecole/models.py:449 ecole/models.py:473
+msgid "libellé"
+msgstr "label"
+
+#: ecole/models.py:451 ecole/models.py:476 ecole/models.py:815
+msgid "date d'échéance"
+msgstr "due date"
+
+#: ecole/models.py:454 ecole/models.py:814
+msgid "tranche"
+msgstr "instalment"
+
+#: ecole/models.py:474
+msgid "montant avant réduction"
+msgstr "amount before reduction"
+
+#: ecole/models.py:475 ecole/models.py:520
+msgid "réduction"
+msgstr "reduction"
+
+#: ecole/models.py:492
+msgid "Bourse"
+msgstr "Scholarship"
+
+#: ecole/models.py:493
+msgid "Remise personnalisée"
+msgstr "Custom discount"
+
+#: ecole/models.py:497
+msgid "Pourcentage"
+msgstr "Percentage"
+
+#: ecole/models.py:498
+msgid "Montant fixe"
+msgstr "Fixed amount"
+
+#: ecole/models.py:510
+msgid "porte sur"
+msgstr "applies to"
+
+#: ecole/models.py:512 ecole/models.py:566 ecole/models.py:747
+msgid "type"
+msgstr "type"
+
+#: ecole/models.py:513
+msgid "calcul"
+msgstr "calculation"
+
+#: ecole/models.py:514
+msgid "valeur"
+msgstr "value"
+
+#: ecole/models.py:534
+msgid "lien"
+msgstr "relationship"
+
+#: ecole/models.py:538
+msgid "reçoit les factures et rappels"
+msgstr "receives invoices and reminders"
+
+#: ecole/models.py:541
+msgid "contact parent"
+msgstr "parent contact"
+
+#: ecole/models.py:552
+msgid "Facture d'avoir"
+msgstr "Credit note"
+
+#: ecole/models.py:556
+msgid "Normalisée"
+msgstr "Standardised"
+
+#: ecole/models.py:557
+msgid "Non normalisée"
+msgstr "Not standardised"
+
+#: ecole/models.py:558
+msgid "Erreur de normalisation"
+msgstr "Standardisation error"
+
+#: ecole/models.py:567
+msgid "n° de facture"
+msgstr "invoice no."
+
+#: ecole/models.py:571
+msgid "lignes"
+msgstr "lines"
+
+#: ecole/models.py:572
+msgid "client"
+msgstr "customer"
+
+#: ecole/models.py:573
+msgid "contact du client"
+msgstr "customer contact"
+
+#: ecole/models.py:579
+msgid "annulée par un avoir"
+msgstr "cancelled by a credit note"
+
+#: ecole/models.py:580 ecole/models.py:635 ecole/models.py:751 pedagogie/models.py:46
+msgid "statut"
+msgstr "status"
+
+#: ecole/models.py:584
+msgid "code MECeF/DGI"
+msgstr "MECeF/DGI code"
+
+#: ecole/models.py:587
+msgid "NIM"
+msgstr "NIM"
+
+#: ecole/models.py:593
+msgid "facture"
+msgstr "invoice"
+
+#: ecole/models.py:615
+msgid "Modification"
+msgstr "Modification"
+
+#: ecole/models.py:616
+msgid "Annulation"
+msgstr "Cancellation"
+
+#: ecole/models.py:621
+msgid "Validée"
+msgstr "Approved"
+
+#: ecole/models.py:622
+msgid "Refusée"
+msgstr "Rejected"
+
+#: ecole/models.py:631 ecole/models.py:657
+msgid "action"
+msgstr "action"
+
+#: ecole/models.py:633
+msgid "nouvelles valeurs"
+msgstr "new values"
+
+#: ecole/models.py:634
+msgid "motif de la correction"
+msgstr "reason for the correction"
+
+#: ecole/models.py:642
+msgid "commentaire"
+msgstr "comment"
+
+#: ecole/models.py:645
+msgid "demande de correction"
+msgstr "correction request"
+
+#: ecole/models.py:646
+msgid "demandes de correction"
+msgstr "correction requests"
+
+#: ecole/models.py:658
+msgid "avant"
+msgstr "before"
+
+#: ecole/models.py:659
+msgid "après"
+msgstr "after"
+
+#: ecole/models.py:667
+msgid "correction de paiement"
+msgstr "payment correction"
+
+#: ecole/models.py:668
+msgid "corrections de paiements"
+msgstr "payment corrections"
+
+#: ecole/models.py:675
+msgid "Avant l'échéance"
+msgstr "Before the due date"
+
+#: ecole/models.py:676
+msgid "Le jour de l'échéance"
+msgstr "On the due date"
+
+#: ecole/models.py:677
+msgid "En cas de retard"
+msgstr "When overdue"
+
+#: ecole/models.py:686
+msgid "moment"
+msgstr "timing"
+
+#: ecole/models.py:687
+msgid "nombre de jours"
+msgstr "number of days"
+
+#: ecole/models.py:690
+msgid "répéter tous les (jours)"
+msgstr "repeat every (days)"
+
+#: ecole/models.py:695 ecole/models.py:750 ecole/models.py:757
+msgid "message"
+msgstr "message"
+
+#: ecole/models.py:698
+msgid "active"
+msgstr "active"
+
+#: ecole/models.py:701
+msgid "règle de relance"
+msgstr "reminder rule"
+
+#: ecole/models.py:702
+msgid "règles de relance"
+msgstr "reminder rules"
+
+#: ecole/models.py:728
+msgid "Rappel d’échéance"
+msgstr "Due date reminder"
+
+#: ecole/models.py:729
+msgid "Relance de retard"
+msgstr "Overdue reminder"
+
+#: ecole/models.py:730
+msgid "Message reçu"
+msgstr "Message received"
+
+#: ecole/models.py:731
+msgid "Réponse de l’assistant"
+msgstr "Assistant's reply"
+
+#: ecole/models.py:735
+msgid "Envoyé"
+msgstr "Sent"
+
+#: ecole/models.py:736
+msgid "Simulé (canal non configuré)"
+msgstr "Simulated (channel not configured)"
+
+#: ecole/models.py:737
+msgid "Échec"
+msgstr "Failed"
+
+#: ecole/models.py:748
+msgid "destinataire"
+msgstr "recipient"
+
+#: ecole/models.py:749
+msgid "objet"
+msgstr "subject"
+
+#: ecole/models.py:758
+msgid "messages"
+msgstr "messages"
+
+#: ecole/models.py:773
+msgid "accès parent"
+msgstr "parent access"
+
+#: ecole/models.py:774
+msgid "accès parents"
+msgstr "parent accesses"
+
+#: ecole/models.py:784 ecole/views/portail.py:35
+msgid "classes"
+msgstr "classes"
+
+#: ecole/models.py:787
+msgid "périmètre de surveillant"
+msgstr "supervisor scope"
+
+#: ecole/models.py:816
+msgid "montant de la tranche"
+msgstr "instalment amount"
+
+#: ecole/models.py:817
+msgid "montant affecté"
+msgstr "allocated amount"
+
+#: ecole/models.py:818
+msgid "payé sur la tranche après ce paiement"
+msgstr "paid on the instalment after this payment"
+
+#: ecole/models.py:819
+msgid "reste sur la tranche après ce paiement"
+msgstr "remaining on the instalment after this payment"
+
+#: ecole/models.py:820
+msgid "reste de la scolarité après ce paiement"
+msgstr "remaining tuition after this payment"
+
+#: ecole/models.py:823
+msgid "affectation de paiement"
+msgstr "payment allocation"
+
+#: ecole/models.py:824
+msgid "affectations de paiements"
+msgstr "payment allocations"
+
+#: ecole/models.py:835
+msgid "empreinte du contenu"
+msgstr "content fingerprint"
+
+#: ecole/models.py:836
+msgid "nom du fichier"
+msgstr "file name"
+
+#: ecole/models.py:837
+msgid "importé le"
+msgstr "imported on"
+
+#: ecole/models.py:840
+msgid "élèves créés"
+msgstr "students created"
+
+#: ecole/models.py:841
+msgid "paiements repris"
+msgstr "payments carried over"
+
+#: ecole/models.py:844
+msgid "import d'élèves"
+msgstr "student import"
+
+#: ecole/models.py:845
+msgid "imports d'élèves"
+msgstr "student imports"
+
+#: ecole/models.py:22
+msgid "Variables disponibles : {parent}, {eleve}, {classe}, {reste}, {ecole}."
+msgstr "Available variables: {parent}, {eleve}, {classe}, {reste}, {ecole}."
+
+#: ecole/models.py:78
+msgid "Identifiant Fiscal Unique de l’établissement (13 chiffres)."
+msgstr "The school's Unique Tax Identifier (13 digits)."
+
+#: ecole/models.py:90
+msgid "100 % = inscription gratuite à partir du 3ᵉ enfant."
+msgstr "100 % = free enrolment from the 3rd child."
+
+#: ecole/models.py:96
+msgid "Jeton d’accès (JWT) délivré par la DGI pour cet IFU."
+msgstr "Access token (JWT) issued by the DGI for this IFU."
+
+#: ecole/models.py:206
+msgid "Laisser vide si c’est le même numéro que le téléphone."
+msgstr "Leave blank if it is the same number as the phone."
+
+#: ecole/models.py:209
+msgid "Le parent reçoit les rappels avant chaque échéance et en cas de retard."
+msgstr "The parent receives reminders before each due date and when payment is overdue."
+
+#: ecole/models.py:216
+msgid "Rempli automatiquement si les frais de la classe sont définis."
+msgstr "Filled in automatically if the class fees are defined."
+
+#: ecole/models.py:227
+msgid "archivé par"
+msgstr "archived by"
+
+#: ecole/models.py:230
+msgid "fichier d'import"
+msgstr "import file"
+
+#: ecole/models.py:298
+msgid "Inscription offerte"
+msgstr "Enrolment fee waived"
+
+#: ecole/models.py:359
+msgid "N° de transaction Mobile Money, de chèque…"
+msgstr "Mobile Money transaction no., cheque no.…"
+
+#: ecole/models.py:365
+msgid "encaissé par"
+msgstr "collected by"
+
+#: ecole/models.py:392
+msgid "envoyée par"
+msgstr "sent by"
+
+#: ecole/models.py:406
+msgid "utilisateur"
+msgstr "user"
+
+#: ecole/models.py:578
+msgid "facture corrigée"
+msgstr "corrected invoice"
+
+#: ecole/models.py:685
+msgid "Laisser vide pour tous les établissements."
+msgstr "Leave blank for all schools."
+
+#: ecole/models.py:688
+msgid "Jours avant l'échéance, ou jours de retard."
+msgstr "Days before the due date, or days overdue."
+
+#: ecole/models.py:690
+msgid "Retards uniquement : 0 = une seule fois."
+msgstr "Overdue only: 0 = just once."
+
+#: ecole/models.py:696
+msgid "Variables : {parent}, {eleve}, {classe}, {tranche}, {montant}, {echeance}, {reste}, {retard}, {ecole}."
+msgstr "Variables: {parent}, {eleve}, {classe}, {tranche}, {montant}, {echeance}, {reste}, {retard}, {ecole}."
+
+#: ecole/models.py:769
+msgid "enfants"
+msgstr "children"
+
+#: ecole/models.py:839
+msgid "importé par"
+msgstr "imported by"
+
+#: ecole/models.py:299
+msgid "Inscription payée"
+msgstr "Enrolment fee paid"
+
+#: ecole/models.py:299
+msgid "Inscription partielle"
+msgstr "Enrolment fee partly paid"
+
+#: ecole/models.py:300
+msgid "Inscription : montant non défini"
+msgstr "Enrolment fee: amount not set"
+
+#: ecole/models.py:322
+msgid "Partiel"
+msgstr "Partial"
+
+#: ecole/models.py:322
+msgid "Impayé"
+msgstr "Unpaid"
+
+#: ecole/models.py:709
+msgid "Le jour de l’échéance"
+msgstr "On the due date"
+
+#: ecole/models.py:710
+msgid "%(n)s jour(s) de retard"
+msgstr "%(n)s day(s) overdue"
+
+#: ecole/models.py:77
+msgid "L'IFU compte 13 chiffres."
+msgstr "The IFU has 13 digits."
+
+#: ecole/models.py:707
+msgid "%(n)s jour(s) avant l’échéance"
+msgstr "%(n)s day(s) before the due date"
+
+#: ecole/models.py:712
+msgid ", puis tous les %(n)s jours"
+msgstr ", then every %(n)s days"
+
+#: ecole/modules.py:41
+msgid "Administration"
+msgstr "Administration"
+
+#: ecole/modules.py:41
+msgid "Comptes, rôles, établissements et paramètres généraux."
+msgstr "Accounts, roles, schools and general settings."
+
+#: ecole/modules.py:42
+msgid "Réglages"
+msgstr "Settings"
+
+#: ecole/modules.py:24
+msgid "Grille des frais, échéanciers, encaissements, factures et relances des parents."
+msgstr "Fee structures, payment schedules, payments, invoices and parent reminders."
+
+#: ecole/modules.py:25
+msgid "Finances des élèves"
+msgstr "Student finances"
+
+#: ecole/modules.py:27
+msgid "Statut de paiement des élèves (à jour, en retard, soldé) pour les surveillants."
+msgstr "Student payment status (up to date, overdue, paid in full) for supervisors."
+
+#: ecole/modules.py:30 pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Notes et moyennes"
+msgstr "Grades & averages"
+
+#: ecole/modules.py:30
+msgid "Saisie des notes, moyennes coefficientées, rangs et bulletins."
+msgstr "Grade entry, weighted averages, rankings and report cards."
+
+#: ecole/modules.py:31
+msgid "Suivi pédagogique"
+msgstr "Academic tracking"
+
+#: ecole/modules.py:33 pedagogie/templates/pedagogie/profs/liste.html
+msgid "Professeurs"
+msgstr "Teachers"
+
+#: ecole/modules.py:33
+msgid "Fiches, classes attribuées, emplois du temps, heures et paiements."
+msgstr "Profiles, assigned classes, timetables, hours and payments."
+
+#: ecole/modules.py:34
+msgid "Équipe enseignante"
+msgstr "Teaching staff"
+
+#: ecole/modules.py:36 pedagogie/templates/pedagogie/examens/liste.html
+msgid "Examens"
+msgstr "Exams"
+
+#: ecole/modules.py:36
+msgid "Planning des compositions, salles, surveillants et suivi de la saisie."
+msgstr "Exam schedule, rooms, invigilators and grade-entry tracking."
+
+#: ecole/modules.py:37
+msgid "Compositions internes"
+msgstr "Internal exams"
+
+#: ecole/modules.py:26 ecole/pdf.py:633
+msgid "Inscriptions"
+msgstr "Enrolments"
+
+#: ecole/modules.py:26
+msgid "Échéanciers"
+msgstr "Payment schedules"
+
+#: ecole/modules.py:32
+msgid "Saisie"
+msgstr "Entry"
+
+#: ecole/modules.py:32
+msgid "Moyennes"
+msgstr "Averages"
+
+#: ecole/modules.py:32
+msgid "Rangs"
+msgstr "Rankings"
+
+#: ecole/modules.py:32
+msgid "Bulletins"
+msgstr "Report cards"
+
+#: ecole/modules.py:35
+msgid "Fiches"
+msgstr "Profiles"
+
+#: ecole/modules.py:35
+msgid "Heures"
+msgstr "Hours"
+
+#: ecole/modules.py:35 ecole/pdf.py:574 pedagogie/templates/pedagogie/profs/detail.html
+msgid "Paiements"
+msgstr "Payments"
+
+#: ecole/modules.py:38
+msgid "Sessions"
+msgstr "Sessions"
+
+#: ecole/modules.py:38
+msgid "Épreuves"
+msgstr "Papers"
+
+#: ecole/modules.py:38
+msgid "Surveillances"
+msgstr "Invigilation"
+
+#: ecole/modules.py:38 pedagogie/templates/pedagogie/examens/detail.html
+msgid "Planning PDF"
+msgstr "PDF schedule"
+
+#: ecole/notifications.py:189
+msgid "Bonjour %(parent)s, la facture %(origine)s de %(montant)s a été annulée par l'avoir %(numero)s (correction d'un paiement de %(eleve)s). — %(ecole)s"
+msgstr "Hello %(parent)s, invoice %(origine)s for %(montant)s has been cancelled by credit note %(numero)s (correction of a payment for %(eleve)s). — %(ecole)s"
+
+#: ecole/notifications.py:192
+msgid "Bonjour %(parent)s, nous avons bien reçu %(montant)s pour la scolarité de %(eleve)s (%(classe)s). Facture n° %(numero)s. Reste à payer : %(reste)s. — %(ecole)s"
+msgstr "Hello %(parent)s, we have received %(montant)s for %(eleve)s's tuition (%(classe)s). Invoice no. %(numero)s. Balance due: %(reste)s. — %(ecole)s"
+
+#: ecole/notifications.py:201
+msgid "Facture %(numero)s — %(ecole)s"
+msgstr "Invoice %(numero)s — %(ecole)s"
+
+#: ecole/notifications.py:47
+msgid "Téléphone passerelle (puce MTN / Celtiis)"
+msgstr "Gateway phone (MTN / Celtiis SIM)"
+
+#: ecole/notifications.py:253
+msgid "Retard de paiement — %(eleve)s"
+msgstr "Overdue payment — %(eleve)s"
+
+#: ecole/notifications.py:254
+msgid "Rappel d’échéance — %(eleve)s"
+msgstr "Due date reminder — %(eleve)s"
+
+#: ecole/pdf.py:274
+msgid "● Soldé"
+msgstr "● Paid in full"
+
+#: ecole/pdf.py:274
+msgid "● Partiel"
+msgstr "● Partial"
+
+#: ecole/pdf.py:274
+msgid "● Impayé"
+msgstr "● Unpaid"
+
+#: ecole/pdf.py:301 ecole/pdf.py:704 ecole/views/exports.py:103 pedagogie/pdf.py:61
+msgid "Parent / tuteur"
+msgstr "Parent / guardian"
+
+#: ecole/pdf.py:431
+msgid "Reste à payer : %(reste)s (%(lettres)s)."
+msgstr "Balance due: %(reste)s (%(lettres)s)."
+
+#: ecole/pdf.py:478
+msgid "%(classe)s · inscrit(e) le %(date)s"
+msgstr "%(classe)s · enrolled on %(date)s"
+
+#: ecole/pdf.py:502
+msgid "Identité et parents"
+msgstr "Identity and parents"
+
+#: ecole/pdf.py:530 ecole/pdf.py:534 ecole/pdf.py:588
+msgid "Frais d’inscription"
+msgstr "Enrolment fee"
+
+#: ecole/pdf.py:550
+msgid "Échéancier de la scolarité"
+msgstr "Tuition schedule"
+
+#: ecole/pdf.py:579 ecole/pdf.py:639 ecole/views/exports.py:118
+msgid "N° reçu"
+msgstr "Receipt no."
+
+#: ecole/pdf.py:639 ecole/views/exports.py:118
+msgid "Encaissé par"
+msgstr "Collected by"
+
+#: ecole/pdf.py:127
+msgid "Année scolaire %(annee_scolaire)s"
+msgstr "School year %(annee_scolaire)s"
+
+#: ecole/pdf.py:420
+msgid "Scolarité soldée"
+msgstr "Tuition fully paid"
+
+#: ecole/pdf.py:420
+msgid "Toutes les tranches sont payées."
+msgstr "All instalments are paid."
+
+#: ecole/pdf.py:432
+msgid "À jour — prochaine échéance : %(tranche)s le %(date)s, %(m)s"
+msgstr "Up to date — next due: %(tranche)s on %(date)s, %(m)s"
+
+#: ecole/pdf.py:513 ecole/pdf.py:523
+msgid "Parent principal"
+msgstr "Main parent"
+
+#: ecole/pdf.py:608
+msgid "Les montants tiennent compte de tous les paiements enregistrés à cette date."
+msgstr "Amounts include all payments recorded as of this date."
+
+#: ecole/pdf.py:609
+msgid "La Direction"
+msgstr "The Management"
+
+#: ecole/pdf.py:609 ecole/pdf.py:867
+msgid "Signature et cachet"
+msgstr "Signature and stamp"
+
+#: ecole/pdf.py:688
+msgid "Reçu n° %(numero_recu)s"
+msgstr "Receipt no. %(numero_recu)s"
+
+#: ecole/pdf.py:693
+msgid "REÇU DE PAIEMENT"
+msgstr "PAYMENT RECEIPT"
+
+#: ecole/pdf.py:737
+msgid "Situation à la date d’édition · Conservez ce reçu."
+msgstr "Status as of the issue date · Keep this receipt."
+
+#: ecole/pdf.py:770
+msgid "Facture d'avoir n° %(numero)s"
+msgstr "Credit note no. %(numero)s"
+
+#: ecole/pdf.py:770
+msgid "Facture n° %(numero)s"
+msgstr "Invoice no. %(numero)s"
+
+#: ecole/pdf.py:790
+msgid "Parent de %(eleve)s — %(classe)s"
+msgstr "Parent of %(eleve)s — %(classe)s"
+
+#: ecole/pdf.py:865
+msgid "Conservez cette facture : elle prouve le paiement."
+msgstr "Keep this invoice: it is proof of payment."
+
+#: ecole/pdf.py:866
+msgid "Pour l’établissement"
+msgstr "For the school"
+
+#: ecole/pdf.py:165
+msgid "Édité le %(localtime)s"
+msgstr "Issued on %(localtime)s"
+
+#: ecole/pdf.py:179
+msgid "Page %(page)s / %(total)s"
+msgstr "Page %(page)s / %(total)s"
+
+#: ecole/pdf.py:345
+msgid "Aucun élève ne correspond à ces critères."
+msgstr "No student matches these criteria."
+
+#: ecole/pdf.py:424
+msgid "En retard de %(j)s jour(s) : %(m)s échu(s) non payé(s)"
+msgstr "%(j)s day(s) late: %(m)s overdue and unpaid"
+
+#: ecole/pdf.py:426
+msgid "%(tranches)s. Reste total à payer : %(reste)s (%(lettres)s)."
+msgstr "%(tranches)s. Total balance due: %(reste)s (%(lettres)s)."
+
+#: ecole/pdf.py:443 ecole/pdf.py:579
+msgid "Affecté à"
+msgstr "Allocated to"
+
+#: ecole/pdf.py:505
+msgid "Né(e) le"
+msgstr "Born on"
+
+#: ecole/pdf.py:506
+msgid "Lieu de naissance"
+msgstr "Place of birth"
+
+#: ecole/pdf.py:520
+msgid "Autre parent"
+msgstr "Other parent"
+
+#: ecole/pdf.py:521
+msgid "Oui"
+msgstr "Yes"
+
+#: ecole/pdf.py:521
+msgid "Non"
+msgstr "No"
+
+#: ecole/pdf.py:522
+msgid "Parents"
+msgstr "Parents"
+
+#: ecole/pdf.py:536 ecole/pdf.py:538
+msgid "À payer"
+msgstr "Due"
+
+#: ecole/pdf.py:543
+msgid "Aucune"
+msgstr "None"
+
+#: ecole/pdf.py:546
+msgid "Réductions sur la scolarité"
+msgstr "Tuition discounts"
+
+#: ecole/pdf.py:339 ecole/pdf.py:564 ecole/pdf.py:663 ecole/pdf.py:809
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: ecole/pdf.py:606
+msgid "Fiche arrêtée le %(date)s à %(heure)s."
+msgstr "Record issued on %(date)s at %(heure)s."
+
+#: ecole/pdf.py:631 ecole/pdf.py:649
+msgid "%(n)s paiement(s)"
+msgstr "%(n)s payment(s)"
+
+#: ecole/pdf.py:667
+msgid "Aucun paiement ne correspond à ces critères."
+msgstr "No payment matches these criteria."
+
+#: ecole/pdf.py:675
+msgid "Le caissier — La Direction"
+msgstr "Cashier — Management"
+
+#: ecole/pdf.py:676
+msgid "Signatures et cachet"
+msgstr "Signatures and stamp"
+
+#: ecole/pdf.py:696
+msgid "N° %(numero_recu)s · %(date)s"
+msgstr "No. %(numero_recu)s · %(date)s"
+
+#: ecole/pdf.py:777
+msgid "FACTURE D'AVOIR"
+msgstr "CREDIT NOTE"
+
+#: ecole/pdf.py:777
+msgid "FACTURE"
+msgstr "INVOICE"
+
+#: ecole/pdf.py:779
+msgid "N° %(numero)s · %(date)s"
+msgstr "No. %(numero)s · %(date)s"
+
+#: ecole/pdf.py:785
+msgid "IFU : %(ifu)s"
+msgstr "IFU: %(ifu)s"
+
+#: ecole/pdf.py:787
+msgid "RCCM : %(rccm)s"
+msgstr "RCCM: %(rccm)s"
+
+#: ecole/pdf.py:826
+msgid "N° de transaction"
+msgstr "Transaction no."
+
+#: ecole/pdf.py:830
+msgid "Annule la facture"
+msgstr "Cancels invoice"
+
+#: ecole/pdf.py:838
+msgid "Éléments de sécurité de la facture normalisée"
+msgstr "Security elements of the standardised invoice"
+
+#: ecole/pdf.py:856
+msgid "Facture annulée"
+msgstr "Invoice cancelled"
+
+#: ecole/pdf.py:857
+msgid "Cette facture a été annulée par une facture d’avoir."
+msgstr "This invoice has been cancelled by a credit note."
+
+#: ecole/pdf.py:294
+msgid "Scolarité attendue"
+msgstr "Expected tuition"
+
+#: ecole/pdf.py:384
+msgid "Non renseigné"
+msgstr "Not provided"
+
+#: ecole/pdf.py:483
+msgid "Le %(date)s — %(motif)s"
+msgstr "On %(date)s — %(motif)s"
+
+#: ecole/pdf.py:491
+msgid "Scolarité due"
+msgstr "Tuition due"
+
+#: ecole/pdf.py:526
+msgid "Frères et sœurs dans l’établissement : %(liste)s"
+msgstr "Siblings in the school: %(liste)s"
+
+#: ecole/pdf.py:636
+msgid "%(part)s %% du total"
+msgstr "%(part)s %% of total"
+
+#: ecole/pdf.py:672
+msgid "Journal arrêté à la somme de %(m)s"
+msgstr "Journal closed at %(m)s"
+
+#: ecole/pdf.py:794
+msgid "Émetteur"
+msgstr "Issuer"
+
+#: ecole/pdf.py:807
+msgid "Total hors taxe"
+msgstr "Total excl. tax"
+
+#: ecole/pdf.py:808
+msgid "TVA 18 %"
+msgstr "VAT 18 %"
+
+#: ecole/pdf.py:809
+msgid "TOTAL TTC"
+msgstr "TOTAL INCL. TAX"
+
+#: ecole/pdf.py:839
+msgid "Code MECeF/DGI : %(code)s"
+msgstr "MECeF/DGI code: %(code)s"
+
+#: ecole/pdf.py:840
+msgid "MECeF NIM : %(nim)s"
+msgstr "MECeF NIM: %(nim)s"
+
+#: ecole/pdf.py:841
+msgid "Compteurs : %(c)s"
+msgstr "Counters: %(c)s"
+
+#: ecole/pdf.py:842
+msgid "Heure MECeF : %(h)s"
+msgstr "MECeF time: %(h)s"
+
+#: ecole/pdf.py:851
+msgid "Facture non normalisée : la normalisation e-MECeF n’est pas encore activée pour cet établissement."
+msgstr "Invoice not standardised: e-MECeF standardisation is not yet enabled for this school."
+
+#: ecole/pdf.py:853
+msgid "Normalisation e-MECeF en attente (le service n’a pas répondu) : la facture sera normalisée dès que possible."
+msgstr "e-MECeF standardisation pending (the service did not respond): the invoice will be standardised as soon as possible."
+
+#: ecole/pdf.py:864
+msgid "Encaissé par %(nom)s"
+msgstr "Received by %(nom)s"
+
+#: ecole/pdf.py:293
+msgid "%(valeur)s classe(s)"
+msgstr "%(valeur)s class(es)"
+
+#: ecole/pdf.py:295
+msgid "Inscriptions : %(valeur)s"
+msgstr "Registration fees: %(valeur)s"
+
+#: ecole/pdf.py:296
+msgid "%(valeur)s élève(s) non soldé(s)"
+msgstr "%(valeur)s student(s) not paid in full"
+
+#: ecole/pdf.py:297
+msgid "%(nb_soldes)s soldé(s)"
+msgstr "%(nb_soldes)s paid in full"
+
+#: ecole/pdf.py:491
+msgid "après réductions"
+msgstr "after discounts"
+
+#: ecole/pdf.py:707 pedagogie/pdf.py:131
+msgid " — réf. %(reference)s"
+msgstr " — ref. %(reference)s"
+
+#: ecole/pdf.py:579
+msgid "Motif et mode"
+msgstr "Purpose and method"
+
+#: ecole/pdf.py:595
+msgid "TOTAL VERSÉ (scolarité et inscription)"
+msgstr "TOTAL PAID (tuition and enrolment)"
+
+#: ecole/pdf.py:315
+msgid "%(libelle)s  ·  %(items)s élève(s)  ·  %(valeur)s soldé(s)"
+msgstr "%(libelle)s  ·  %(items)s student(s)  ·  %(valeur)s paid in full"
+
+#: ecole/roles.py:18
+msgid "Direction"
+msgstr "Management"
+
+#: ecole/roles.py:18
+msgid "Secrétariat"
+msgstr "Office"
+
+#: ecole/roles.py:18
+msgid "Caissier"
+msgstr "Cashier"
+
+#: ecole/roles.py:18 pedagogie/pdf.py:129 pedagogie/pdf.py:67 pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Professeur"
+msgstr "Teacher"
+
+#: ecole/roles.py:19
+msgid "Surveillant"
+msgstr "Supervisor"
+
+#: ecole/roles.py:19
+msgid "Parent"
+msgstr "Parent"
+
+#: ecole/roles.py:22
+msgid "Accès complet : suppression, utilisateurs, paramètres, paiement des professeurs."
+msgstr "Full access: deletion, users, settings, teacher payments."
+
+#: ecole/roles.py:23
+msgid "Élèves, relances, exports, matières, professeurs, emplois du temps, compositions et bulletins."
+msgstr "Students, reminders, exports, subjects, teachers, timetables, exams and report cards."
+
+#: ecole/roles.py:24
+msgid "Encaisse la scolarité, imprime les reçus, relance les parents, paie les professeurs."
+msgstr "Collects tuition, prints receipts, reminds parents, pays teachers."
+
+#: ecole/roles.py:25
+msgid "Saisit les notes de ses classes, consulte son emploi du temps, ses heures et ses surveillances."
+msgstr "Enters grades for their classes, views their timetable, hours and invigilation duties."
+
+#: ecole/roles.py:26
+msgid "Consulte le statut de paiement (à jour, en retard, soldé) des élèves de ses classes."
+msgstr "Views the payment status (up to date, overdue, paid in full) of students in their classes."
+
+#: ecole/roles.py:27
+msgid "Espace parents : situation de ses enfants, historique des paiements et factures."
+msgstr "Parent portal: their children's status, payment history and invoices."
+
+#: ecole/views/administration.py:82
+msgid "Paramètres enregistrés."
+msgstr "Settings saved."
+
+#: ecole/views/administration.py:98
+msgid "Le nom ne peut pas être vide."
+msgstr "The name cannot be empty."
+
+#: ecole/views/administration.py:32
+msgid "Compte « %(username)s » créé : définissez maintenant ses codes d'accès aux modules."
+msgstr "Account “%(username)s” created: now set their module access codes."
+
+#: ecole/views/administration.py:61
+msgid "Codes d'accès de « %(username)s » enregistrés."
+msgstr "Access codes for “%(username)s” saved."
+
+#: ecole/views/administration.py:69
+msgid "Compte « %(username)s » mis à jour."
+msgstr "Account “%(username)s” updated."
+
+#: ecole/views/administration.py:72
+msgid "Modifier « %(username)s »"
+msgstr "Edit “%(username)s”"
+
+#: ecole/views/administration.py:57
+msgid "Périmètre de « %(username)s » enregistré."
+msgstr "Scope of “%(username)s” saved."
+
+#: ecole/views/connexion.py:31
+msgid "Trop d’essais incorrects. Réessayez dans %(n)s min."
+msgstr "Too many incorrect attempts. Try again in %(n)s min."
+
+#: ecole/views/eleves.py:385
+msgid "Réduction retirée."
+msgstr "Reduction removed."
+
+#: ecole/views/eleves.py:411
+msgid "Contact retiré."
+msgstr "Contact removed."
+
+#: ecole/views/eleves.py:189
+msgid "Enregistrer l'inscription"
+msgstr "Save enrolment"
+
+#: ecole/views/eleves.py:268 pedagogie/views/professeurs.py:78
+msgid "Fiche mise à jour."
+msgstr "Record updated."
+
+#: ecole/views/eleves.py:273
+msgid "Modifier la fiche"
+msgstr "Edit record"
+
+#: ecole/views/eleves.py:274
+msgid "Enregistrer les modifications"
+msgstr "Save changes"
+
+#: ecole/views/eleves.py:310
+msgid "%(eleve)s est de nouveau actif(ve)."
+msgstr "%(eleve)s is active again."
+
+#: ecole/views/eleves.py:331
+msgid "Échéancier recalculé depuis la grille de la classe."
+msgstr "Payment schedule recalculated from the class fee structure."
+
+#: ecole/views/eleves.py:355
+msgid "Échéancier personnalisé enregistré."
+msgstr "Customised payment schedule saved."
+
+#: ecole/views/eleves.py:371
+msgid "Réduction ajoutée : elle est répartie sur les tranches restantes."
+msgstr "Reduction added: it is spread over the remaining instalments."
+
+#: ecole/views/eleves.py:399
+msgid "Contact ajouté."
+msgstr "Contact added."
+
+#: ecole/views/eleves.py:451
+msgid "L’accès « %(identifiant)s » ne voit plus cet élève."
+msgstr "The account “%(identifiant)s” no longer sees this student."
+
+#: ecole/views/eleves.py:176
+msgid "%(eleve)s a été inscrit(e)."
+msgstr "%(eleve)s has been enrolled."
+
+#: ecole/views/eleves.py:289
+msgid "Indiquez le motif de l'archivage (départ, transfert, abandon…)."
+msgstr "Enter the reason for archiving (left, transfer, dropped out…)."
+
+#: ecole/views/eleves.py:296
+msgid "%(eleve)s a été archivé(e). Sa fiche reste consultable dans « Élèves archivés »."
+msgstr "%(eleve)s has been archived. The record remains available in “Archived students”."
+
+#: ecole/views/eleves.py:354
+msgid "Attention : le total de l’échéancier est inférieur à ce qui est déjà versé."
+msgstr "Warning: the payment schedule total is lower than the amount already paid."
+
+#: ecole/views/eleves.py:435
+msgid "Accès parent créé : identifiant « %(identifiant)s »."
+msgstr "Parent access created: username “%(identifiant)s”."
+
+#: ecole/views/eleves.py:439
+msgid "Ce numéro avait déjà un accès (« %(identifiant)s ») : l’élève y a été rattaché."
+msgstr "This number already had an access (“%(identifiant)s”): the student has been linked to it."
+
+#: ecole/views/eleves.py:478
+msgid "Aperçu expiré : chargez de nouveau le fichier."
+msgstr "Preview expired: upload the file again."
+
+#: ecole/views/eleves.py:487
+msgid "%(n)s élève(s) importé(s), %(f)s paiement(s) repris avec leur facture."
+msgstr "%(n)s student(s) imported, %(f)s payment(s) carried over with their invoice."
+
+#: ecole/views/eleves.py:179
+msgid "Réduction sur les frais d'inscription : %(detail)s — à payer %(du)s au lieu de %(brut)s."
+msgstr "Enrolment fee discount: %(detail)s — %(du)s to pay instead of %(brut)s."
+
+#: ecole/views/eleves.py:183
+msgid "Facture(s) %(numeros)s émise(s) et envoyée(s) au parent."
+msgstr "Invoice(s) %(numeros)s issued and sent to the parent."
+
+#: ecole/views/eleves.py:188
+msgid "Inscrire un frère / une sœur de %(eleve)s"
+msgstr "Enrol a brother / sister of %(eleve)s"
+
+#: ecole/views/eleves.py:476
+msgid "Cet import a déjà été enregistré : il ne peut pas être importé une seconde fois."
+msgstr "This import has already been saved: it cannot be imported a second time."
+
+#: ecole/views/eleves.py:490
+msgid "%(n)s élève(s) déjà dans la base entre-temps : non importé(s) une seconde fois."
+msgstr "%(n)s student(s) added to the database in the meantime: not imported a second time."
+
+#: ecole/views/eleves.py:503
+msgid "Fichier illisible : enregistrez-le au format .xlsx ou .csv."
+msgstr "Unreadable file: save it in .xlsx or .csv format."
+
+#: ecole/views/eleves.py:508
+msgid "Ce fichier a déjà été importé le %(date)s par %(par)s (%(n)s élève(s) créé(s)). Les élèves déjà dans la base ne seront pas importés une seconde fois."
+msgstr "This file was already imported on %(date)s by %(par)s (%(n)s student(s) created). Students already in the database will not be imported a second time."
+
+#: ecole/views/eleves.py:521
+msgid "Rien à importer : les %(n)s élève(s) de ce fichier sont déjà dans la base."
+msgstr "Nothing to import: the %(n)s student(s) in this file are already in the database."
+
+#: ecole/views/eleves.py:524
+msgid "Aucun nouvel élève à importer."
+msgstr "No new students to import."
+
+#: ecole/views/exports.py:147
+msgid "toutes dates"
+msgstr "all dates"
+
+#: ecole/views/exports.py:103
+msgid "Prénom(s)"
+msgstr "First name(s)"
+
+#: ecole/views/exports.py:103
+msgid "Nature"
+msgstr "Relationship"
+
+#: ecole/views/exports.py:104
+msgid "Versé (tranches)"
+msgstr "Paid (instalments)"
+
+#: ecole/views/exports.py:104
+msgid "Inscription due"
+msgstr "Enrolment fee due"
+
+#: ecole/views/exports.py:158
+msgid "%(valeur)s · classés par classe puis par nom"
+msgstr "%(valeur)s · sorted by class, then by name"
+
+#: ecole/views/exports.py:142
+msgid "du %(du)s au %(au)s"
+msgstr "from %(du)s to %(au)s"
+
+#: ecole/views/exports.py:144
+msgid "depuis le %(du)s"
+msgstr "since %(du)s"
+
+#: ecole/views/exports.py:146
+msgid "jusqu’au %(au)s"
+msgstr "until %(au)s"
+
+#: ecole/views/exports.py:102
+msgid "Élèves soldés"
+msgstr "Students paid in full"
+
+#: ecole/views/exports.py:102
+msgid "Élèves impayés"
+msgstr "Students with unpaid balance"
+
+#: ecole/views/exports.py:157
+msgid "Élèves ayant payé"
+msgstr "Students who have paid"
+
+#: ecole/views/exports.py:157
+msgid "Élèves n’ayant pas payé"
+msgstr "Students who have not paid"
+
+#: ecole/views/exports.py:172
+msgid "Classe %(GET)s"
+msgstr "Class %(GET)s"
+
+#: ecole/views/paiements.py:75
+msgid "Élève archivé : réactivez-le avant d’encaisser un paiement."
+msgstr "Archived student: reactivate before collecting a payment."
+
+#: ecole/views/paiements.py:236
+msgid "Demande de correction envoyée à la direction pour validation."
+msgstr "Correction request sent to the management for approval."
+
+#: ecole/views/paiements.py:264
+msgid "Paiement déjà annulé."
+msgstr "Payment already cancelled."
+
+#: ecole/views/paiements.py:266
+msgid "Ce paiement n’existe plus."
+msgstr "This payment no longer exists."
+
+#: ecole/views/paiements.py:278
+msgid "Demande validée et appliquée."
+msgstr "Request approved and applied."
+
+#: ecole/views/paiements.py:278
+msgid "Demande refusée."
+msgstr "Request rejected."
+
+#: ecole/views/paiements.py:82
+msgid "Paiement %(numero_recu)s enregistré — facture %(facture)s envoyée au parent."
+msgstr "Payment %(numero_recu)s recorded — invoice %(facture)s sent to the parent."
+
+#: ecole/views/paiements.py:203
+msgid "Paiement %(numero_recu)s annulé ; une facture d’avoir a été émise."
+msgstr "Payment %(numero_recu)s cancelled; a credit note has been issued."
+
+#: ecole/views/paiements.py:144
+msgid "Facture %(numero)s normalisée."
+msgstr "Invoice %(numero)s standardised."
+
+#: ecole/views/paiements.py:146
+msgid "Normalisation impossible : %(erreur)s"
+msgstr "Standardisation failed: %(erreur)s"
+
+#: ecole/views/paiements.py:225
+msgid "Paiement annulé ; une facture d’avoir a été émise."
+msgstr "Payment cancelled; a credit note has been issued."
+
+#: ecole/views/paiements.py:228
+msgid "Paiement corrigé : avoir émis et nouvelle facture %(numero)s envoyée."
+msgstr "Payment corrected: credit note issued and new invoice %(numero)s sent."
+
+#: ecole/views/paiements.py:275
+msgid "Demande non applicable en l’état : %(erreurs)s"
+msgstr "Request cannot be applied as it stands: %(erreurs)s"
+
+#: ecole/views/paiements.py:146
+msgid "e-MECeF n’est pas activé."
+msgstr "e-MECeF is not enabled."
+
+#: ecole/views/parametrage.py:203
+msgid "Règle supprimée."
+msgstr "Rule deleted."
+
+#: ecole/views/parametrage.py:105
+msgid "Supprimer la grille"
+msgstr "Delete the fee structure"
+
+#: ecole/views/parametrage.py:132
+msgid "Grille copiée vers %(n)s classe(s)."
+msgstr "Fee structure copied to %(n)s class(es)."
+
+#: ecole/views/parametrage.py:152
+msgid "Test FinMob : ce SMS de relance est un essai. Merci de ne pas repondre."
+msgstr "FinMob test: this reminder SMS is a test. Please do not reply."
+
+#: ecole/views/parametrage.py:164
+msgid "Indiquez un numéro de téléphone et un message."
+msgstr "Enter a phone number and a message."
+
+#: ecole/views/parametrage.py:172
+msgid "SMS d’essai"
+msgstr "Test SMS"
+
+#: ecole/views/parametrage.py:193
+msgid "Règle de relance enregistrée."
+msgstr "Reminder rule saved."
+
+#: ecole/views/parametrage.py:213
+msgid "Aucun rappel à envoyer aujourd’hui (ou déjà envoyés)."
+msgstr "No reminders to send today (or already sent)."
+
+#: ecole/views/parametrage.py:31
+msgid "« %(nom)s » enregistré."
+msgstr "“%(nom)s” saved."
+
+#: ecole/views/parametrage.py:86
+msgid "Grille de la %(classe)s enregistrée ; échéancier mis à jour pour %(n)s élève(s)."
+msgstr "Fee structure for %(classe)s saved; payment schedule updated for %(n)s student(s)."
+
+#: ecole/views/parametrage.py:102
+msgid "Grille de la %(classe)s supprimée."
+msgstr "Fee structure for %(classe)s deleted."
+
+#: ecole/views/parametrage.py:106
+msgid "Supprimer la grille de la %(classe)s ? Les élèves gardent le montant actuel mais n’ont plus de dates d’échéance (sauf échéancier personnalisé)."
+msgstr "Delete the fee structure for %(classe)s? Students keep their current amount but no longer have due dates (unless they have a customised payment schedule)."
+
+#: ecole/views/parametrage.py:174
+msgid "SMS d’essai transmis au +%(n)s : vérifiez qu’il est bien arrivé sur le téléphone."
+msgstr "Test SMS sent to +%(n)s: check that it reached the phone."
+
+#: ecole/views/parametrage.py:177
+msgid "SMS simulé : aucun moyen d’envoi n’est encore branché, rien n’est parti. Suivez la procédure « Brancher les SMS » sur cette page."
+msgstr "SMS simulated: no sending method is connected yet, nothing was sent. Follow the “Connect SMS” steps on this page."
+
+#: ecole/views/parametrage.py:188
+msgid "Bonjour {parent}, la {tranche} de la scolarité de {eleve} ({classe}), soit {montant}, est attendue le {echeance}. Merci. — {ecole}"
+msgstr "Hello {parent}, the {tranche} of {eleve}'s tuition ({classe}), i.e. {montant}, is due on {echeance}. Thank you. — {ecole}"
+
+#: ecole/views/parametrage.py:212
+msgid "%(n)s message(s) de rappel envoyé(s) aujourd’hui."
+msgstr "%(n)s reminder message(s) sent today."
+
+#: ecole/views/parametrage.py:180
+msgid "Échec de l’envoi : %(e)s"
+msgstr "Sending failed: %(e)s"
+
+#: ecole/views/parametrage.py:81
+msgid "Tranche %(n)s"
+msgstr "Instalment %(n)s"
+
+#: ecole/views/portail.py:113
+msgid "Code incorrect."
+msgstr "Incorrect code."
+
+#: ecole/views/portail.py:27
+msgid "élèves inscrits"
+msgstr "students enrolled"
+
+#: ecole/views/portail.py:28
+msgid "de la scolarité recouvrée"
+msgstr "of tuition collected"
+
+#: ecole/views/portail.py:29
+msgid "élèves à relancer"
+msgstr "students to remind"
+
+#: ecole/views/portail.py:33
+msgid "cours (classe × matière)"
+msgstr "courses (class × subject)"
+
+#: ecole/views/portail.py:34
+msgid "notes de devoir saisies"
+msgstr "test grades entered"
+
+#: ecole/views/portail.py:43
+msgid "professeurs actifs"
+msgstr "active teachers"
+
+#: ecole/views/portail.py:44
+msgid "restant à verser"
+msgstr "still to be paid"
+
+#: ecole/views/portail.py:45
+msgid "créneaux au planning"
+msgstr "timetable slots"
+
+#: ecole/views/portail.py:52
+msgid "à jour ou soldés"
+msgstr "up to date or paid in full"
+
+#: ecole/views/portail.py:53
+msgid "en retard"
+msgstr "overdue"
+
+#: ecole/views/portail.py:98
+msgid "Le code doit contenir au moins 4 caractères."
+msgstr "The code must contain at least 4 characters."
+
+#: ecole/views/portail.py:39
+msgid "cours attribués"
+msgstr "assigned courses"
+
+#: ecole/views/portail.py:40
+msgid "par semaine"
+msgstr "per week"
+
+#: ecole/views/portail.py:41
+msgid "heures pointées"
+msgstr "hours logged"
+
+#: ecole/views/portail.py:57
+msgid "compositions"
+msgstr "exam sessions"
+
+#: ecole/views/portail.py:57 pedagogie/models.py:264
+msgid "composition"
+msgstr "exam session"
+
+#: ecole/views/portail.py:58
+msgid "aucune à venir"
+msgstr "none upcoming"
+
+#: ecole/views/portail.py:100
+msgid "Les deux codes ne sont pas identiques."
+msgstr "The two codes do not match."
+
+#: ecole/views/portail.py:104
+msgid "Votre code pour ce module est enregistré."
+msgstr "Your code for this module has been saved."
+
+#: pedagogie/models.py:260 pedagogie/templates/pedagogie/examens/_ligne.html pedagogie/templates/pedagogie/examens/detail.html
+msgid "au"
+msgstr "to"
+
+#: pedagogie/models.py:294 pedagogie/templates/pedagogie/examens/_ligne.html pedagogie/templates/pedagogie/examens/detail.html
+msgid "épreuve"
+msgstr "paper"
+
+#: pedagogie/templates/pedagogie/examens/_ligne.html pedagogie/templates/pedagogie/examens/detail.html
+msgid "· notes en"
+msgstr "· grades in"
+
+#: pedagogie/templates/pedagogie/examens/_ligne.html
+msgid "Terminée"
+msgstr "Finished"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "· du"
+msgstr "· from"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "Surveillance :"
+msgstr "Invigilation:"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "personne"
+msgstr "nobody"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "notes saisies"
+msgstr "grades entered"
+
+#: pedagogie/templates/pedagogie/examens/detail.html pedagogie/templates/pedagogie/notes/classe_config.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Notes"
+msgstr "Grades"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "Supprimer l'épreuve"
+msgstr "Delete paper"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "Aucune épreuve programmée"
+msgstr "No paper scheduled"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid ": ajoutez-les avec le formulaire."
+msgstr ": add them with the form."
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "Ajouter une épreuve"
+msgstr "Add a paper"
+
+#: pedagogie/templates/pedagogie/examens/detail.html
+msgid "Aucune matière configurée dans cet établissement (Notes › Matières de la classe)."
+msgstr "No subject set up in this school (Grades › Class subjects)."
+
+#: pedagogie/templates/pedagogie/examens/form.html
+msgid "Les épreuves (classe, matière, horaire, salle, surveillants) s'ajoutent ensuite"
+msgstr "Papers (class, subject, time, room, invigilators) are added next"
+
+#: pedagogie/templates/pedagogie/examens/form.html
+msgid "Composition"
+msgstr "Exam session"
+
+#: pedagogie/templates/pedagogie/examens/form.html
+msgid "Les notes des épreuves se saisissent ensuite dans la colonne choisie (D1 ou D2) de la période."
+msgstr "Paper grades are then entered in the chosen column (T1 or T2) of the term."
+
+#: pedagogie/templates/pedagogie/examens/form.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "Supprimer"
+msgstr "Delete"
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "Planning des compositions internes, salles et surveillants"
+msgstr "Internal exam schedule, rooms and invigilators"
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "Épreuves où vous êtes surveillant"
+msgstr "Papers you invigilate"
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "À venir et en cours"
+msgstr "Upcoming and in progress"
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "Aucune composition programmée."
+msgstr "No exam session scheduled."
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "Programmer une composition"
+msgstr "Schedule an exam session"
+
+#: pedagogie/templates/pedagogie/examens/liste.html
+msgid "Terminées"
+msgstr "Finished"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Matières de la"
+msgstr "Subjects of"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "· total des coefficients :"
+msgstr "· total weight:"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Résultats"
+msgstr "Results"
+
+#: pedagogie/pdf.py:202 pedagogie/pdf.py:67 pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Matière"
+msgstr "Subject"
+
+#: pedagogie/pdf.py:67 pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Coef."
+msgstr "Weight"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "À attribuer"
+msgstr "To assign"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Aucune matière pour cette classe."
+msgstr "No subject for this class."
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Ajoutez-les une par une, ou copiez celles d'une autre classe."
+msgstr "Add them one by one, or copy them from another class."
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html pedagogie/templates/pedagogie/notes/matieres.html
+msgid "Ajouter une matière"
+msgstr "Add a subject"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html pedagogie/templates/pedagogie/profs/form.html
+msgid "Créez d'abord les matières dans"
+msgstr "First create the subjects in"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Copier depuis une autre classe"
+msgstr "Copy from another class"
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Reprend les matières et les coefficients (pas les professeurs)."
+msgstr "Copies subjects and weights (not teachers)."
+
+#: pedagogie/templates/pedagogie/notes/classe_config.html
+msgid "Classe modèle"
+msgstr "Template class"
+
+#: pedagogie/templates/pedagogie/notes/matieres.html
+msgid "Liste commune à tous les établissements ; le coefficient se règle par classe"
+msgstr "Shared by all schools; the weight is set per class"
+
+#: pedagogie/templates/pedagogie/notes/matieres.html
+msgid "· enseignée dans"
+msgstr "· taught in"
+
+#: pedagogie/templates/pedagogie/notes/matieres.html
+msgid "Aucune matière. Ajoutez la première à droite."
+msgstr "No subjects. Add the first one on the right."
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Résultats ·"
+msgstr "Results ·"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Résultats de la"
+msgstr "Results for"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Tous les bulletins (PDF)"
+msgstr "All report cards (PDF)"
+
+#: pedagogie/pdf.py:100 pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Moyenne de la classe"
+msgstr "Class average"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "classé"
+msgstr "ranked"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "sur"
+msgstr "out of"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Taux de réussite"
+msgstr "Pass rate"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "à 10 ou plus"
+msgstr "at 10 or above"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Plus forte moyenne"
+msgstr "Highest average"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Plus faible moyenne"
+msgstr "Lowest average"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Classement"
+msgstr "Ranking"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Moyennes par matière (coefficient entre parenthèses) et moyenne générale"
+msgstr "Averages by subject (weight in brackets) and overall average"
+
+#: pedagogie/pdf.py:67 pedagogie/pdf.py:99 pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Rang"
+msgstr "Rank"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Moy. gén."
+msgstr "Overall avg."
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Annuelle"
+msgstr "Annual"
+
+#: pedagogie/pdf.py:67 pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Appréciation"
+msgstr "Remark"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Bulletin PDF"
+msgstr "PDF report card"
+
+#: pedagogie/templates/pedagogie/notes/resultats.html
+msgid "Aucune matière configurée pour cette classe."
+msgstr "No subject set up for this class."
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "Notes ·"
+msgstr "Grades ·"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html pedagogie/templates/pedagogie/profs/detail.html
+msgid "· coefficient"
+msgstr "· weight"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "Résultats de la classe"
+msgstr "Class results"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "MI"
+msgstr "QA"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "= moyenne des interrogations notées ·"
+msgstr "= average of the graded quizzes ·"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "Moyenne"
+msgstr "Average"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "= (MI + D1 + D2) ÷ 3, calculée sur les notes disponibles. Notes sur 20, virgule acceptée (ex. 12,5). Laissez vide ce qui n'est pas encore noté."
+msgstr "= (QA + T1 + T2) ÷ 3, computed on available grades. Grades out of 20, comma accepted (e.g. 12,5). Leave blank what has not been graded yet."
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "· MI et moyennes recalculées à l'enregistrement"
+msgstr "· QA and averages recomputed on save"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "Enregistrer les notes"
+msgstr "Save grades"
+
+#: pedagogie/templates/pedagogie/notes/saisie.html
+msgid "Aucun élève inscrit en"
+msgstr "No student enrolled in"
+
+#: pedagogie/forms.py:94 pedagogie/templates/pedagogie/notes/saisie.html
+msgid "sans professeur"
+msgstr "no teacher"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Classes, matières, saisie des notes et bulletins"
+msgstr "Classes, subjects, grade entry and report cards"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Vos classes et la saisie de vos notes"
+msgstr "Your classes and grade entry"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Matières ("
+msgstr "Subjects ("
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Classes"
+msgstr "Classes"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Configurez les matières d'une classe, puis consultez les résultats et les bulletins"
+msgstr "Set up a class's subjects, then view results and report cards"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Saisie de l'année"
+msgstr "Year progress"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "sans prof"
+msgstr "without teacher"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Aucune classe : inscrivez d'abord des élèves dans le module Scolarité."
+msgstr "No class: first enrol students in the Tuition module."
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Saisie des notes par cours"
+msgstr "Grade entry by course"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Mes cours"
+msgstr "My courses"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "cours · cliquez pour saisir les interrogations et les devoirs"
+msgstr "courses · click to enter quizzes and tests"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Coefficient"
+msgstr "Weight"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Saisir"
+msgstr "Enter"
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Aucune matière configurée : ouvrez « Matières » sur une classe ci-dessus."
+msgstr "No subject set up: open “Subjects” on a class above."
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Aucun cours ne vous est encore attribué. Contactez la direction."
+msgstr "No course has been assigned to you yet. Contact the management."
+
+#: pedagogie/templates/pedagogie/notes/tableau.html
+msgid "Pas de professeur attribué"
+msgstr "No teacher assigned"
+
+#: pedagogie/templates/pedagogie/profs/_semaine.html
+msgid "Pas de cours"
+msgstr "No classes"
+
+#: pedagogie/templates/pedagogie/profs/_semaine.html
+msgid "Sans professeur"
+msgstr "No teacher"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Fiche professeur"
+msgstr "Teacher profile"
+
+#: pedagogie/templates/pedagogie/profs/detail.html pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Emploi du temps"
+msgstr "Timetable"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Cours attribués"
+msgstr "Assigned courses"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "par semaine à l'emploi du temps"
+msgstr "per week on the timetable"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Heures pointées"
+msgstr "Hours logged"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "/ heure"
+msgstr "/ hour"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "dus"
+msgstr "due"
+
+#: pedagogie/templates/pedagogie/profs/detail.html pedagogie/templates/pedagogie/profs/liste.html
+msgid "Reste à verser"
+msgstr "Still to be paid"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "0 FCFA"
+msgstr "0 FCFA"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Avance de"
+msgstr "Advance of"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "FCFA"
+msgstr "FCFA"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "heures × taux − paiements"
+msgstr "hours × rate − payments"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Classes et matières"
+msgstr "Classes and subjects"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Attribuées dans Notes › Matières de la classe"
+msgstr "Assigned in Grades › Class subjects"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Aucune classe attribuée."
+msgstr "No class assigned."
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Semaine type"
+msgstr "Typical week"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Heures effectuées"
+msgstr "Hours worked"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "15 dernières lignes"
+msgstr "Last 15 entries"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Cours"
+msgstr "Course"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Durée"
+msgstr "Duration"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Aucune heure pointée."
+msgstr "No hours logged."
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Pointer des heures"
+msgstr "Log hours"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Coordonnées"
+msgstr "Contact details"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Aucun"
+msgstr "None"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Créer son compte"
+msgstr "Create their account"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Le professeur pourra se connecter pour saisir les notes de ses classes et voir son emploi du temps."
+msgstr "The teacher will be able to sign in to enter grades for their classes and see their timetable."
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Créer le compte"
+msgstr "Create account"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Aucun paiement."
+msgstr "No payments."
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Verser un paiement"
+msgstr "Make a payment"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Enregistrer et éditer le bon"
+msgstr "Save and print the voucher"
+
+#: pedagogie/templates/pedagogie/profs/detail.html
+msgid "Surveillances d'examen"
+msgstr "Exam invigilation"
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "de cours par semaine"
+msgstr "of classes per week"
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Ou un professeur"
+msgstr "Or a teacher"
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Afficher"
+msgstr "Show"
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Ajouter un cours"
+msgstr "Add a class"
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Configurez d'abord les matières de cette classe dans Notes."
+msgstr "First set up this class's subjects in Grades."
+
+#: pedagogie/templates/pedagogie/profs/emploi_du_temps.html
+msgid "Les conflits (classe, professeur ou salle déjà occupés) sont refusés automatiquement."
+msgstr "Conflicts (class, teacher or room already booked) are rejected automatically."
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid "Enseignement"
+msgstr "Teaching"
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid "Notes › Matières"
+msgstr "Grades › Subjects"
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid "Les classes se choisissent dans"
+msgstr "Classes are chosen in"
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid "Notes › Matières de la classe"
+msgstr "Grades › Class subjects"
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid ", en attribuant chaque matière à un professeur."
+msgstr ", by assigning each subject to a teacher."
+
+#: pedagogie/templates/pedagogie/profs/form.html
+msgid "Rémunération"
+msgstr "Pay"
+
+#: pedagogie/models.py:57 pedagogie/models.py:94 pedagogie/templates/pedagogie/profs/liste.html
+msgid "professeur"
+msgstr "teacher"
+
+#: pedagogie/models.py:53 pedagogie/templates/pedagogie/profs/liste.html
+msgid "en activité"
+msgstr "active"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Professeurs actifs"
+msgstr "Active teachers"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "au total"
+msgstr "in total"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "heures pointées × taux − paiements"
+msgstr "hours logged × rate − payments"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Sans compte de connexion"
+msgstr "Without a sign-in account"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "ne peuvent pas encore saisir leurs notes"
+msgstr "cannot enter grades yet"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Nom, téléphone, matière…"
+msgstr "Name, phone, subject…"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Inactif"
+msgstr "Inactive"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Aucune matière"
+msgstr "No subject"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "cours ·"
+msgstr "courses ·"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "À verser"
+msgstr "To pay"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "pointées"
+msgstr "logged"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Aucun professeur"
+msgstr "No teacher"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "pour «"
+msgstr "for “"
+
+#: pedagogie/templates/pedagogie/profs/liste.html
+msgid "Ajouter le premier professeur"
+msgstr "Add the first teacher"
+
+#: pedagogie/calculs.py:13
+msgid "Excellent"
+msgstr "Excellent"
+
+#: pedagogie/calculs.py:13
+msgid "Très bien"
+msgstr "Very good"
+
+#: pedagogie/calculs.py:13
+msgid "Bien"
+msgstr "Good"
+
+#: pedagogie/calculs.py:13
+msgid "Assez bien"
+msgstr "Fairly good"
+
+#: pedagogie/calculs.py:14
+msgid "Passable"
+msgstr "Satisfactory"
+
+#: pedagogie/calculs.py:14
+msgid "Insuffisant"
+msgstr "Insufficient"
+
+#: pedagogie/calculs.py:14
+msgid "Faible"
+msgstr "Weak"
+
+#: pedagogie/calculs.py:14
+msgid "Très faible"
+msgstr "Very weak"
+
+#: pedagogie/forms.py:38
+msgid "— Pas encore attribué —"
+msgstr "— Not assigned yet —"
+
+#: pedagogie/forms.py:39 pedagogie/forms.py:96
+msgid "— Choisir la matière —"
+msgstr "— Choose the subject —"
+
+#: pedagogie/forms.py:110
+msgid "— Non précisé —"
+msgstr "— Not specified —"
+
+#: pedagogie/forms.py:153
+msgid "— Choisir la classe et la matière —"
+msgstr "— Choose the class and subject —"
+
+#: pedagogie/forms.py:68
+msgid "Identifiant de connexion"
+msgstr "Sign-in username"
+
+#: pedagogie/forms.py:47
+msgid "%(matiere)s est déjà enseignée en %(classe)s."
+msgstr "%(matiere)s is already taught in %(classe)s."
+
+#: pedagogie/forms.py:24
+msgid "Ex. Mathématiques"
+msgstr "e.g. Mathematics"
+
+#: pedagogie/forms.py:143 pedagogie/forms.py:87
+msgid "Ex. Salle 3"
+msgstr "e.g. Room 3"
+
+#: pedagogie/forms.py:165
+msgid "Déjà en surveillance à ce moment : "
+msgstr "Already invigilating at that time: "
+
+#: pedagogie/forms.py:129
+msgid "1re période"
+msgstr "1st period"
+
+#: pedagogie/forms.py:129
+msgid "2e période"
+msgstr "2nd period"
+
+#: pedagogie/forms.py:129
+msgid "3e période"
+msgstr "3rd period"
+
+#: pedagogie/models.py:28
+msgid "abréviation"
+msgstr "abbreviation"
+
+#: pedagogie/models.py:31 pedagogie/models.py:91
+msgid "matière"
+msgstr "subject"
+
+#: pedagogie/models.py:39
+msgid "Permanent"
+msgstr "Permanent"
+
+#: pedagogie/models.py:40
+msgid "Vacataire"
+msgstr "Part-time"
+
+#: pedagogie/models.py:47
+msgid "taux horaire (FCFA / heure)"
+msgstr "hourly rate (FCFA / hour)"
+
+#: pedagogie/models.py:92
+msgid "coefficient"
+msgstr "weight"
+
+#: pedagogie/models.py:98
+msgid "enseignement"
+msgstr "course"
+
+#: pedagogie/models.py:112
+msgid "1er devoir"
+msgstr "1st test"
+
+#: pedagogie/models.py:113
+msgid "2e devoir"
+msgstr "2nd test"
+
+#: pedagogie/models.py:125 pedagogie/models.py:257
+msgid "période"
+msgstr "period"
+
+#: pedagogie/models.py:126
+msgid "interro 1"
+msgstr "quiz 1"
+
+#: pedagogie/models.py:127
+msgid "interro 2"
+msgstr "quiz 2"
+
+#: pedagogie/models.py:128
+msgid "interro 3"
+msgstr "quiz 3"
+
+#: pedagogie/models.py:129
+msgid "interro 4"
+msgstr "quiz 4"
+
+#: pedagogie/models.py:130
+msgid "devoir 1"
+msgstr "test 1"
+
+#: pedagogie/models.py:131
+msgid "devoir 2"
+msgstr "test 2"
+
+#: pedagogie/models.py:136
+msgid "fiche de notes"
+msgstr "grade sheet"
+
+#: pedagogie/models.py:137
+msgid "fiches de notes"
+msgstr "grade sheets"
+
+#: pedagogie/models.py:162
+msgid "Lundi"
+msgstr "Monday"
+
+#: pedagogie/models.py:163
+msgid "Mardi"
+msgstr "Tuesday"
+
+#: pedagogie/models.py:164
+msgid "Mercredi"
+msgstr "Wednesday"
+
+#: pedagogie/models.py:165
+msgid "Jeudi"
+msgstr "Thursday"
+
+#: pedagogie/models.py:166
+msgid "Vendredi"
+msgstr "Friday"
+
+#: pedagogie/models.py:167
+msgid "Samedi"
+msgstr "Saturday"
+
+#: pedagogie/models.py:174
+msgid "jour"
+msgstr "day"
+
+#: pedagogie/models.py:175 pedagogie/models.py:288
+msgid "début"
+msgstr "start"
+
+#: pedagogie/models.py:176 pedagogie/models.py:289
+msgid "fin"
+msgstr "end"
+
+#: pedagogie/models.py:177 pedagogie/models.py:290
+msgid "salle"
+msgstr "room"
+
+#: pedagogie/models.py:180
+msgid "créneau"
+msgstr "slot"
+
+#: pedagogie/models.py:214
+msgid "durée (heures)"
+msgstr "duration (hours)"
+
+#: pedagogie/models.py:221
+msgid "heure de cours"
+msgstr "teaching hour"
+
+#: pedagogie/models.py:222
+msgid "heures de cours"
+msgstr "teaching hours"
+
+#: pedagogie/models.py:231
+msgid "référence"
+msgstr "reference"
+
+#: pedagogie/models.py:232
+msgid "période concernée"
+msgstr "period covered"
+
+#: pedagogie/models.py:233
+msgid "n° de bon"
+msgstr "voucher no."
+
+#: pedagogie/models.py:238
+msgid "paiement de professeur"
+msgstr "teacher payment"
+
+#: pedagogie/models.py:239
+msgid "paiements de professeurs"
+msgstr "teacher payments"
+
+#: pedagogie/models.py:256
+msgid "intitulé"
+msgstr "title"
+
+#: pedagogie/models.py:258
+msgid "notes reportées dans"
+msgstr "grades recorded in"
+
+#: pedagogie/models.py:48
+msgid "matières enseignées"
+msgstr "subjects taught"
+
+#: pedagogie/models.py:51
+msgid "compte de connexion"
+msgstr "sign-in account"
+
+#: pedagogie/models.py:173 pedagogie/models.py:212
+msgid "cours"
+msgstr "course"
+
+#: pedagogie/models.py:232
+msgid "Ex. Septembre 2026"
+msgstr "e.g. September 2026"
+
+#: pedagogie/models.py:256
+msgid "Ex. Compositions du 1er trimestre"
+msgstr "e.g. 1st term exams"
+
+#: pedagogie/models.py:286
+msgid "classe et matière"
+msgstr "class and subject"
+
+#: pedagogie/models.py:291
+msgid "surveillants"
+msgstr "invigilators"
+
+#: pedagogie/models.py:185 pedagogie/models.py:299
+msgid "L'heure de fin doit être après l'heure de début."
+msgstr "The end time must be after the start time."
+
+#: pedagogie/models.py:272
+msgid "La date de fin doit être après la date de début."
+msgstr "The end date must be after the start date."
+
+#: pedagogie/models.py:304
+msgid "Cette classe n’appartient pas à l’établissement de la composition."
+msgstr "This class does not belong to the exam session's school."
+
+#: pedagogie/models.py:192
+msgid "La classe %(classe)s a déjà %(matiere)s de %(heure_debut)s à %(heure_fin)s."
+msgstr "Class %(classe)s already has %(matiere)s from %(heure_debut)s to %(heure_fin)s."
+
+#: pedagogie/models.py:274
+msgid "%(etablissement)s est organisé en %(decoupage)s."
+msgstr "%(etablissement)s is organised in %(decoupage)s."
+
+#: pedagogie/models.py:302
+msgid "La date doit être comprise entre le %(date_debut)s et le %(date_fin)s."
+msgstr "The date must be between %(date_debut)s and %(date_fin)s."
+
+#: pedagogie/models.py:311
+msgid "La %(classe)s compose déjà en %(matiere)s à ce moment-là."
+msgstr "%(classe)s is already sitting %(matiere)s at that time."
+
+#: pedagogie/models.py:196
+msgid "%(professeur)s a déjà cours en %(classe)s de %(heure_debut)s à %(heure_fin)s."
+msgstr "%(professeur)s already teaches %(classe)s from %(heure_debut)s to %(heure_fin)s."
+
+#: pedagogie/models.py:200
+msgid "La salle %(salle)s est déjà occupée par la %(classe)s de %(heure_debut)s à %(heure_fin)s."
+msgstr "Room %(salle)s is already used by %(classe)s from %(heure_debut)s to %(heure_fin)s."
+
+#: pedagogie/models.py:315
+msgid "La salle %(salle)s est déjà prise par la %(classe)s."
+msgstr "Room %(salle)s is already taken by %(classe)s."
+
+#: pedagogie/pdf.py:199
+msgid "Planning des compositions"
+msgstr "Exam schedule"
+
+#: pedagogie/pdf.py:167 pedagogie/pdf.py:202
+msgid "Horaire"
+msgstr "Time"
+
+#: pedagogie/pdf.py:202
+msgid "Salle"
+msgstr "Room"
+
+#: pedagogie/pdf.py:202
+msgid "Surveillant(s)"
+msgstr "Invigilator(s)"
+
+#: pedagogie/pdf.py:45
+msgid "Bulletin de notes · %(periode_txt)s"
+msgstr "Report card · %(periode_txt)s"
+
+#: pedagogie/pdf.py:67
+msgid "Moy. /20"
+msgstr "Avg. /20"
+
+#: pedagogie/pdf.py:67
+msgid "Moy. × coef."
+msgstr "Avg. × weight"
+
+#: pedagogie/pdf.py:126
+msgid "Bon de paiement n° %(numero)s"
+msgstr "Payment voucher no. %(numero)s"
+
+#: pedagogie/pdf.py:130
+msgid "Période concernée"
+msgstr "Period covered"
+
+#: pedagogie/pdf.py:145
+msgid "BON DE PAIEMENT"
+msgstr "PAYMENT VOUCHER"
+
+#: pedagogie/pdf.py:182
+msgid "%(creneaux)s cours par semaine · %(valeur)s heure(s)"
+msgstr "%(creneaux)s classes per week · %(valeur)s hour(s)"
+
+#: pedagogie/pdf.py:201
+msgid "%(periode)s · du %(date_debut)s au %(date_fin)s · notes reportées en %(colonne)s"
+msgstr "%(periode)s · from %(date_debut)s to %(date_fin)s · grades recorded in %(colonne)s"
+
+#: pedagogie/pdf.py:53
+msgid "BULLETIN DE NOTES"
+msgstr "REPORT CARD"
+
+#: pedagogie/pdf.py:98
+msgid "Moyenne générale"
+msgstr "Overall average"
+
+#: pedagogie/pdf.py:113
+msgid "Aucun élève dans cette classe."
+msgstr "No student in this class."
+
+#: pedagogie/pdf.py:188
+msgid "Aucun cours programmé."
+msgstr "No class scheduled."
+
+#: pedagogie/pdf.py:221
+msgid "Aucune épreuve programmée."
+msgstr "No paper scheduled."
+
+#: pedagogie/pdf.py:54
+msgid "%(periode_txt)s · Année scolaire %(annee_scolaire)s"
+msgstr "%(periode_txt)s · School year %(annee_scolaire)s"
+
+#: pedagogie/pdf.py:90
+msgid "TOTAUX"
+msgstr "TOTALS"
+
+#: pedagogie/pdf.py:99
+msgid "sur %(eleves)s élève(s)"
+msgstr "out of %(eleves)s student(s)"
+
+#: pedagogie/pdf.py:101
+msgid "Plus forte %(plus_forte)s · plus faible %(plus_faible)s"
+msgstr "Highest %(plus_forte)s · lowest %(plus_faible)s"
+
+#: pedagogie/pdf.py:104
+msgid "Moyenne annuelle"
+msgstr "Annual average"
+
+#: pedagogie/pdf.py:141
+msgid "Le professeur"
+msgstr "Teacher"
+
+#: pedagogie/pdf.py:141
+msgid "La direction"
+msgstr "Management"
+
+#: pedagogie/pdf.py:147
+msgid "Heures cumulées"
+msgstr "Total hours"
+
+#: pedagogie/pdf.py:149
+msgid "Reste dû"
+msgstr "Balance due"
+
+#: pedagogie/pdf.py:104
+msgid "Rang %(rang_annuel)s"
+msgstr "Rank %(rang_annuel)s"
+
+#: pedagogie/pdf.py:108
+msgid "Le professeur principal"
+msgstr "Form teacher"
+
+#: pedagogie/pdf.py:108
+msgid "Le chef d’établissement"
+msgstr "Head of school"
+
+#: pedagogie/pdf.py:147
+msgid "%(total_heures)s h"
+msgstr "%(total_heures)s h"
+
+#: pedagogie/pdf.py:147
+msgid "à %(taux_horaire)s / h"
+msgstr "at %(taux_horaire)s / h"
+
+#: pedagogie/views/examens.py:96
+msgid "Épreuve supprimée."
+msgstr "Paper deleted."
+
+#: pedagogie/views/examens.py:49
+msgid "Composition mise à jour."
+msgstr "Exam session updated."
+
+#: pedagogie/views/examens.py:106
+msgid "Composition supprimée (les notes déjà saisies sont conservées)."
+msgstr "Exam session deleted (grades already entered are kept)."
+
+#: pedagogie/views/examens.py:109
+msgid "Supprimer la composition"
+msgstr "Delete exam session"
+
+#: pedagogie/views/examens.py:37
+msgid "« %(c)s » créée : ajoutez maintenant les épreuves."
+msgstr "“%(c)s” created: now add the papers."
+
+#: pedagogie/views/examens.py:51
+msgid "Modifier « %(comp)s »"
+msgstr "Edit “%(comp)s”"
+
+#: pedagogie/views/examens.py:110
+msgid "Supprimer « %(comp)s » et ses %(epreuves)s épreuve(s) ? Les notes déjà saisies sont conservées."
+msgstr "Delete “%(comp)s” and its %(epreuves)s paper(s)? Grades already entered are kept."
+
+#: pedagogie/views/examens.py:68
+msgid "Épreuve de %(matiere)s (%(classe)s) ajoutée."
+msgstr "%(matiere)s paper (%(classe)s) added."
+
+#: pedagogie/views/notes.py:126
+msgid "Retirer une matière"
+msgstr "Remove a subject"
+
+#: pedagogie/views/notes.py:128
+msgid "Oui, retirer"
+msgstr "Yes, remove"
+
+#: pedagogie/views/notes.py:196
+msgid "Certaines notes sont invalides : corrigez les cases en rouge."
+msgstr "Some grades are invalid: fix the highlighted cells."
+
+#: pedagogie/views/notes.py:106
+msgid "%(matiere)s (coef. %(coefficient)s) enregistrée pour la %(classe)s."
+msgstr "%(matiere)s (weight %(coefficient)s) saved for %(classe)s."
+
+#: pedagogie/views/notes.py:122
+msgid "%(matiere)s retirée de la %(classe)s."
+msgstr "%(matiere)s removed from %(classe)s."
+
+#: pedagogie/views/notes.py:127
+msgid "Retirer %(matiere)s de la %(classe)s ? Les %(fiches)s fiche(s) de notes de cette matière seront supprimées."
+msgstr "Remove %(matiere)s from %(classe)s? The %(fiches)s grade sheet(s) for this subject will be deleted."
+
+#: pedagogie/views/notes.py:146
+msgid "%(n)s matière(s) copiée(s) depuis la %(source_classe)s."
+msgstr "%(n)s subject(s) copied from %(source_classe)s."
+
+#: pedagogie/views/notes.py:85
+msgid "Matière « %(m)s » ajoutée."
+msgstr "Subject “%(m)s” added."
+
+#: pedagogie/views/notes.py:194
+msgid "Notes de %(matiere)s (%(classe)s) enregistrées."
+msgstr "%(matiere)s grades (%(classe)s) saved."
+
+#: pedagogie/views/professeurs.py:128
+msgid "Ligne d’heures supprimée."
+msgstr "Hours entry deleted."
+
+#: pedagogie/views/professeurs.py:247
+msgid "Créneau supprimé."
+msgstr "Slot deleted."
+
+#: pedagogie/views/professeurs.py:144
+msgid "Paiement non enregistré : "
+msgstr "Payment not recorded: "
+
+#: pedagogie/views/professeurs.py:164
+msgid "Ce professeur a déjà un compte."
+msgstr "This teacher already has an account."
+
+#: pedagogie/views/professeurs.py:58
+msgid "%(prof)s a été ajouté(e)."
+msgstr "%(prof)s has been added."
+
+#: pedagogie/views/professeurs.py:80
+msgid "Modifier %(prof)s"
+msgstr "Edit %(prof)s"
+
+#: pedagogie/views/professeurs.py:116
+msgid "%(duree)s h enregistrée(s) pour le %(date)s."
+msgstr "%(duree)s h logged for %(date)s."
+
+#: pedagogie/views/professeurs.py:118
+msgid "Heures non enregistrées : "
+msgstr "Hours not logged: "
+
+#: pedagogie/views/professeurs.py:142
+msgid "Paiement %(numero)s enregistré."
+msgstr "Payment %(numero)s recorded."
+
+#: pedagogie/views/professeurs.py:174
+msgid "Compte « %(username)s » créé : %(prof)s peut se connecter et saisir ses notes."
+msgstr "Account “%(username)s” created: %(prof)s can now sign in and enter grades."
+
+#: pedagogie/views/professeurs.py:176
+msgid "Compte non créé : "
+msgstr "Account not created: "
+
+#: pedagogie/views/professeurs.py:215
+msgid "%(matiere)s ajouté le %(jour)s de %(heure_debut)s à %(heure_fin)s."
+msgstr "%(matiere)s added on %(jour)s from %(heure_debut)s to %(heure_fin)s."

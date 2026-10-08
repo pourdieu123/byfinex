@@ -1,0 +1,50 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras pedagogie_extras %}
+{% block title %}{% translate "Emploi du temps" %}{% endblock %}
+{% block entete %}{% translate "Emploi du temps" %}{% endblock %}
+{% block sous_titre %}<p>{% if prof %}{{ prof }}{% elif classe %}{{ classe }} · {{ etab.nom }}{% endif %} · {{ total_heures|heures }} {% translate "de cours par semaine" %}</p>{% endblock %}
+{% block actions %}<a class="btn btn-light" href="?{{ params }}&amp;format=pdf" target="_blank">{% icone 'pdf' 18 %}<span>{% translate "PDF" %}</span></a>{% endblock %}
+
+{% block content %}
+{% if classes or profs %}
+<form method="get" class="card filters" style="margin-bottom:16px">
+  {% if classes %}
+  <div class="field"><label class="label" for="edt-classe">{% translate "Classe" %}</label>
+    <select id="edt-classe" name="classe_cle">
+      {% for e, c in classes %}<option value="{{ e.pk }}|{{ c }}"{% if e == etab and c == classe %} selected{% endif %}>{{ c }}{% if etablissement_unique is None %} — {{ e.nom }}{% endif %}</option>{% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if profs %}
+  <div class="field"><label class="label" for="edt-prof">{% translate "Ou un professeur" %}</label>
+    <select id="edt-prof" name="prof"><option value="">—</option>{% for p in profs %}<option value="{{ p.pk }}"{% if p == prof %} selected{% endif %}>{{ p }}</option>{% endfor %}</select>
+  </div>
+  {% endif %}
+  <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Afficher" %}</button></div>
+</form>
+{% endif %}
+
+<div class="grid {% if form %}grid-3-1{% endif %}">
+  <section>{% include 'pedagogie/profs/_semaine.html' with par_prof=prof supprimable=form %}</section>
+  {% if form %}
+  <form method="post" class="card" novalidate style="align-self:start">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+    <div class="form-section">
+      <h2>{% icone 'plus' 18 %}{% translate "Ajouter un cours" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.enseignement %}
+      {% include 'ecole/_champ.html' with field=form.jour %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.heure_debut %}
+        {% include 'ecole/_champ.html' with field=form.heure_fin %}
+      </div>
+      {% include 'ecole/_champ.html' with field=form.salle %}
+      {% if not form.fields.enseignement.queryset.exists %}<div class="callout">{% icone 'attention' 18 %}<span>{% translate "Configurez d'abord les matières de cette classe dans Notes." %}</span></div>{% endif %}
+      <p class="hint" style="margin:0">{% translate "Les conflits (classe, professeur ou salle déjà occupés) sont refusés automatiquement." %}</p>
+    </div>
+    <div class="form-footer"><button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Ajouter" %}</button></div>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

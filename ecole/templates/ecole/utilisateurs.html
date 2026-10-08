@@ -1,0 +1,36 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Utilisateurs" %}{% endblock %}
+{% block entete %}{% translate "Utilisateurs" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Comptes du personnel et leurs rôles" %}</p>{% endblock %}
+{% block actions %}<a class="btn" href="{% url 'ecole:utilisateur_nouveau' %}">{% icone 'plus' 18 %}<span>{% translate "Nouvel utilisateur" %}</span></a>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1">
+  <section class="card">
+    {% for u, r in comptes %}
+      <a class="row" href="{% url 'ecole:utilisateur_modifier' u.pk %}">
+        <span class="avatar">{{ u.first_name|first|default:u.username|first|upper }}{{ u.last_name|first|upper }}</span>
+        <span class="row-main">
+          <strong>{{ u.get_full_name|default:u.username }}{% if u == user %} <span class="muted">{% translate "(vous)" %}</span>{% endif %}</strong>
+          <small>{{ u.username }} {% translate "· dernière connexion :" %} {{ u.last_login|date:"d/m/Y H:i"|default:_("jamais") }}</small>
+        </span>
+        <span class="row-side">
+          {% if r %}<span class="badge badge-role">{{ r }}{% if u.is_superuser %} {% translate "· admin" %}{% endif %}</span>{% else %}<span class="badge badge-neutre">{% translate "Aucun rôle" %}</span>{% endif %}
+          {% if not u.is_active %}<span class="badge badge-aucun">{% icone 'attention' 14 %}{% translate "Désactivé" %}</span>{% endif %}
+        </span>
+        {% icone 'suivant' 18 'chev' %}
+      </a>
+    {% endfor %}
+  </section>
+  <aside class="card">
+    <div class="card-head"><h2>{% translate "Rôles" %}</h2></div>
+    <ul class="timeline">
+      {% for nom, desc in descriptions %}
+        <li>{% icone 'utilisateurs' 16 %}<span><b>{{ nom }}</b><br><small class="muted">{{ desc }}</small></span></li>
+      {% endfor %}
+    </ul>
+  </aside>
+</div>
+{% endblock %}

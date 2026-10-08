@@ -1,0 +1,87 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Encaisser —" %} {{ eleve }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleve_detail' eleve.pk %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Encaisser un paiement" %}{% endblock %}
+{% block sous_titre %}<p>{{ eleve }} · {{ eleve.classe }}</p>{% endblock %}
+
+{% block content %}
+<div class="grid grid-3-1" style="max-width: 1100px">
+  <form method="post" class="card" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+    <div class="form-section">
+      <h2>{% icone 'encaisser' 18 %}{% translate "Paiement" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.motif %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.montant %}
+        {% include 'ecole/_champ.html' with field=form.date %}
+      </div>
+      <div id="apercu" class="apercu-affectation callout" hidden>{% icone 'classes' 18 %}<div><b>{% translate "Ce paiement sera affecté ainsi :" %}</b><div id="apercu-lignes"></div></div></div>
+      {% include 'ecole/_champ.html' with field=form.mode %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.reference %}
+        {% include 'ecole/_champ.html' with field=form.observation %}
+      </div>
+    </div>
+    <div class="form-footer">
+      <a class="btn btn-light" href="{% url 'ecole:eleve_detail' eleve.pk %}">{% translate "Annuler" %}</a>
+      <button type="submit" class="btn">{% icone 'recu' 18 %}{% translate "Encaisser et émettre la facture" %}</button>
+    </div>
+  </form>
+
+  <aside class="stack">
+    <section class="card">
+      <div class="profile">
+        <span class="avatar">{{ eleve.initiales }}</span>
+        <div class="profile-main"><h2 style="font-size:17px">{{ eleve }}</h2><p>{{ eleve.classe }} · {{ eleve.parent }}</p></div>
+      </div>
+      <dl class="infos" style="border-top:1px solid var(--line)">
+        <dt>{% translate "Scolarité" %}</dt><dd class="num">{{ eleve.montant_scolarite|fcfa }}</dd>
+        <dt>{% translate "Déjà versé" %}</dt><dd class="num">{{ eleve.total_verse|fcfa }}</dd>
+        <dt>{% translate "Reste à payer" %}</dt><dd class="num {% if eleve.reste_a_payer %}ko-ink{% else %}ok-ink{% endif %}"><b>{{ eleve.reste_a_payer|fcfa }}</b></dd>
+        <dt>{% translate "Inscription versée" %}</dt><dd class="num">{{ eleve.total_inscription|fcfa }}{% if eleve.frais_inscription %} / {{ eleve.inscription_due|fcfa }}{% endif %}</dd>
+        <dt>{% translate "Inscription" %}</dt><dd>{% badge_inscription eleve %}</dd>
+      </dl>
+      <div style="padding: 0 20px 20px"><div class="meter"><span style="width: {{ eleve.taux_paye }}%"></span></div></div>
+    </section>
+    {% if sit.lignes %}
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Échéancier" %}</h2><p>{% translate "Le paiement de scolarité est imputé dans cet ordre" %}</p></div>{% badge_situation eleve %}</div>
+      {% for l in sit.lignes %}
+        <div class="kv"><span>{{ l.echeance }} <small class="muted">· {{ l.echeance.echeance|date:"d/m/Y" }}</small></span><span><b class="num">{{ l.reste|fcfa }}</b> <span class="badge {{ l.statut|statut_ligne }}">{{ l.statut_libelle }}</span></span></div>
+      {% endfor %}
+    </section>
+    {% endif %}
+    <div class="callout">{% icone 'recu' 18 %}<span>{% translate "Chaque paiement reçoit une référence unique et une facture, envoyée immédiatement au parent (WhatsApp, e-mail)." %}</span></div>
+  </aside>
+</div>
+{{ tranches_dues|json_script:"tranches-dues" }}
+{% translate "soldée" as t_soldee %}{% translate "reste" as t_reste %}{% translate "partiellement payée" as t_partielle %}{% translate "Excédent : dépasse le reste de la scolarité" as t_exces %}
+<script nonce="{{ csp_nonce }}">
+  (function () {
+    var T = {soldee: '{{ t_soldee|escapejs }}', reste: '{{ t_reste|escapejs }}', partielle: '{{ t_partielle|escapejs }}', exces: '{{ t_exces|escapejs }}'};
+    var dues = JSON.parse(document.getElementById('tranches-dues').textContent);
+    var montant = document.getElementById('id_montant'), apercu = document.getElementById('apercu'), lignes = document.getElementById('apercu-lignes');
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
+    function fcfa(n) { return esc(Number(n).toLocaleString('fr-FR')) + ' FCFA'; }
+    function motif() { var m = document.querySelector('input[name="motif"]:checked'); return m ? m.value : 'scolarite'; }
+    function maj() {
+      var reste = parseInt(montant.value || '0', 10) || 0;
+      if (!reste || motif() !== 'scolarite' || !dues.length) { apercu.hidden = true; return; }
+      var html = [];
+      dues.forEach(function (t) {
+        if (!reste) return;
+        var part = Math.min(reste, t.reste); reste -= part;
+        var apres = t.reste - part;
+        html.push('<div class="kv"><span>' + esc(t.libelle) + ' <small class="muted">(' + esc(t.echeance) + ')</small></span><span><b>' + fcfa(part) + '</b> — ' +
+                  (apres ? esc(T.partielle) + ', ' + esc(T.reste) + ' ' + fcfa(apres) : esc(T.soldee)) + '</span></div>');
+      });
+      if (reste) html.push('<div class="kv"><span>' + esc(T.exces) + '</span><b>' + fcfa(reste) + '</b></div>');
+      lignes.innerHTML = html.join(''); apercu.hidden = false;
+    }
+    document.addEventListener('input', maj); document.addEventListener('change', maj); maj();
+  })();
+</script>
+{% endblock %}

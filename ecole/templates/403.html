@@ -1,0 +1,16 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Accès refusé" %}{% endblock %}
+{% block entete %}{% translate "Accès refusé" %}{% endblock %}
+{% block sous_titre %}{% endblock %}
+
+{% block content %}
+<div class="card empty" style="max-width: 560px">
+  {% icone 'utilisateurs' 44 %}
+  <p><b>{% translate "Votre rôle (" %}{{ role|default:_("aucun rôle") }}{% translate ") ne permet pas d'accéder à cette page." %}</b></p>
+  <p class="muted">{% translate "Demandez à la direction de modifier vos droits si nécessaire." %}</p>
+  <a class="btn" href="{% url 'ecole:accueil' %}">{% translate "Retour au tableau de bord" %}</a>
+</div>
+{% endblock %}
+{% block public %}<p style="padding:24px">{% translate "Accès refusé." %} <a href="{% url 'login' %}">{% translate "Se connecter" %}</a></p>{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% if f %}{% translate "Facture" %} {{ f.numero }}{% else %}{% translate "Reçu" %} {{ p.numero_recu }}{% endif %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:eleve_detail' eleve.pk %}" title="{% translate "Retour à la fiche" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% if f %}{% translate "Facture" %} {{ f.numero }}{% else %}{% translate "Reçu" %} {{ p.numero_recu }}{% endif %}{% endblock %}
+{% block sous_titre %}<p>{{ eleve }} · {% translate "paiement" %} {{ p.numero_recu }} {% translate "du" %} {{ p.date|date:"d/m/Y" }}</p>{% endblock %}
+
+{% block content %}
+<div class="recu-actions">
+  <button type="button" class="btn" data-imprimer>{% icone 'imprimer' 18 %}{% translate "Imprimer" %}</button>
+  <a class="btn btn-light" href="{% url 'ecole:recu_pdf' p.pk %}" target="_blank">{% icone 'pdf' 18 %}{% translate "PDF" %}</a>
+  <a class="btn btn-light" href="{% url 'ecole:eleve_detail' eleve.pk %}">{% icone 'eleves' 18 %}{% translate "Fiche de l'élève" %}</a>
+  {% if perms.ecole.valider_corrections or perms.ecole.add_demandecorrection %}<a class="btn btn-light" href="{% url 'ecole:paiement_corriger' p.pk %}">{% icone 'modifier' 18 %}{% if perms.ecole.valider_corrections %}{% translate "Corriger" %}{% else %}{% translate "Demander une correction" %}{% endif %}</a>{% endif %}
+  {% if perms.ecole.add_paiement %}<a class="btn btn-light" href="{% url 'ecole:encaisser_recherche' %}">{% icone 'plus' 18 %}{% translate "Nouvel encaissement" %}</a>{% endif %}
+</div>
+
+{% if demandes %}<div class="callout" style="max-width:720px;margin:0 auto 16px">{% icone 'attention' 18 %}<span>{% translate "Une demande de correction de ce paiement attend la validation de la direction." %}</span></div>{% endif %}
+
+<article class="card recu">
+  <header class="recu-head">
+    <div>
+      <h2>{{ ecole.nom }}</h2>
+      {% if ecole.ifu %}<p><b>{% translate "IFU" %} {{ ecole.ifu }}</b>{% if ecole.rccm %} · {% translate "RCCM" %} {{ ecole.rccm }}{% endif %}</p>{% endif %}
+      {% if ecole.adresse %}<p>{{ ecole.adresse }}</p>{% endif %}
+      {% if ecole.telephone or ecole.email %}<p>{{ ecole.telephone }}{% if ecole.telephone and ecole.email %} · {% endif %}{{ ecole.email }}</p>{% endif %}
+      <p>{% translate "Année scolaire" %} {{ parametres.annee_scolaire }}</p>
+    </div>
+    <div class="recu-num">
+      <span>{% if f %}{% translate "Facture n°" %}{% else %}{% translate "Reçu n°" %}{% endif %}</span>
+      <strong>{% if f %}{{ f.numero }}{% else %}{{ p.numero_recu }}{% endif %}</strong>
+      <span>{{ p.date|date:"d F Y" }}</span>
+      {% if f %}<span class="etat-facture etat-{{ f.statut }}">{{ f.get_statut_display }}</span>{% endif %}
+    </div>
+  </header>
+
+  <p class="recu-title">{% if f %}{% translate "Facture" %}{% else %}{% translate "Reçu de paiement" %}{% endif %}</p>
+
+  <table>
+    <tr><td>{% translate "Client" %}</td><td><b>{{ eleve.parent }}</b>{% if eleve.nature_parent %} ({{ eleve.get_nature_parent_display }}){% endif %}</td></tr>
+    <tr><td>{% translate "Élève" %}</td><td><b>{{ eleve }}</b> · {{ eleve.classe }}{% if eleve.educ_master %} · {% translate "Educ Master" %} {{ eleve.educ_master }}{% endif %}</td></tr>
+    {% if f %}
+      {% for l in f.lignes %}<tr><td>{% if forloop.first %}{% translate "Désignation" %}{% endif %}</td><td>{{ l.libelle }} — <b class="num">{{ l.montant|fcfa }}</b></td></tr>{% endfor %}
+    {% else %}
+      <tr><td>{% translate "Motif" %}</td><td>{{ p.get_motif_display }}</td></tr>
+    {% endif %}
+    <tr><td>{% translate "Mode de paiement" %}</td><td>{{ p.get_mode_display }}{% if p.reference %} {% translate "— réf." %} {{ p.reference }}{% endif %}</td></tr>
+    <tr><td>{% translate "Référence du paiement" %}</td><td>{{ p.numero_recu }}</td></tr>
+    {% if p.observation %}<tr><td>{% translate "Observation" %}</td><td>{{ p.observation }}</td></tr>{% endif %}
+    {% if f and taxes and f.groupe_taxe == 'B' %}<tr><td>{% translate "Hors taxe / TVA 18 %" %}</td><td class="num">{{ taxes.0|fcfa }} / {{ taxes.1|fcfa }}</td></tr>{% endif %}
+    {% if f and f.groupe_taxe == 'A' %}<tr><td>{% translate "Taxation" %}</td><td>{% translate "Groupe A — exonéré de TVA" %}</td></tr>{% endif %}
+  </table>
+
+  {% if affectations %}
+  <table>
+    <tr><td colspan="2"><b>{% translate "Affectation du paiement aux tranches" %}</b></td></tr>
+    {% for i in affectations %}
+      <tr><td>{{ i.libelle }}{% if i.date_echeance %}<br><small class="muted">{% translate "échéance" %} {{ i.date_echeance|date:"d/m/Y" }}</small>{% endif %}</td>
+        <td><b class="num">{{ i.montant|fcfa }}</b>{% if i.echeance_id %} · {% translate "payé" %} {{ i.paye_tranche|fcfa }} / {{ i.montant_tranche|fcfa }} · {% if i.reste_tranche %}{% translate "reste" %} {{ i.reste_tranche|fcfa }} — <b>{% translate "partiellement payée" %}</b>{% else %}<b>{% translate "soldée" %}</b>{% endif %}{% endif %}</td></tr>
+    {% endfor %}
+    <tr><td>{% translate "Reste sur la scolarité après ce paiement" %}</td><td><b class="num">{{ affectations.last.reste_total|fcfa }}</b></td></tr>
+  </table>
+  {% endif %}
+
+  <div class="recu-montant">
+    <strong class="num">{{ p.montant|fcfa }}</strong>
+    <em>{{ p.montant|en_lettres }}</em>
+  </div>
+
+  {% if f %}
+    {% if f.statut == 'normalisee' %}
+      <div class="mecef">
+        {{ qr }}
+        <div>
+          <p><b>{% translate "Facture normalisée e-MECeF" %}</b></p>
+          <p>{% translate "Code MECeF/DGI :" %} <b>{{ f.code_mecef }}</b></p>
+          <p>{% translate "NIM :" %} {{ f.nim }} · {% translate "Compteurs :" %} {{ f.compteurs }}</p>
+          <p>{% translate "Heure MECeF :" %} {{ f.date_mecef }}</p>
+        </div>
+      </div>
+    {% else %}
+      <p class="recu-foot" style="text-align:left">{% if f.statut == 'erreur' %}{% translate "Normalisation e-MECeF en attente :" %} {{ f.erreur|truncatechars:160 }}{% else %}{% translate "Facture non normalisée : la normalisation e-MECeF n'est pas activée pour cet établissement (Administration › Établissement)." %}{% endif %}</p>
+      {% if perms.ecole.valider_corrections and ecole.emecef_actif %}<form method="post" action="{% url 'ecole:facture_normaliser' f.pk %}" class="no-print">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}"><button class="btn btn-light btn-sm">{% icone 'ok' 16 %}{% translate "Réessayer la normalisation" %}</button></form>{% endif %}
+    {% endif %}
+  {% endif %}
+
+  <div class="recu-bilan">
+    <div>{% translate "Scolarité" %}<b class="num">{{ eleve.montant_scolarite|fcfa }}</b></div>
+    <div>{% translate "Total versé" %}<b class="num">{{ eleve.total_verse|fcfa }}</b></div>
+    <div>{% translate "Reste à payer" %}<b class="num">{{ eleve.reste_a_payer|fcfa }}</b></div>
+  </div>
+
+  <div class="recu-sign">
+    <span>{% translate "Le parent" %}</span>
+    <span>{% translate "Le caissier" %}{% if p.encaisse_par %}<br><b>{{ p.encaisse_par.get_full_name|default:p.encaisse_par.username }}</b>{% endif %}</span>
+  </div>
+
+  <p class="recu-foot">{% translate "Édité le" %} {% now "d/m/Y à H:i" %} {% translate "· Situation à la date d'édition · Conservez ce document." %}</p>
+</article>
+<script nonce="{{ csp_nonce }}">document.querySelectorAll('[data-imprimer]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });</script>
+
+{% if factures|length > 1 or historique %}
+<section class="card no-print" style="max-width:720px;margin:20px auto 0">
+  <div class="card-head"><div><h2>{% translate "Factures et corrections de ce paiement" %}</h2></div></div>
+  <ul class="timeline">
+    {% for x in factures %}
+      <li>{% icone 'recu' 16 %}<span><a href="{% url 'ecole:facture_pdf' x.pk %}" target="_blank"><b>{{ x.numero }}</b></a> · {{ x.get_type_display }} · {{ x.montant|fcfa }} · {{ x.date|date:"d/m/Y H:i" }}{% if x.annulee %} · <i>{% translate "annulée" %}</i>{% endif %} <span class="etat-facture etat-{{ x.statut }}">{{ x.get_statut_display }}</span></span></li>
+    {% endfor %}
+    {% for h in historique %}
+      <li>{% icone 'modifier' 16 %}<span class="trace"><b>{{ h.get_action_display }}</b> {{ h.cree_le|date:"d/m/Y H:i" }} · <del>{{ h.avant.montant|fcfa }} · {{ h.avant.date }}</del>{% if h.apres %} → <b>{{ h.apres.montant|fcfa }} · {{ h.apres.date }}</b>{% endif %}<br><small class="muted">{{ h.motif }} — {{ h.valide_par.get_full_name|default:h.valide_par.username|default:"—" }}</small></span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

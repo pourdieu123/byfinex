@@ -1,0 +1,7 @@
+{% load i18n %}{# Filtre par classe. Paramètre « extra » : autres paramètres de requête à conserver (déjà encodés). #}
+<nav class="chips" aria-label="{% translate "Filtrer par classe" %}">
+  <a class="chip{% if not classe_active %} active{% endif %}" href="?{{ extra }}">{% translate "Toutes les classes" %}</a>
+  {% for c in classes %}
+    <a class="chip{% if c == classe_active %} active{% endif %}" href="?classe={{ c|urlencode }}{% if extra %}&amp;{{ extra }}{% endif %}">{{ c }}</a>
+  {% endfor %}
+</nav>

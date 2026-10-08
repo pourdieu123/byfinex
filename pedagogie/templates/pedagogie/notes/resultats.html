@@ -1,0 +1,58 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras pedagogie_extras %}
+{% block title %}{% translate "Résultats ·" %} {{ classe }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'notes:tableau' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% translate "Résultats de la" %} {{ classe }}{% endblock %}
+{% block sous_titre %}<p>{{ etab.nom }} · {{ libelle_periode }}</p>{% endblock %}
+{% block actions %}
+  {% if perms.pedagogie.voir_tout %}<a class="btn" href="{% url 'notes:bulletins_pdf' %}?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}&amp;periode={{ periode }}" target="_blank">{% icone 'pdf' 18 %}<span>{% translate "Tous les bulletins (PDF)" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<nav class="tabs">
+  {% for n, libelle in periodes %}
+    <a class="{% if n == periode %}active{% endif %}" href="?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}&amp;periode={{ n }}">{% icone 'calendrier' 16 %}{{ libelle }}</a>
+  {% endfor %}
+</nav>
+
+<section class="tiles">
+  <div class="card tile"><div class="tile-top">{% translate "Moyenne de la classe" %} <span class="tile-ico">{% icone 'suivi' 18 %}</span></div><div class="tile-value">{{ res.moyenne_classe|note }}</div><div class="tile-sub">{{ res.moyennes|length }} {% translate "élève" %}{{ res.moyennes|length|pluralize }} {% translate "classé" %}{{ res.moyennes|length|accord:"s|" }} {% translate "sur" %} {{ res.eleves|length }}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Taux de réussite" %} <span class="tile-ico">{% icone 'ok' 18 %}</span></div><div class="tile-value">{% if res.taux_reussite is not None %}{{ res.taux_reussite }} %{% else %}—{% endif %}</div>
+    <div class="meter"><span style="width: {{ res.taux_reussite|default:0 }}%"></span></div><div class="tile-sub">{{ res.nb_moyenne }} {% translate "élève" %}{{ res.nb_moyenne|pluralize }} {% translate "à 10 ou plus" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Plus forte moyenne" %} <span class="tile-ico">{% icone 'suivi' 18 %}</span></div><div class="tile-value ok-ink">{{ res.plus_forte|note }}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Plus faible moyenne" %} <span class="tile-ico">{% icone 'attention' 18 %}</span></div><div class="tile-value ko-ink">{{ res.plus_faible|note }}</div></div>
+</section>
+
+<section class="card">
+  <div class="card-head"><div><h2>{% translate "Classement" %}</h2><p>{% translate "Moyennes par matière (coefficient entre parenthèses) et moyenne générale" %}</p></div></div>
+  {% if res.enseignements %}
+  <div class="table-wrap">
+    <table class="table dense">
+      <thead>
+        <tr>
+          <th>{% translate "Rang" %}</th><th>{% translate "Élève" %}</th>
+          {% for e in res.enseignements %}<th class="r" title="{{ e.matiere }}">{{ e.matiere.abreviation|default:e.matiere.nom|truncatechars:10 }} <span style="font-weight:400">({{ e.coefficient }})</span></th>{% endfor %}
+          <th class="r">{% translate "Moy. gén." %}</th>{% if res.est_derniere_periode and res.periode > 1 %}<th class="r">{% translate "Annuelle" %}</th>{% endif %}<th>{% translate "Appréciation" %}</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for r in lignes %}
+        <tr>
+          <td><b>{{ r.rang|rang }}</b></td>
+          <td><a href="{% url 'ecole:eleve_detail' r.eleve.pk %}"><b>{{ r.eleve }}</b></a></td>
+          {% for m in r.matieres %}<td class="r num {{ m.moyenne|classe_note }}">{{ m.moyenne|note }}</td>{% endfor %}
+          <td class="r num"><b>{{ r.moyenne|note }}</b></td>
+          {% if res.est_derniere_periode and res.periode > 1 %}<td class="r num"><b>{{ r.moyenne_annuelle|note }}</b> <small class="muted">{{ r.rang_annuel|rang }}</small></td>{% endif %}
+          <td>{{ r.appreciation|default:"—" }}</td>
+          <td class="r">{% if perms.pedagogie.voir_tout %}<a class="btn btn-light btn-sm" href="{% url 'notes:bulletins_pdf' %}?etab={{ etab.pk }}&amp;classe={{ classe|urlencode }}&amp;periode={{ periode }}&amp;eleve={{ r.eleve.pk }}" target="_blank" title="{% translate "Bulletin PDF" %}">{% icone 'pdf' 16 %}</a>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div class="empty">{% icone 'notes' 40 %}<p>{% translate "Aucune matière configurée pour cette classe." %}</p></div>
+  {% endif %}
+</section>
+{% endblock %}

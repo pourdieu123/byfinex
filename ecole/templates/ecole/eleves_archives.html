@@ -1,0 +1,27 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Élèves archivés" %}{% endblock %}
+{% block entete %}{% translate "Élèves archivés" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Élèves partis ou transférés : leur fiche et leur historique sont conservés" %}</p>{% endblock %}
+
+{% block content %}
+<section class="card" style="margin-bottom:16px">
+  <form method="get" class="filters">
+    <div class="field"><label class="label" for="f-q">{% translate "Recherche" %}</label><input id="f-q" type="search" name="q" value="{{ q }}" placeholder="{% translate "Nom, parent, téléphone, n° Educ Master" %}"></div>
+    <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Rechercher" %}</button></div>
+  </form>
+</section>
+<section class="card">
+  {% for e in eleves %}
+    <div class="row">
+      <a class="row-main" href="{% url 'ecole:eleve_detail' e.pk %}"><strong>{{ e }}</strong>
+        <small>{{ e.classe }} · {{ e.etablissement.nom }} · {% translate "archivé le" %} {{ e.archive_le|date:"d/m/Y" }} — {{ e.motif_archive }}</small></a>
+      <span class="row-side">{% if e.reste_a_payer %}<small class="ko-ink num">{% translate "Reste" %} {{ e.reste_a_payer|fcfa }}</small>{% else %}<small class="ok-ink">{% translate "Soldé" %}</small>{% endif %}
+        {% if perms.ecole.archiver_eleve %}<form method="post" action="{% url 'ecole:eleve_reactiver' e.pk %}">{% csrf_token %}<button class="btn btn-light btn-sm">{% icone 'retour' 14 %}{% translate "Réactiver" %}</button></form>{% endif %}</span>
+    </div>
+  {% empty %}
+    <div class="empty">{% icone 'eleves' 40 %}<p>{% translate "Aucun élève archivé." %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Retards et impayés" %}{% endblock %}
+{% block entete %}{% translate "Suivi des paiements" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Élèves soldés et élèves ayant un reste à payer sur la scolarité" %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.ecole.exporter_donnees %}<a class="btn btn-light" href="{% url 'ecole:export_eleves' %}?statut={{ statut }}&amp;{{ params_onglet }}">{% icone 'exports' 18 %}<span>{% translate "Excel" %}</span></a><a class="btn btn-light" href="{% url 'ecole:export_eleves_pdf' %}?statut={{ statut }}&amp;{{ params_onglet }}">{% icone 'pdf' 18 %}<span>{% translate "PDF" %}</span></a>{% endif %}
+  {% if statut != 'payes' and perms.ecole.view_relance %}<a class="btn" href="{% url 'ecole:relances' %}?{{ params_onglet }}">{% icone 'relances' 18 %}<span>{% translate "Relancer" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<nav class="tabs">
+  <a class="{% if statut == 'payes' %}active{% endif %}" href="?statut=payes&amp;{{ params_onglet }}">{% icone 'ok' 16 %}{% translate "Ont payé" %} <span class="count">{{ nb_payes }}</span></a>
+  <a class="{% if statut == 'retard' %}active{% endif %}" href="?statut=retard&amp;{{ params_onglet }}">{% icone 'attention' 16 %}{% translate "En retard" %} <span class="count">{{ nb_retard }}</span></a>
+  <a class="{% if statut == 'inscription' %}active{% endif %}" href="?statut=inscription&amp;{{ params_onglet }}">{% icone 'inscrire' 16 %}{% translate "Inscription non payée" %} <span class="count">{{ nb_inscription }}</span></a>
+  <a class="{% if statut == 'impayes' %}active{% endif %}" href="?statut=impayes&amp;{{ params_onglet }}">{% icone 'horloge' 16 %}{% translate "Reste à payer" %} <span class="count">{{ nb_impayes }}</span></a>
+</nav>
+
+{% include 'ecole/_chips_etab.html' %}
+{% include 'ecole/_chips_classes.html' %}
+
+<section class="card">
+  <div class="summary-bar">
+    <span><b>{{ eleves|length }}</b> {% translate "élève" %}{{ eleves|length|pluralize }}{% if classe_active %} {% translate "en" %} {{ classe_active }}{% endif %}</span>
+    {% if statut == 'impayes' %}<span>{% translate "Reste total à recouvrer :" %} <b class="num ko-ink">{{ reste_total|fcfa }}</b></span>{% endif %}
+    {% if statut == 'inscription' %}<span>{% translate "Frais d'inscription restant à encaisser :" %} <b class="num ko-ink">{{ inscription_total|fcfa }}</b></span>{% endif %}
+    {% if statut == 'retard' %}<span>{% translate "Montant échu non réglé :" %} <b class="num ko-ink">{{ retard_total|fcfa }}</b></span>{% endif %}
+  </div>
+  {% for eleve in eleves %}{% include 'ecole/_eleve_ligne.html' %}
+  {% empty %}
+    <div class="empty">{% icone 'ok' 40 %}<p>{% if statut == 'payes' %}{% translate "Aucun élève soldé pour le moment." %}{% elif statut == 'retard' %}{% translate "Aucun retard : toutes les échéances passées sont réglées." %}{% elif statut == 'inscription' %}{% translate "Tous les frais d'inscription dus sont payés." %}{% else %}{% translate "Aucun impayé : tous les élèves sont à jour !" %}{% endif %}</p></div>
+  {% endfor %}
+</section>
+{% endblock %}

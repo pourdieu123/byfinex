@@ -1,0 +1,10 @@
+{% load i18n %}
+{# Sélecteur de langue (sans JavaScript) : chaque bouton envoie la langue choisie. #}
+{% get_current_language as langue %}
+<form class="langues" method="post" action="{% url 'set_language' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <span class="langues-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+  <button type="submit" name="language" value="fr" class="{% if langue == 'fr' %}actif{% endif %}" title="Français" aria-pressed="{% if langue == 'fr' %}true{% else %}false{% endif %}">FR</button>
+  <button type="submit" name="language" value="en" class="{% if langue == 'en' %}actif{% endif %}" title="English" aria-pressed="{% if langue == 'en' %}true{% else %}false{% endif %}">EN</button>
+</form>

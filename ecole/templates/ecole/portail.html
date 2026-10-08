@@ -1,0 +1,53 @@
+{% extends 'ecole/base_portail.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Accueil" %}{% endblock %}
+
+{% block content %}
+<section class="portail-hero">
+  <p class="portail-date">{% now "l j F Y" %}</p>
+  <h1>{% translate "Bonjour" %} {{ user.first_name|default:user.username }} 👋</h1>
+  <p>{% if etablissement_unique %}{{ etablissement_unique.nom }} · {% endif %}{% translate "Année scolaire" %} {{ parametres.annee_scolaire }}{% translate ". Choisissez l'espace de travail dans lequel vous voulez entrer : chacun a son propre menu." %}</p>
+</section>
+
+<section class="portail" aria-label="{% translate "Modules" %}">
+  {% for m, chiffres, plus_tard in modules %}
+    {% if plus_tard %}
+    <div class="card module-tuile module-bientot mod-{{ m.code }}" aria-disabled="true">
+      <div class="module-haut">
+        <span class="module-ico">{% icone m.icone 26 %}</span>
+        <span class="module-tag">{% icone 'horloge' 14 %} {% translate "Bientôt disponible" %}</span>
+      </div>
+      <h2>{{ m.nom }}</h2>
+      <p>{{ m.description }}</p>
+      <ul class="module-fonctions">{% for f in m.fonctions %}<li>{{ f }}</li>{% endfor %}</ul>
+      <span class="module-go">{% translate "Ce module sera ouvert prochainement." %}</span>
+    </div>
+    {% else %}
+    <a class="card module-tuile mod-{{ m.code }}" href="{% url m.url %}">
+      <div class="module-haut">
+        <span class="module-ico">{% icone m.icone 26 %}</span>
+        <span class="module-tag">{% icone 'cadenas' 14 %} {{ m.accroche }}</span>
+      </div>
+      <h2>{{ m.nom }}</h2>
+      <p>{{ m.description }}</p>
+      <ul class="module-fonctions">{% for f in m.fonctions %}<li>{{ f }}</li>{% endfor %}</ul>
+      <dl class="module-chiffres">
+        {% for valeur, libelle in chiffres %}<div><dt>{{ valeur }}</dt><dd>{{ libelle }}</dd></div>{% endfor %}
+      </dl>
+      <span class="module-go">{% translate "Ouvrir le module" %} {% icone 'suivant' 18 %}</span>
+    </a>
+    {% endif %}
+  {% empty %}
+    <div class="card empty">{% icone 'utilisateurs' 40 %}<p>{% translate "Aucun module n'est ouvert pour votre rôle (" %}{{ role|default:_("aucun rôle") }}).<br>{% translate "Demandez à la direction de vous attribuer un rôle." %}</p></div>
+  {% endfor %}
+</section>
+
+{% if admin_module %}
+  <a class="card admin-bandeau mod-admin" href="{% url admin_module.url %}">
+    <span class="module-ico">{% icone admin_module.icone 22 %}</span>
+    <span><strong>{% icone 'cadenas' 16 %} {{ admin_module.nom }}</strong><small>{{ admin_module.description }}</small></span>
+    {% icone 'suivant' 20 'fin' %}
+  </a>
+{% endif %}
+{% endblock %}

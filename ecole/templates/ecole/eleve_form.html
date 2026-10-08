@@ -1,0 +1,125 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ titre }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% if eleve %}{% url 'ecole:eleve_detail' eleve.pk %}{% else %}{% url 'ecole:eleves' %}{% endif %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ titre }}{% endblock %}
+{% block sous_titre %}<p>{% if eleve %}{{ eleve }} · {{ eleve.classe }}{% else %}{% translate "Les champs marqués d'un" %} <span class="req">*</span> {% translate "sont obligatoires" %}{% endif %}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width: 880px">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+    <div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>
+  {% endif %}
+
+  <div class="form-section">
+    <h2>{% icone 'eleves' 18 %}{% translate "Identité de l'élève" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.etablissement_nom full=True %}
+      {% include 'ecole/_champ.html' with field=form.nom %}
+      {% include 'ecole/_champ.html' with field=form.prenom %}
+      {% include 'ecole/_champ.html' with field=form.sexe %}
+      {% include 'ecole/_champ.html' with field=form.date_naissance %}
+      {% include 'ecole/_champ.html' with field=form.lieu_naissance %}
+      {% include 'ecole/_champ.html' with field=form.classe %}
+      {% include 'ecole/_champ.html' with field=form.educ_master %}
+      {% include 'ecole/_champ.html' with field=form.residence full=True %}
+    </div>
+    <datalist id="etablissements-existants">{% for e in etablissements %}<option value="{{ e.nom }}">{% endfor %}</datalist>
+    <datalist id="classes-existantes">{% for c in classes %}<option value="{{ c }}">{% endfor %}</datalist>
+  </div>
+
+  <div class="form-section">
+    <h2>{% icone 'telephone' 18 %}{% translate "Parent ou tuteur" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.parent %}
+      {% include 'ecole/_champ.html' with field=form.telephone %}
+      {% include 'ecole/_champ.html' with field=form.whatsapp %}
+      {% include 'ecole/_champ.html' with field=form.email %}
+      {% include 'ecole/_champ.html' with field=form.nature_parent full=True %}
+      {% include 'ecole/_champ.html' with field=form.suivi_actif full=True %}
+    </div>
+    <p class="hint" style="margin:0">{% translate "Le parent reçoit ses factures et rappels sur WhatsApp et par e-mail (SMS pour les retards)." %}</p>
+  </div>
+
+  <div class="form-section">
+    <h2>{% icone 'encaisser' 18 %}{% translate "Scolarité" %}{% if avec_paiements %} {% translate "et paiements à l'inscription" %}{% endif %}</h2>
+    {% if avec_paiements %}<p class="hint">{% translate "Chaque montant saisi crée un paiement avec sa facture, envoyée au parent. Laissez vide ce qui n'est pas encore payé." %}</p>{% endif %}
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.montant_scolarite %}
+      {% include 'ecole/_champ.html' with field=form.frais_inscription %}
+      {% if avec_paiements %}
+        {% include 'ecole/_champ.html' with field=form.inscription_versee %}
+        {% include 'ecole/_champ.html' with field=form.versement %}
+        {% include 'ecole/_champ.html' with field=form.mode full=True %}
+      {% endif %}
+    </div>
+    <div id="frais-classe" class="callout" hidden>{% icone 'classes' 18 %}<span></span></div>
+    <p id="frais-absents" class="hint" hidden><span>{% translate "Aucun frais défini pour cette classe : saisissez le montant de la scolarité." %}</span>{% if perms.ecole.add_grillefrais %} <a class="lien" href="{% url 'ecole:grilles' %}" target="_blank">{% translate "Définir les frais de la classe" %}</a>{% endif %}</p>
+    {% if eleve %}
+      <div class="callout">{% icone 'attention' 18 %}<span>{% translate "Pour enregistrer un nouveau paiement, utilisez le bouton" %} <b>{% translate "Encaisser" %}</b> {% translate "de la fiche élève : chaque versement a ainsi sa date et son reçu." %}</span></div>
+    {% elif not avec_paiements %}
+      <div class="callout">{% icone 'attention' 18 %}<span>{% translate "Les paiements sont enregistrés par la caisse après l'inscription." %}</span></div>
+    {% endif %}
+  </div>
+
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% if eleve %}{% url 'ecole:eleve_detail' eleve.pk %}{% else %}{% url 'ecole:eleves' %}{% endif %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{{ bouton }}</button>
+  </div>
+</form>
+{{ frais_classes|json_script:"frais-classes" }}
+{{ fratrie_inscription|json_script:"fratrie-inscription" }}
+{% translate "Scolarité de la classe :" as t_scolarite %}{% translate "frais d’inscription :" as t_inscription %}{% translate "avant le" as t_avant %}{% translate "Aucun frais défini pour cette classe : saisissez le montant de la scolarité." as t_absents %}{% translate "Les frais de la classe %(classe)s sont définis pour : %(etabs)s. Vérifiez l’établissement choisi." as t_ailleurs %}{% translate "Fratrie (%(rang)se enfant) : inscription −%(taux)s %, à payer" as t_fratrie %}
+<script nonce="{{ csp_nonce }}">
+  (function () {
+    var T = {scolarite: '{{ t_scolarite|escapejs }}', inscription: '{{ t_inscription|escapejs }}', avant: '{{ t_avant|escapejs }}', fratrie: '{{ t_fratrie|escapejs }}', absents: '{{ t_absents|escapejs }}', ailleurs: '{{ t_ailleurs|escapejs }}'};
+    var frais = JSON.parse(document.getElementById('frais-classes').textContent);
+    var etab = document.getElementById('id_etablissement_nom'), classe = document.getElementById('id_classe');
+    var montant = document.getElementById('id_montant_scolarite'), inscription = document.getElementById('id_frais_inscription');
+    var verseeInscription = document.getElementById('id_inscription_versee');
+    var FRATRIE = JSON.parse(document.getElementById('fratrie-inscription').textContent);
+    var encart = document.getElementById('frais-classe'), absents = document.getElementById('frais-absents');
+    var auto = false;
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
+    function fcfa(n) { return esc(Number(n).toLocaleString('fr-FR')) + ' FCFA'; }
+    function norm(s) { return String(s || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+    function majFrais() {
+      if (!classe.value.trim()) { encart.hidden = absents.hidden = true; return; }
+      var cleEtab = norm(etab ? etab.value : ''), cleClasse = norm(classe.value);
+      var f = frais[cleEtab + '|' + cleClasse], ailleurs = [];
+      if (!f) {
+        var autres = Object.keys(frais).filter(function (k) { return k.split('|')[1] === cleClasse; });
+        var etabConnu = Object.keys(frais).some(function (k) { return k.split('|')[0] === cleEtab; }) ||
+          Array.prototype.some.call(document.querySelectorAll('#etablissements-existants option'), function (o) { return norm(o.value) === cleEtab; });
+        if (autres.length === 1 && (!cleEtab || !etabConnu)) {
+          f = frais[autres[0]];
+          if (etab && !etab.readOnly) etab.value = f.etablissement;  // établissement des frais trouvés
+        } else {
+          ailleurs = autres.map(function (k) { return frais[k].etablissement; });
+        }
+      }
+      if (f) {
+        montant.value = f.scolarite; montant.readOnly = true; auto = true;
+        if (inscription && !inscription.disabled) { inscription.value = f.inscription || 0; inscription.readOnly = true; }
+        var aPayer = Math.round((f.inscription || 0) * (100 - FRATRIE.taux) / 100);
+        if (verseeInscription && !verseeInscription.value && aPayer) verseeInscription.value = aPayer;
+        encart.querySelector('span').innerHTML = '<b>' + esc(T.scolarite) + ' ' + fcfa(f.scolarite) + '</b> · ' + esc(T.inscription) + ' ' +
+          fcfa(f.inscription) + '<br><small>' +
+          f.tranches.map(function (t) { return esc(t.libelle) + ' : ' + fcfa(t.montant) + ' (' + esc(T.avant) + ' ' + esc(t.echeance) + ')'; }).join(' · ') + '</small>' +
+          (FRATRIE.taux && f.inscription ? '<br><b>' + esc(T.fratrie.replace('%(rang)s', FRATRIE.rang).replace('%(taux)s', FRATRIE.taux)) + ' ' + fcfa(aPayer) + '</b>' : '');
+        encart.hidden = false; absents.hidden = true;
+      } else {
+        if (auto) { montant.value = ''; montant.readOnly = false; if (inscription) { inscription.readOnly = false; } auto = false; }
+        absents.querySelector('span').textContent = ailleurs.length
+          ? T.ailleurs.replace('%(classe)s', classe.value.trim()).replace('%(etabs)s', ailleurs.join(', '))
+          : T.absents;
+        encart.hidden = true; absents.hidden = false;
+      }
+    }
+    [etab, classe].forEach(function (c) { if (c) { c.addEventListener('input', majFrais); c.addEventListener('change', majFrais); } });
+    majFrais();
+  })();
+</script>
+{% endblock %}

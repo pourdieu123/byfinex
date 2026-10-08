@@ -1,0 +1,40 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ titre }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% if prof %}{% url 'profs:detail' prof.pk %}{% else %}{% url 'profs:liste' %}{% endif %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ titre }}{% endblock %}
+{% block sous_titre %}<p>{% translate "Les champs marqués d'un" %} <span class="req">*</span> {% translate "sont obligatoires" %}</p>{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width:880px">
+  {% csrf_token %}
+  <div class="form-section">
+    <h2>{% icone 'professeur' 18 %}{% translate "Identité" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.nom %}
+      {% include 'ecole/_champ.html' with field=form.prenoms %}
+      {% include 'ecole/_champ.html' with field=form.telephone %}
+      {% include 'ecole/_champ.html' with field=form.email %}
+    </div>
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'notes' 18 %}{% translate "Enseignement" %}</h2>
+    {% include 'ecole/_champ.html' with field=form.matieres %}
+    {% if not form.fields.matieres.queryset.exists %}<p class="hint">{% translate "Créez d'abord les matières dans" %} <a href="{% url 'notes:matieres' %}" style="color:var(--accent-strong);font-weight:600">{% translate "Notes › Matières" %}</a>.</p>{% endif %}
+    <p class="hint">{% translate "Les classes se choisissent dans" %} <b>{% translate "Notes › Matières de la classe" %}</b>{% translate ", en attribuant chaque matière à un professeur." %}</p>
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'encaisser' 18 %}{% translate "Rémunération" %}</h2>
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.statut %}
+      {% include 'ecole/_champ.html' with field=form.taux_horaire %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.actif %}
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% if prof %}{% url 'profs:detail' prof.pk %}{% else %}{% url 'profs:liste' %}{% endif %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Règle de relance" %}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:regles_relance' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{% if regle %}{% translate "Modifier la règle" %}{% else %}{% translate "Nouvelle règle de relance" %}{% endif %}{% endblock %}
+{% block sous_titre %}{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width: 760px">
+  {% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="form-section">
+    {% include 'ecole/_champ.html' with field=form.moment %}
+    <div class="form-grid">
+      {% include 'ecole/_champ.html' with field=form.jours %}
+      {% include 'ecole/_champ.html' with field=form.repeter_tous_les %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.etablissement %}
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'relances' 18 %}{% translate "Canaux" %}</h2>
+    {% include 'ecole/_champ.html' with field=form.whatsapp %}
+    {% include 'ecole/_champ.html' with field=form.sms %}
+    {% include 'ecole/_champ.html' with field=form.email %}
+  </div>
+  <div class="form-section">
+    {% include 'ecole/_champ.html' with field=form.message %}
+    {% include 'ecole/_champ.html' with field=form.actif %}
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% url 'ecole:regles_relance' %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+  </div>
+</form>
+{% endblock %}

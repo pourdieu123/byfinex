@@ -1,0 +1,14 @@
+{% load ecole_extras i18n %}
+<a class="row" href="{% url 'examens:detail' c.pk %}">
+  <span class="tile-ico">{% icone 'examen' 18 %}</span>
+  <span class="row-main">
+    <strong>{{ c.titre }}</strong>
+    <small>{% if etablissement_unique is None %}{{ c.etablissement.nom }} · {% endif %}{% translate "du" %} {{ c.date_debut|date:"d/m" }} {% translate "au" %} {{ c.date_fin|date:"d/m/Y" }} · {{ c.epreuves.all|length }} {% translate "épreuve" %}{{ c.epreuves.all|length|pluralize }} {% translate "· notes en" %} {{ c.get_colonne_display|lower }}</small>
+  </span>
+  <span class="row-side">
+    {% if c.statut == 'en_cours' %}<span class="badge badge-partiel">{% icone 'horloge' 14 %}{% translate "En cours" %}</span>
+    {% elif c.statut == 'a_venir' %}<span class="badge badge-role">{% icone 'calendrier' 14 %}{% translate "À venir" %}</span>
+    {% else %}<span class="badge badge-neutre">{% icone 'ok' 14 %}{% translate "Terminée" %}</span>{% endif %}
+  </span>
+  {% icone 'suivant' 18 'chev' %}
+</a>

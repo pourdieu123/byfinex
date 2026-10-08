@@ -1,0 +1,134 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras pedagogie_extras %}
+{% block title %}{{ prof }}{% endblock %}
+{% block retour %}{% if perms.pedagogie.voir_tout %}<a class="icon-btn" href="{% url 'profs:liste' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endif %}{% endblock %}
+{% block entete %}{% if moi_prof == prof %}{% translate "Mon espace" %}{% else %}{% translate "Fiche professeur" %}{% endif %}{% endblock %}
+{% block sous_titre %}<p>{{ prof }} · {{ prof.get_statut_display }}</p>{% endblock %}
+{% block actions %}
+  <a class="btn btn-light" href="{% url 'profs:emploi_du_temps' %}?prof={{ prof.pk }}">{% icone 'calendrier' 18 %}<span>{% translate "Emploi du temps" %}</span></a>
+  {% if perms.pedagogie.change_professeur %}<a class="btn btn-light" href="{% url 'profs:modifier' prof.pk %}">{% icone 'modifier' 18 %}<span>{% translate "Modifier" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="tiles">
+  <div class="card tile"><div class="tile-top">{% translate "Cours attribués" %} <span class="tile-ico">{% icone 'notes' 18 %}</span></div><div class="tile-value">{{ enseignements|length }}</div><div class="tile-sub">{{ heures_semaine|heures }} {% translate "par semaine à l'emploi du temps" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Heures pointées" %} <span class="tile-ico">{% icone 'horloge' 18 %}</span></div><div class="tile-value">{{ prof.total_heures|heures }}</div><div class="tile-sub">{% translate "à" %} {{ prof.taux_horaire|fcfa }} {% translate "/ heure" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Déjà versé" %} <span class="tile-ico">{% icone 'encaisser' 18 %}</span></div><div class="tile-value num">{{ prof.total_paye|fcfa }}</div><div class="tile-sub">{% translate "sur" %} {{ prof.montant_du|fcfa }} {% translate "dus" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Reste à verser" %} <span class="tile-ico">{% icone 'attention' 18 %}</span></div><div class="tile-value num {% if prof.solde > 0 %}ko-ink{% else %}ok-ink{% endif %}">{% if prof.solde > 0 %}{{ prof.solde|fcfa }}{% else %}{% translate "0 FCFA" %}{% endif %}</div><div class="tile-sub">{% if prof.solde < 0 %}{% translate "Avance de" %} {{ prof.solde|stringformat:"d"|slice:"1:" }} {% translate "FCFA" %}{% else %}{% translate "heures × taux − paiements" %}{% endif %}</div></div>
+</section>
+
+<div class="grid grid-3-1">
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Classes et matières" %}</h2><p>{% translate "Attribuées dans Notes › Matières de la classe" %}</p></div></div>
+      {% for e in enseignements %}
+        <a class="row" href="{% url 'notes:saisie' e.pk %}">
+          <span class="tile-ico">{% icone 'classes' 18 %}</span>
+          <span class="row-main"><strong>{{ e.classe }} · {{ e.matiere }}</strong><small>{{ e.etablissement.nom }} {% translate "· coefficient" %} {{ e.coefficient }}</small></span>
+          <span class="btn btn-light btn-sm">{% icone 'notes' 16 %}{% translate "Notes" %}</span>
+        </a>
+      {% empty %}
+        <p class="empty">{% translate "Aucune classe attribuée." %}</p>
+      {% endfor %}
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div><h2>{% translate "Emploi du temps" %}</h2><p>{% translate "Semaine type" %}</p></div><a class="lien" href="{% url 'profs:emploi_du_temps' %}?prof={{ prof.pk }}&amp;format=pdf" target="_blank">{% translate "PDF" %} {% icone 'suivant' 16 %}</a></div>
+      <div class="card-pad">{% include 'pedagogie/profs/_semaine.html' with par_prof=True %}</div>
+    </section>
+
+    {% if perms.pedagogie.view_heurecours %}
+    <section class="card" id="heures">
+      <div class="card-head"><div><h2>{% translate "Heures effectuées" %}</h2><p>{% translate "15 dernières lignes" %}</p></div></div>
+      {% if heures %}
+      <div class="table-wrap"><table class="table responsive">
+        <thead><tr><th>{% translate "Date" %}</th><th>{% translate "Cours" %}</th><th class="r">{% translate "Durée" %}</th><th>{% translate "Observation" %}</th><th></th></tr></thead>
+        <tbody>{% for h in heures %}
+          <tr><td>{{ h.date|date:"d/m/Y" }}</td><td data-label="Cours">{% if h.enseignement %}{{ h.enseignement }}{% else %}—{% endif %}</td>
+            <td class="r" data-label="Durée"><b>{{ h.duree|heures }}</b></td><td class="muted" data-label="Obs.">{{ h.observation|default:"—" }}</td>
+            <td class="r">{% if perms.pedagogie.delete_heurecours %}<form method="post" action="{% url 'profs:heure_supprimer' h.pk %}" class="inline">{% csrf_token %}<button class="btn btn-ghost-danger btn-sm" title="{% translate "Supprimer" %}">{% icone 'supprimer' 14 %}</button></form>{% endif %}</td></tr>
+        {% endfor %}</tbody>
+      </table></div>
+      {% else %}<p class="empty">{% translate "Aucune heure pointée." %}</p>{% endif %}
+      {% if form_heure %}
+      <form method="post" action="{% url 'profs:heure_ajouter' prof.pk %}" class="form-section" novalidate>
+        {% csrf_token %}
+        <h2>{% icone 'horloge' 18 %}{% translate "Pointer des heures" %}</h2>
+        <div class="form-grid">
+          {% include 'ecole/_champ.html' with field=form_heure.date %}
+          {% include 'ecole/_champ.html' with field=form_heure.duree %}
+          {% include 'ecole/_champ.html' with field=form_heure.enseignement %}
+          {% include 'ecole/_champ.html' with field=form_heure.observation %}
+        </div>
+        <button class="btn" type="submit">{% icone 'plus' 18 %}{% translate "Ajouter" %}</button>
+      </form>
+      {% endif %}
+    </section>
+    {% endif %}
+  </div>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Coordonnées" %}</h2></div>
+      <dl class="infos">
+        <dt>{% translate "Téléphone" %}</dt><dd>{{ prof.telephone }}</dd>
+        <dt>{% translate "E-mail" %}</dt><dd>{{ prof.email|default:"—" }}</dd>
+        <dt>{% translate "Matières" %}</dt><dd>{% for m in prof.matieres.all %}{{ m }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</dd>
+        <dt>{% translate "Compte" %}</dt><dd>{% if prof.utilisateur %}{{ prof.utilisateur.username }}{% else %}{% translate "Aucun" %}{% endif %}</dd>
+      </dl>
+      <div class="btn-row" style="padding:0 20px 20px"><a class="btn btn-light btn-sm" href="tel:{{ prof.telephone|cut:' ' }}">{% icone 'telephone' 16 %}{% translate "Appeler" %}</a></div>
+    </section>
+
+    {% if form_compte %}
+    <form method="post" action="{% url 'profs:compte_creer' prof.pk %}" class="card" novalidate>
+      {% csrf_token %}
+      <div class="form-section">
+        <h2>{% icone 'utilisateurs' 18 %}{% translate "Créer son compte" %}</h2>
+        <p class="hint">{% translate "Le professeur pourra se connecter pour saisir les notes de ses classes et voir son emploi du temps." %}</p>
+        {% include 'ecole/_champ.html' with field=form_compte.username %}
+        {% include 'ecole/_champ.html' with field=form_compte.mot_de_passe %}
+      </div>
+      <div class="form-footer"><button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Créer le compte" %}</button></div>
+    </form>
+    {% endif %}
+
+    {% if perms.pedagogie.view_paiementprofesseur %}
+    <section class="card" id="paiements">
+      <div class="card-head"><h2>{% translate "Paiements" %}</h2></div>
+      {% for p in paiements %}
+        <a class="row" href="{% url 'profs:bon_pdf' p.pk %}" target="_blank">
+          <span class="row-main"><strong class="num">{{ p.montant|fcfa }}</strong><small>{{ p.numero }} · {{ p.date|date:"d/m/Y" }}{% if p.periode %} · {{ p.periode }}{% endif %}</small></span>
+          <span class="row-side"><small>{{ p.get_mode_display }}</small>{% icone 'pdf' 16 %}</span>
+        </a>
+      {% empty %}
+        <p class="empty">{% translate "Aucun paiement." %}</p>
+      {% endfor %}
+      {% if form_paiement %}
+      <form method="post" action="{% url 'profs:paiement_ajouter' prof.pk %}" class="form-section" novalidate>
+        {% csrf_token %}
+        <h2>{% icone 'encaisser' 18 %}{% translate "Verser un paiement" %}</h2>
+        {% include 'ecole/_champ.html' with field=form_paiement.montant %}
+        {% include 'ecole/_champ.html' with field=form_paiement.date %}
+        {% include 'ecole/_champ.html' with field=form_paiement.periode %}
+        {% include 'ecole/_champ.html' with field=form_paiement.mode %}
+        {% include 'ecole/_champ.html' with field=form_paiement.reference %}
+        <button class="btn btn-block" type="submit">{% icone 'recu' 18 %}{% translate "Enregistrer et éditer le bon" %}</button>
+      </form>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% if surveillances %}
+    <section class="card">
+      <div class="card-head"><h2>{% translate "Surveillances d'examen" %}</h2></div>
+      <ul class="timeline">
+        {% for s in surveillances %}
+          <li>{% icone 'examen' 16 %}<span><a href="{% url 'examens:detail' s.composition.pk %}"><b>{{ s.date|date:"D d/m" }} · {{ s.heure_debut|time:"H:i" }}–{{ s.heure_fin|time:"H:i" }}</b></a><br><small class="muted">{{ s.enseignement }}{% if s.salle %} · {{ s.salle }}{% endif %}</small></span></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

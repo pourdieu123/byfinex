@@ -1,0 +1,75 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ titre }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'ecole:utilisateurs' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ titre }}{% endblock %}
+{% block sous_titre %}{% endblock %}
+
+{% block content %}
+<form method="post" class="card" novalidate style="max-width: 720px">
+  {% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="form-section">
+    <h2>{% icone 'eleves' 18 %}{% translate "Compte" %}</h2>
+    <div class="form-grid">
+      {% if form.username %}{% include 'ecole/_champ.html' with field=form.username full=True %}{% endif %}
+      {% include 'ecole/_champ.html' with field=form.first_name %}
+      {% include 'ecole/_champ.html' with field=form.last_name %}
+    </div>
+    {% include 'ecole/_champ.html' with field=form.role %}
+    {% if form.is_active %}{% include 'ecole/_champ.html' with field=form.is_active %}{% endif %}
+    {% if compte == user %}<div class="callout">{% icone 'attention' 18 %}<span>{% translate "Vous ne pouvez pas changer votre propre rôle ni désactiver votre compte." %}</span></div>{% endif %}
+  </div>
+  <div class="form-section">
+    <h2>{% icone 'utilisateurs' 18 %}{% translate "Mot de passe" %}</h2>
+    <div class="form-grid">
+      {% if form.password1 %}
+        {% include 'ecole/_champ.html' with field=form.password1 %}
+        {% include 'ecole/_champ.html' with field=form.password2 %}
+      {% else %}
+        {% include 'ecole/_champ.html' with field=form.nouveau_mot_de_passe full=True %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="form-footer">
+    <a class="btn btn-light" href="{% url 'ecole:utilisateurs' %}">{% translate "Annuler" %}</a>
+    <button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer" %}</button>
+  </div>
+</form>
+
+{% if perimetre %}
+<form method="post" class="card" id="perimetre" novalidate style="max-width: 720px; margin-top: 20px">
+  {% csrf_token %}
+  <input type="hidden" name="perimetre" value="1">
+  <div class="form-section">
+    <h2>{% icone 'suivi' 18 %}{% translate "Périmètre du surveillant" %}</h2>
+    <p class="hint">{% translate "Classes dont il peut consulter le statut de paiement (à jour, en retard, soldé). Il ne voit aucun montant." %}</p>
+    {% include 'ecole/_champ.html' with field=perimetre.classes %}
+  </div>
+  <div class="form-footer"><button type="submit" class="btn">{% icone 'ok' 18 %}{% translate "Enregistrer le périmètre" %}</button></div>
+</form>
+{% endif %}
+
+{% if codes %}
+<form method="post" class="card codes-modules" id="codes" novalidate style="max-width: 720px; margin-top: 20px">
+  {% csrf_token %}
+  <input type="hidden" name="codes" value="1">
+  <div class="form-section">
+    <h2>{% icone 'cadenas' 18 %}{% translate "Codes d'accès aux modules" %}</h2>
+    <p class="hint">{% translate "Code personnel de cet utilisateur pour chaque module de son rôle. Une fois connecté, il le saisit à chaque fois qu'il entre dans ce module ; sans code, il ne peut pas y entrer. Laissez vide pour ne rien changer (4 caractères minimum)." %}</p>
+    {% for m, protege, champ, retirer in codes.lignes %}
+      <div class="row">
+        <span class="tile-ico">{% icone m.icone 18 %}</span>
+        {% include 'ecole/_champ.html' with field=champ %}
+        <span class="badge {% if protege %}badge-solde{% else %}badge-neutre{% endif %}">{% if protege %}{% translate "Code défini" %}{% else %}{% translate "Sans code" %}{% endif %}</span>
+        {% if retirer %}{% include 'ecole/_champ.html' with field=retirer %}{% endif %}
+      </div>
+    {% empty %}
+      <p class="empty">{% translate "Aucun module : attribuez d'abord un rôle à ce compte." %}</p>
+    {% endfor %}
+  </div>
+  {% if codes.lignes %}<div class="form-footer"><button type="submit" class="btn">{% icone 'cadenas' 18 %}{% translate "Enregistrer les codes" %}</button></div>{% endif %}
+</form>
+{% endif %}
+{% endblock %}

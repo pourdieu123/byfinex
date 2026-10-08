@@ -1,0 +1,42 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras pedagogie_extras %}
+{% block title %}{% translate "Professeurs" %}{% endblock %}
+{% block entete %}{% translate "Professeurs" %}{% endblock %}
+{% block sous_titre %}<p>{{ nb_actifs }} {% translate "professeur" %}{{ nb_actifs|pluralize }} {% translate "en activité" %}</p>{% endblock %}
+{% block actions %}
+  {% if perms.pedagogie.view_creneau %}<a class="btn btn-light" href="{% url 'profs:emploi_du_temps' %}">{% icone 'calendrier' 18 %}<span>{% translate "Emplois du temps" %}</span></a>{% endif %}
+  {% if perms.pedagogie.add_professeur %}<a class="btn" href="{% url 'profs:nouveau' %}">{% icone 'plus' 18 %}<span>{% translate "Nouveau professeur" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="tiles">
+  <div class="card tile"><div class="tile-top">{% translate "Professeurs actifs" %} <span class="tile-ico">{% icone 'professeur' 18 %}</span></div><div class="tile-value">{{ nb_actifs }}</div><div class="tile-sub">{{ profs|length }} {% translate "au total" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Reste à verser" %} <span class="tile-ico">{% icone 'encaisser' 18 %}</span></div><div class="tile-value num">{{ total_du|fcfa }}</div><div class="tile-sub">{% translate "heures pointées × taux − paiements" %}</div></div>
+  <div class="card tile"><div class="tile-top">{% translate "Sans compte de connexion" %} <span class="tile-ico">{% icone 'utilisateurs' 18 %}</span></div><div class="tile-value">{{ sans_compte }}</div><div class="tile-sub">{% translate "ne peuvent pas encore saisir leurs notes" %}</div></div>
+</section>
+
+<form method="get" class="toolbar">
+  <label class="search">{% icone 'recherche' 18 %}<input type="search" name="q" value="{{ q }}" placeholder="{% translate "Nom, téléphone, matière…" %}" aria-label="{% translate "Rechercher" %}"><button class="btn btn-sm" type="submit">{% translate "Rechercher" %}</button></label>
+</form>
+
+<section class="card">
+  {% for p in profs %}
+    <a class="row" href="{% url 'profs:detail' p.pk %}">
+      <span class="avatar">{{ p.initiales }}</span>
+      <span class="row-main">
+        <strong>{{ p }}{% if not p.actif %} <span class="badge badge-neutre">{% translate "Inactif" %}</span>{% endif %}</strong>
+        <small>{% for m in p.matieres.all %}{{ m }}{% if not forloop.last %}, {% endif %}{% empty %}{% translate "Aucune matière" %}{% endfor %} · {{ p.enseignements.all|length }} {% translate "cours ·" %} {{ p.telephone }}</small>
+      </span>
+      <span class="row-side">
+        <span class="badge badge-role">{{ p.get_statut_display }}</span>
+        {% if perms.pedagogie.view_paiementprofesseur %}{% if p.solde > 0 %}<small class="du num">{% translate "À verser" %} {{ p.solde|fcfa }}</small>{% else %}<small class="num">{{ p.total_heures|heures }} {% translate "pointées" %}</small>{% endif %}{% endif %}
+      </span>
+      {% icone 'suivant' 18 'chev' %}
+    </a>
+  {% empty %}
+    <div class="empty">{% icone 'professeur' 40 %}<p>{% translate "Aucun professeur" %}{% if q %} {% translate "pour «" %} {{ q }} »{% endif %}.</p>
+      {% if perms.pedagogie.add_professeur and not q %}<a class="btn" href="{% url 'profs:nouveau' %}">{% icone 'plus' 18 %}{% translate "Ajouter le premier professeur" %}</a>{% endif %}</div>
+  {% endfor %}
+</section>
+{% endblock %}

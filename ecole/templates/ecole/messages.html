@@ -1,0 +1,44 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{% translate "Messages aux parents" %}{% endblock %}
+{% block entete %}{% translate "Messages aux parents" %}{% endblock %}
+{% block sous_titre %}<p>{% translate "Factures, rappels, relances et échanges avec l'assistant (WhatsApp, SMS, e-mail)" %}</p>{% endblock %}
+
+{% block content %}
+{% if nb_echecs %}<div class="callout" style="margin-bottom:16px">{% icone 'attention' 18 %}<span>{{ nb_echecs }} {% translate "message(s) en échec : vérifiez les coordonnées du parent ou la configuration des envois." %}</span></div>{% endif %}
+<section class="card" style="margin-bottom: 20px">
+  <form method="get" class="filters">
+    <div class="field"><label class="label" for="f-q">{% translate "Recherche" %}</label><input id="f-q" type="search" name="q" value="{{ q }}" placeholder="{% translate "Élève, numéro, e-mail" %}"></div>
+    <div class="field"><label class="label" for="f-canal">{% translate "Canal" %}</label>
+      <select id="f-canal" name="canal"><option value="">{% translate "Tous" %}</option>{% for v, l in canaux %}<option value="{{ v }}"{% if f.canal == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="field"><label class="label" for="f-type">{% translate "Type" %}</label>
+      <select id="f-type" name="type"><option value="">{% translate "Tous" %}</option>{% for v, l in types %}<option value="{{ v }}"{% if f.type == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="field"><label class="label" for="f-statut">{% translate "Statut" %}</label>
+      <select id="f-statut" name="statut"><option value="">{% translate "Tous" %}</option>{% for v, l in statuts %}<option value="{{ v }}"{% if f.statut == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="btn-row"><button class="btn" type="submit">{% icone 'recherche' 16 %}{% translate "Filtrer" %}</button><a class="btn btn-light" href="{% url 'ecole:messages' %}">{% translate "Effacer" %}</a></div>
+  </form>
+</section>
+<section class="card">
+  {% for n in page.object_list %}
+    <div class="row" style="align-items:flex-start">
+      <span class="tile-ico">{% if n.canal == 'whatsapp' %}{% icone 'whatsapp' 18 %}{% elif n.canal == 'sms' %}{% icone 'sms' 18 %}{% else %}{% icone 'journal' 18 %}{% endif %}</span>
+      <span class="row-main">
+        <strong>{{ n.get_type_display }} · {{ n.destinataire }}{% if n.eleve %} · <a href="{% url 'ecole:eleve_detail' n.eleve.pk %}">{{ n.eleve }}</a>{% endif %}</strong>
+        <small style="white-space:pre-line">{{ n.message|truncatechars:400 }}</small>
+        {% if n.erreur %}<small class="ko-ink">{{ n.erreur|truncatechars:200 }}</small>{% endif %}
+      </span>
+      <span class="row-side"><span class="badge {% if n.statut == 'echec' %}badge-aucun{% elif n.statut == 'envoye' or n.statut == 'recu' %}badge-solde{% else %}badge-neutre{% endif %}">{{ n.get_statut_display }}</span><small class="muted">{{ n.cree_le|date:"d/m/Y H:i" }}</small></span>
+    </div>
+  {% empty %}
+    <div class="empty">{% icone 'relances' 40 %}<p>{% translate "Aucun message pour le moment." %}</p></div>
+  {% endfor %}
+  {% if page.has_other_pages %}
+    <div class="summary-bar" style="border-top:1px solid var(--line);border-bottom:0;justify-content:space-between">
+      {% if page.has_previous %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.previous_page_number }}">{% translate "‹ Précédent" %}</a>{% else %}<span></span>{% endif %}
+      <span>{% translate "Page" %} {{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}<a class="btn btn-light btn-sm" href="?{{ params }}&amp;page={{ page.next_page_number }}">{% translate "Suivant ›" %}</a>{% else %}<span></span>{% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

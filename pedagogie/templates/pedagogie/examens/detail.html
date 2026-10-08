@@ -1,0 +1,62 @@
+{% extends 'ecole/base.html' %}
+{% load i18n %}
+{% load ecole_extras %}
+{% block title %}{{ comp }}{% endblock %}
+{% block retour %}<a class="icon-btn" href="{% url 'examens:liste' %}" title="{% translate "Retour" %}">{% icone 'retour' %}</a>{% endblock %}
+{% block entete %}{{ comp }}{% endblock %}
+{% block sous_titre %}<p>{{ comp.etablissement.nom }} · {{ libelle_periode }} {% translate "· du" %} {{ comp.date_debut|date:"d/m" }} {% translate "au" %} {{ comp.date_fin|date:"d/m/Y" }} {% translate "· notes en" %} {{ comp.get_colonne_display|lower }}</p>{% endblock %}
+{% block actions %}
+  <a class="btn btn-light" href="?format=pdf" target="_blank">{% icone 'pdf' 18 %}<span>{% translate "Planning PDF" %}</span></a>
+  {% if perms.pedagogie.change_composition %}<a class="btn btn-light" href="{% url 'examens:modifier' comp.pk %}">{% icone 'modifier' 18 %}<span>{% translate "Modifier" %}</span></a>{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="grid {% if form %}grid-3-1{% endif %}">
+  <div class="stack">
+    {% for jour, epreuves in jours %}
+      <section class="card">
+        <div class="group-head"><h2>{% icone 'calendrier' 16 %}{{ jour|date:"l d F Y"|capfirst }}</h2><small>{{ epreuves|length }} {% translate "épreuve" %}{{ epreuves|length|pluralize }}</small></div>
+        {% for l in epreuves %}
+          <div class="row" style="flex-wrap:wrap">
+            <span class="tile-ico">{% icone 'examen' 18 %}</span>
+            <span class="row-main">
+              <strong>{{ l.e.heure_debut|time:"H:i" }}–{{ l.e.heure_fin|time:"H:i" }} · {{ l.e.enseignement.classe }} · {{ l.e.enseignement.matiere }}</strong>
+              <small>{% if l.e.salle %}{{ l.e.salle }} · {% endif %}{% translate "Surveillance :" %} {% for p in l.e.surveillants.all %}{{ p }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="ko-ink">{% translate "personne" %}</span>{% endfor %}</small>
+            </span>
+            <span class="row-side" style="min-width:150px">
+              <span class="cell-meter" style="min-width:150px"><span class="meter" style="flex:1"><span style="width: {{ l.pct }}%"></span></span><b style="width:auto">{{ l.saisies }}/{{ l.effectif }}</b></span>
+              <small>{% translate "notes saisies" %}</small>
+            </span>
+            <span class="row-actions">
+              {% if perms.pedagogie.change_fichenote %}<a class="btn btn-light btn-sm" href="{% url 'notes:saisie' l.e.enseignement.pk %}?periode={{ comp.periode }}&amp;colonne={{ comp.colonne }}">{% icone 'notes' 16 %}{% translate "Notes" %}</a>{% endif %}
+              {% if perms.pedagogie.delete_epreuve %}<form method="post" action="{% url 'examens:epreuve_supprimer' l.e.pk %}" class="inline">{% csrf_token %}<button class="btn btn-ghost-danger btn-sm" title="{% translate "Supprimer l'épreuve" %}">{% icone 'supprimer' 16 %}</button></form>{% endif %}
+            </span>
+          </div>
+        {% endfor %}
+      </section>
+    {% empty %}
+      <div class="card empty">{% icone 'examen' 40 %}<p>{% translate "Aucune épreuve programmée" %}{% if form %} {% translate ": ajoutez-les avec le formulaire." %}{% else %}.{% endif %}</p></div>
+    {% endfor %}
+  </div>
+
+  {% if form %}
+  <form method="post" class="card" novalidate style="align-self:start">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-section"><div class="errors" style="margin:0">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div></div>{% endif %}
+    <div class="form-section">
+      <h2>{% icone 'plus' 18 %}{% translate "Ajouter une épreuve" %}</h2>
+      {% include 'ecole/_champ.html' with field=form.enseignement %}
+      {% include 'ecole/_champ.html' with field=form.date %}
+      <div class="form-grid">
+        {% include 'ecole/_champ.html' with field=form.heure_debut %}
+        {% include 'ecole/_champ.html' with field=form.heure_fin %}
+      </div>
+      {% include 'ecole/_champ.html' with field=form.salle %}
+      {% include 'ecole/_champ.html' with field=form.surveillants %}
+      {% if not form.fields.enseignement.queryset.exists %}<div class="callout">{% icone 'attention' 18 %}<span>{% translate "Aucune matière configurée dans cet établissement (Notes › Matières de la classe)." %}</span></div>{% endif %}
+    </div>
+    <div class="form-footer"><button class="btn" type="submit">{% icone 'ok' 18 %}{% translate "Ajouter" %}</button></div>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}
